@@ -1,0 +1,13 @@
+%h1 Timetable
+%table
+  %tbody
+    %tr
+      %td
+      - @rooms.each do |room|
+        %td= room
+    - @timeslots.each do |slot|
+      %tr
+        %td= "#{slot[:day]} - #{slot[:time]}"
+        - @rooms.each_with_index do |room, i|
+          - entry = @entries.find {|e| (e.time == slot[:time]) && (e.day == slot[:day]) && (e.room == @rooms[i])}
+          %td= entry.course if entry

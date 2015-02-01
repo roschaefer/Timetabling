@@ -1,0 +1,6 @@
+%h1 Timetables
+%table
+  %tbody
+    - @timetables.each do |timetable|
+      %tr
+        %td= link_to "Model :#{timetable.id}", show_timetable_path(timetable)
