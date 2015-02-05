@@ -22,7 +22,7 @@ cu(Cu) :- curricula(Cu,_).
 %%% must be assigned to distinct periods. A violation occurs if a
 %%% lecture is not scheduled or two lectures are in the same period.
 
-N { assigned(C,D,P) : d(D) : ppd(P) } N :- course(C,_,N,_,_,_).
+N { assigned(C,D,P) : d(D), ppd(P) } N :- course(C,_,N,_,_,_).
 
 %%% Conflicts: Lectures of courses in the same curriculum or taught by
 %%% the same teacher must be all scheduled in different periods. Two
@@ -54,7 +54,7 @@ N { assigned(C,D,P) : d(D) : ppd(P) } N :- course(C,_,N,_,_,_).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-#hide.
+%#hide.
 #show assigned/4.
 %#show penalty/3.
 
@@ -85,7 +85,7 @@ working_day(C,D) :- assigned(C,D,P).
 
 penalty("MinWorkingDays",course(C,MWD,N),(MWD-N)*penalty_of_min_working_days) :- 
 	course(C,_,_,MWD,_,_),
-	N = [ working_day(C,_) ],
+	N = #count {1,D : working_day(C,D)},
 	N < MWD.
 
 %%% IsolatedLectures (Compactness v.1): Lectures belonging to a
@@ -106,6 +106,6 @@ penalty("IsolatedLectures",isolated_lectures(Cu,D,P),penalty_of_isolated_lecture
 % MINIMIZE THE SUM OF PENALTIES.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-#minimize [ penalty(_,_,P) = P ].
+#minimize {P,N,V : penalty(N,V,P)}.
 
 % End
