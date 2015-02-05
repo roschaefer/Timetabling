@@ -1,6 +1,6 @@
 require 'open3'
 require 'json'
-cmd = "/home/robert/Documents/2014_Potsdam/AnswerSetSolving/BigProject/gringo3/gringo-3.0.5-source/build/bin/gringo ./script/facts.lp ./script/timetabling.lp | clasp --outf=2 --quiet=0 --verbose=0"
+cmd = "gringo3 ./script/facts.lp ./script/timetabling.lp | clasp --outf=2 --quiet=0 --verbose=0"
 
 
 def parse_assigned(assigned_string)
