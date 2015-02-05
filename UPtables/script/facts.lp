@@ -7,8 +7,8 @@ periods_per_day(7).
 curricula(7).
 
 % min_max_daily_lectures(2,3).
-unavailabilityconstraints(0).
-roomconstraints(0).
+% unavailabilityconstraints(0).
+% roomconstraints(0).
 
 
 curricula("B.Sc  CS"                 , "Grundlagen der Informationsverarbeitung Vorlesung").
@@ -98,3 +98,43 @@ course("Absicherung von IPv6-Netzen Fachseminar","Bettina Schnor",1,1,0,0).
 course("Agententechnologie/Agent-technology Seminar","Torsten Schaub",1,1,0,0).
 course("Cartesisches Seminar Oberseminar","Christoph Kreitz,Eva Richter,Tim Richter,Nuria Brede,Sebastian Böhne",1,1,12,0).
 course("Codierungstheorie 2 Seminar","Michael Gössel",1,1,10,0).
+course("Deklarative Problemlösung und Optimierung Vorlesung", "Torsten Schaub",2,1,0,1).
+course("Deklarative Problemlösung und Optimierung Übung", "Javier Romero",1,1,0,0).
+course("Current Topics in Computational Intelligence Seminar", "Torsten Schaub",1,1,0,0).
+
+
+% Prof. Schaub unavailable Monday
+professor_unavailable("Torsten Schaub",0,0).
+professor_unavailable("Torsten Schaub",0,1).
+professor_unavailable("Torsten Schaub",0,2).
+professor_unavailable("Torsten Schaub",0,3).
+professor_unavailable("Torsten Schaub",0,4).
+professor_unavailable("Torsten Schaub",0,5).
+professor_unavailable("Torsten Schaub",0,6).
+
+% Prof. Schaub unavailable Tuesday
+professor_unavailable("Torsten Schaub",1,0).
+professor_unavailable("Torsten Schaub",1,1).
+professor_unavailable("Torsten Schaub",1,2).
+professor_unavailable("Torsten Schaub",1,3).
+professor_unavailable("Torsten Schaub",1,4).
+professor_unavailable("Torsten Schaub",1,5).
+professor_unavailable("Torsten Schaub",1,6).
+
+% Prof. Schaub unavailable Wendsday
+professor_unavailable("Torsten Schaub",2,0).
+professor_unavailable("Torsten Schaub",2,1).
+professor_unavailable("Torsten Schaub",2,2).
+professor_unavailable("Torsten Schaub",2,3).
+professor_unavailable("Torsten Schaub",2,4).
+professor_unavailable("Torsten Schaub",2,5).
+professor_unavailable("Torsten Schaub",2,6).
+
+% Prof. Schaub unavailable Thursday
+professor_unavailable("Torsten Schaub",3,0).
+professor_unavailable("Torsten Schaub",3,1).
+professor_unavailable("Torsten Schaub",3,2).
+professor_unavailable("Torsten Schaub",3,3).
+professor_unavailable("Torsten Schaub",3,4).
+professor_unavailable("Torsten Schaub",3,5).
+professor_unavailable("Torsten Schaub",3,6).

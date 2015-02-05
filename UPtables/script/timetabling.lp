@@ -46,7 +46,7 @@ N { assigned(C,D,P) : d(D), ppd(P) } N :- course(C,_,N,_,_,_).
 %%% can be scheduled at that period. Each lecture in a period
 %%% unavailable for that course is one violation.
 
-:- assigned(C,D,P), unavailability_constraint(C,D,P).
+:- assigned(C,D,P), course(C,T,_,_,_,_), professor_unavailable(T,D,P).
 
 %%% Additional constraints (can be omitted)
 
