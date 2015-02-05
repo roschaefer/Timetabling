@@ -57,14 +57,14 @@ curricula("B. Wirtschaftsinformatik" , "Software Engineering I Projekt").
 curricula("B.Sc  Informatik"         , "Software Engineering I Projekt").
 
 
-room("0.02",32,"03.04").
-room("0.03",32,"03.04").
-room("0.04",32,"03.04").
-room("1.02",32,"03.04").
-room("1.03",32,"03.04").
-room("2.01",16,"03.04").
-room("2.14",12,"03.04").
-room("H01",100,"03.06").
+room(1,32,"03.04").
+room(2,32,"03.04").
+room(3,32,"03.04").
+room(4,32,"03.04").
+room(5,32,"03.04").
+room(6,16,"03.04").
+room(7,12,"03.04").
+room(8,100,"03.06").
 
 
 course("Informatik für Naturwissenschaftler I Vorlesung","Horst Voigt",1,1,90,0).

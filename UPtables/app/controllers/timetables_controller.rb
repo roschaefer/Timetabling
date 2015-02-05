@@ -6,7 +6,7 @@ class TimetablesController < ApplicationController
   def show
     @timetable = Timetable.find(params[:id])
     @entries = @timetable.timetable_entries.order(:day, :time)
-    @rooms = @entries.collect{|e| e.room}
+    @rooms = Room.all
     @timeslots= @entries.collect{|e| {:day => e.day, :time => e.time} }
     @rooms.uniq!
     @timeslots.uniq!
