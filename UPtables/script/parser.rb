@@ -21,10 +21,10 @@ witnesses.each_with_index do |w, i|
     entry = TimetableEntry.new
     #entry.cost = cost
     entry.timetable_id = timetable.id
-    entry.course = assigned_hash[:course]
-    entry.room   = assigned_hash[:room]
-    entry.day    = assigned_hash[:day]
-    entry.time   = assigned_hash[:time]
+    entry.course       = assigned_hash[:course]
+    entry.room_id      = assigned_hash[:room]
+    entry.weekday_id   = assigned_hash[:day]
+    entry.timeframe_id = assigned_hash[:time]
     entry.save!
   end
   timetable.save!
