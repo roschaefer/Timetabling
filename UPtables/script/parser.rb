@@ -10,26 +10,26 @@ end
 
 
 def parse(output)
-json = JSON.parse(output)
-witnesses = json["Call"][0]["Witnesses"]
-witnesses.each_with_index do |w, i|
-  #cost = w["Costs"][0]
-  timetable = Timetable.new
-  timetable.id = i
-  timetable.costs = w["Costs"][0]
-  w["Value"].each do |v| 
-    assigned_hash = parse_assigned(v)
-    entry = TimetableEntry.new
-    #entry.cost = cost
-    entry.timetable_id = timetable.id
-    entry.course       = assigned_hash[:course]
-    entry.room_id      = assigned_hash[:room]
-    entry.weekday_id   = assigned_hash[:day]
-    entry.timeframe_id = assigned_hash[:time]
-    entry.save!
+  json = JSON.parse(output)
+  witnesses = json["Call"][0]["Witnesses"]
+  ActiveRecord::Base.transaction do
+    witnesses.each_with_index do |w, i|
+      timetable = Timetable.new
+      timetable.id = i
+      timetable.costs = w["Costs"][0]
+      w["Value"].each do |v| 
+        assigned_hash = parse_assigned(v)
+        entry = Timetable::Entry.new
+        entry.timetable_id = timetable.id
+        entry.course       = assigned_hash[:course]
+        entry.room_id      = assigned_hash[:room]
+        entry.weekday_id   = assigned_hash[:day]
+        entry.timeframe_id = assigned_hash[:time]
+        entry.save!
+      end
+      timetable.save!
+    end
   end
-  timetable.save!
-end
 end
 
 

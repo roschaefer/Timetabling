@@ -1,3 +1,3 @@
 class Timetable < ActiveRecord::Base
-  has_many :timetable_entries
+  has_many :entries, dependent: :destroy
 end
