@@ -2,10 +2,15 @@
 %table
   %tbody
     %tr
-      %td
-      %td
+      %th
+      %th
       - @rooms.each do |room|
         %td= room.name
+    %tr
+      %th
+      %th
+      - @rooms.each do |room|
+        %td= "#{room.capacity} Seats"
     - @weekdays.each do |weekday|
       - @timeframes.each_with_index do |timeframe, i|
         %tr
