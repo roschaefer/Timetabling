@@ -13,5 +13,5 @@
           %td= weekday.name if (i == 0)
           %td= timeframe.interval
           - @rooms.each do |room|
-            - entry = @timetable.timetable_entries.find {|e| (e.timeframe == timeframe) && (e.weekday == weekday) && (e.room == room)}
+            - entry = @timetable.entries.find {|e| (e.timeframe == timeframe) && (e.weekday == weekday) && (e.room == room)}
             %td= entry.course if entry
