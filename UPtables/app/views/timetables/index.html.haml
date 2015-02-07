@@ -1,6 +1,10 @@
 %h1 Timetables
 %table
   %tbody
+    %tr
+      %th ID
+      %th Costs
     - @timetables.each do |timetable|
       %tr
-        %td= link_to "Model :#{timetable.id}", show_timetable_path(timetable)
+        %td= link_to timetable.id, show_timetable_path(timetable)
+        %td= timetable.costs

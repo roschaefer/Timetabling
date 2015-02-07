@@ -16,6 +16,7 @@ witnesses.each_with_index do |w, i|
   #cost = w["Costs"][0]
   timetable = Timetable.new
   timetable.id = i
+  timetable.costs = w["Costs"][0]
   w["Value"].each do |v| 
     assigned_hash = parse_assigned(v)
     entry = TimetableEntry.new
