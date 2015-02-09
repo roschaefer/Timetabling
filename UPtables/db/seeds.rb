@@ -70,8 +70,5 @@ Unavailability.create(:id => 25, :teacher => teacher_schaub, :weekday_id => 3, :
 Unavailability.create(:id => 26, :teacher => teacher_schaub, :weekday_id => 3, :timeframe_id => 5)
 Unavailability.create(:id => 27, :teacher => teacher_schaub, :weekday_id => 3, :timeframe_id => 6)
 
-=======
-
 
 Room::Unavailability.create(:room => h01, :weekday => monday, :timeframe => eight_o_clock)
->>>>>>> implemented asp rule to make a room unavailable
