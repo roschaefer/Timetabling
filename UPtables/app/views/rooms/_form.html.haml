@@ -8,6 +8,20 @@
     %br
     = f.text_field :capacity
   %p
+
+  %table
+    %tbody
+      %tr
+        %th
+        - @weekdays.each do |weekday|
+          %th= weekday.name
+      - @timeframes.each do |timeframe|
+        %tr
+          %td=timeframe.interval
+          - @weekdays.each do |weekday|
+            - checked = @room.unavailabilities.find {|u| (u.weekday == weekday) && (u.timeframe == timeframe)}.present?
+            %td= check_box_tag 'unavailable', 'yes', checked
+
   - if @room.errors.any?
     #error_explanation
       %h2= "#{pluralize(@room.errors.count, "error")} prohibited this room from being saved:"

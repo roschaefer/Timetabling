@@ -14,4 +14,5 @@
           %td= timeframe.interval
           - @rooms.each do |room|
             - entry = @timetable.entries.find {|e| (e.timeframe == timeframe) && (e.weekday == weekday) && (e.room == room)}
-            %td= entry.course if entry
+            - bgcolor = "#AAAAAA"  if room.unavailabilities.find {|u| (u.weekday == weekday) && (u.timeframe == timeframe)}
+            %td{:bgcolor => bgcolor}= entry.course if entry

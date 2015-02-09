@@ -10,6 +10,8 @@ class RoomsController < ApplicationController
   # GET /rooms/1
   # GET /rooms/1.json
   def show
+    @weekdays = Weekday.all
+    @timeframes = Timeframe.all
   end
 
   # GET /rooms/new
@@ -19,6 +21,8 @@ class RoomsController < ApplicationController
 
   # GET /rooms/1/edit
   def edit
+    @weekdays = Weekday.all
+    @timeframes = Timeframe.all
   end
 
   # POST /rooms

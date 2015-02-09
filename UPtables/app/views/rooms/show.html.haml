@@ -9,6 +9,17 @@
   %br
   = @room.capacity
 
+%table
+  %tbody
+    %tr
+      %th
+      - @weekdays.each do |weekday|
+        %th= weekday.name
+    - @timeframes.each do |timeframe|
+      %tr
+        %td=timeframe.interval
+        - @weekdays.each do |weekday|
+          %td="unavailable" if @room.unavailabilities.find {|u| (u.weekday == weekday) && (u.timeframe == timeframe)}
 
 = link_to 'Edit', edit_room_path(@room)
 \|
