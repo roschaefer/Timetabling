@@ -68,7 +68,6 @@ N { assigned(C,D,P) : d(D), ppd(P) } N :- course(C,_,N,_,_,_).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-#show hello/1.
 #show assigned/4.
 %#show penalty/3.
 
