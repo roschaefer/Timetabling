@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150209145740) do
+ActiveRecord::Schema.define(version: 20150209161046) do
+
+  create_table "room_unavailabilities", force: :cascade do |t|
+    t.integer  "room_id"
+    t.integer  "weekday_id"
+    t.integer  "timeframe_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "rooms", force: :cascade do |t|
     t.string   "name"
