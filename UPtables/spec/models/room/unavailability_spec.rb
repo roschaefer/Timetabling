@@ -1,5 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Room::Unavailability, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#to_fact" do
+    it "should encode its state to an ASP fact" do
+      room = create :room, :id => 1 
+      tuesday = create :weekday, :id => 2, :name => "Tuesday"
+      noon = create :timeframe, :id => 4 , :interval => "12:00 - 14:00"
+      unavailability = create :room_unavailability, :room => room, :weekday => tuesday, :timeframe => noon
+      expect(unavailability.to_fact).to eq("room_unavailability(1, 2, 4)")
+    end
+  end
 end
