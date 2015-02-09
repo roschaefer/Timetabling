@@ -14,17 +14,19 @@ Room.create(:id => 4, :name => "1.02", :capacity => 32)
 Room.create(:id => 5, :name => "1.03", :capacity => 32)
 Room.create(:id => 6, :name => "2.01", :capacity => 16)
 Room.create(:id => 7, :name => "2.14", :capacity => 12)
-Room.create(:id => 8, :name => "H01",  :capacity =>100)
+h01 = Room.create(:id => 8, :name => "H01",  :capacity =>100)
+
+
 
 #Weekdays have correspondant predicates in encoding with corresponding ids!
-Weekday.create(:id => 0, :name => "Montag")
+monday = Weekday.create(:id => 0, :name => "Montag")
 Weekday.create(:id => 1, :name => "Dienstag" )
 Weekday.create(:id => 2, :name => "Mittwoch" )
 Weekday.create(:id => 3, :name => "Donnerstag" )
 Weekday.create(:id => 4, :name => "Freitag" )
 
 #Timeframes have correspondant predicates in encoding with corresponding ids!
-Timeframe.create(:id => 0, :interval => "08:00 - 10:00 ")
+eight_o_clock = Timeframe.create(:id => 0, :interval => "08:00 - 10:00 ")
 Timeframe.create(:id => 1, :interval => "10:00 - 12:00" )
 Timeframe.create(:id => 2, :interval => "12:00 - 14:00" )
 Timeframe.create(:id => 3, :interval => "14:00 - 16:00" )
@@ -68,3 +70,8 @@ Unavailability.create(:id => 25, :teacher => teacher_schaub, :weekday_id => 3, :
 Unavailability.create(:id => 26, :teacher => teacher_schaub, :weekday_id => 3, :timeframe_id => 5)
 Unavailability.create(:id => 27, :teacher => teacher_schaub, :weekday_id => 3, :timeframe_id => 6)
 
+=======
+
+
+Room::Unavailability.create(:room => h01, :weekday => monday, :timeframe => eight_o_clock)
+>>>>>>> implemented asp rule to make a room unavailable

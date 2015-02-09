@@ -9,6 +9,11 @@ def write_facts!
     new_facts += room.to_fact
     new_facts += "\n"
   end
+  new_facts += "\n"
+  Room::Unavailability.all.each do |unavailability|
+    new_facts += unavailability.to_fact
+    new_facts += "\n"
+  end
   File.open("script/newfacts.lp", 'w') { |file| file.write(new_facts) }
 end
 

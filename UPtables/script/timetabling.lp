@@ -66,6 +66,10 @@ N { assigned(C,D,P) : d(D), ppd(P) } N :- course(C,_,N,_,_,_).
 
 :- not { assigned(C,D,P) : c(C) } N, d(D), ppd(P), rooms(N).
 
+%%% Room Unavailability: If a room is unavailable during a certain time, no
+%%% lecture be given in this room at that time.
+:- assigned(C,R,D,P), room_unavailable(R,D,P).
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 #show assigned/4.
