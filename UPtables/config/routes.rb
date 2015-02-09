@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'timetables#index'
   get 'timetables/' => 'timetables#index'
   get 'timetables/:id' => 'timetables#show', :as => :show_timetable
+  resources :rooms
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
