@@ -1,7 +1,16 @@
 require 'open3'
 require 'json'
-cmd = "gringo ./script/facts.lp ./script/timetabling.lp | clasp --outf=2 --quiet=0 --verbose=0"
+cmd = "gringo ./script/facts.lp ./script/newfacts.lp ./script/timetabling.lp | clasp --outf=2 --quiet=0 --verbose=0"
 
+
+def write_facts!
+  new_facts = ""
+  Room.all.each do |room|
+    new_facts += room.to_fact
+    new_facts += "\n"
+  end
+  File.open("script/newfacts.lp", 'w') { |file| file.write(new_facts) }
+end
 
 def parse_assigned(assigned_string)
   elements = assigned_string.scan(/assigned\((.*),(.*),(.*),(.*)\)/)
@@ -33,6 +42,7 @@ def parse(output)
 end
 
 
+write_facts!
 Open3.popen3(cmd) do |stdin, stdout, stderr, wait_thr|
   parse(stdout.read) 
 end
