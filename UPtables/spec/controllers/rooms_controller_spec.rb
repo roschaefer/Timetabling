@@ -24,11 +24,11 @@ RSpec.describe RoomsController, type: :controller do
   # Room. As you add validations to Room, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+    {:name => 'H03', :capacity => 100 }
+ }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {:name => nil, :capacity => 100 }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -38,7 +38,7 @@ RSpec.describe RoomsController, type: :controller do
 
   describe "GET #index" do
     it "assigns all rooms as @rooms" do
-      room = Room.create! valid_attributes
+      room = create :room,  valid_attributes
       get :index, {}, valid_session
       expect(assigns(:rooms)).to eq([room])
     end
@@ -46,7 +46,7 @@ RSpec.describe RoomsController, type: :controller do
 
   describe "GET #show" do
     it "assigns the requested room as @room" do
-      room = Room.create! valid_attributes
+      room = create :room,  valid_attributes
       get :show, {:id => room.to_param}, valid_session
       expect(assigns(:room)).to eq(room)
     end
@@ -61,7 +61,7 @@ RSpec.describe RoomsController, type: :controller do
 
   describe "GET #edit" do
     it "assigns the requested room as @room" do
-      room = Room.create! valid_attributes
+      room = create :room,  valid_attributes
       get :edit, {:id => room.to_param}, valid_session
       expect(assigns(:room)).to eq(room)
     end
@@ -103,24 +103,25 @@ RSpec.describe RoomsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {:name => "2.14", :capacity => 12}
       }
 
       it "updates the requested room" do
-        room = Room.create! valid_attributes
+        room = create :room,  valid_attributes
         put :update, {:id => room.to_param, :room => new_attributes}, valid_session
         room.reload
-        skip("Add assertions for updated state")
+        expect(room.capacity).to eq(12)
+        expect(room.name).to eq("2.14")
       end
 
       it "assigns the requested room as @room" do
-        room = Room.create! valid_attributes
+        room = create :room,  valid_attributes
         put :update, {:id => room.to_param, :room => valid_attributes}, valid_session
         expect(assigns(:room)).to eq(room)
       end
 
       it "redirects to the room" do
-        room = Room.create! valid_attributes
+        room = create :room,  valid_attributes
         put :update, {:id => room.to_param, :room => valid_attributes}, valid_session
         expect(response).to redirect_to(room)
       end
@@ -128,13 +129,13 @@ RSpec.describe RoomsController, type: :controller do
 
     context "with invalid params" do
       it "assigns the room as @room" do
-        room = Room.create! valid_attributes
+        room = create :room,  valid_attributes
         put :update, {:id => room.to_param, :room => invalid_attributes}, valid_session
         expect(assigns(:room)).to eq(room)
       end
 
       it "re-renders the 'edit' template" do
-        room = Room.create! valid_attributes
+        room = create :room,  valid_attributes
         put :update, {:id => room.to_param, :room => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
@@ -143,14 +144,14 @@ RSpec.describe RoomsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested room" do
-      room = Room.create! valid_attributes
+      room = create :room,  valid_attributes
       expect {
         delete :destroy, {:id => room.to_param}, valid_session
       }.to change(Room, :count).by(-1)
     end
 
     it "redirects to the rooms list" do
-      room = Room.create! valid_attributes
+      room = create :room,  valid_attributes
       delete :destroy, {:id => room.to_param}, valid_session
       expect(response).to redirect_to(rooms_url)
     end
