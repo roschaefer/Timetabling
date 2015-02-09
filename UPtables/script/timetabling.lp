@@ -46,7 +46,21 @@ N { assigned(C,D,P) : d(D), ppd(P) } N :- course(C,_,N,_,_,_).
 %%% can be scheduled at that period. Each lecture in a period
 %%% unavailable for that course is one violation.
 
-:- assigned(C,D,P), unavailability_constraint(C,D,P).
+:- assigned(C,D,P), course(C,T,_,_,_,_), professor_unavailable(T,D,P).
+
+
+%%% DoubleLectures: Some courses require that lectures in the same day
+%%% are grouped together (double lectures). For a course that requires
+%%% grouped lectures, every time there is more than one lecture in one
+%%% day, a lecture non-grouped to another is not allowed. Two lectures
+%%% are grouped if they are adjacent and in the same room. Each
+%%% non-grouped lecture counts as 1 violation.
+
+:- course(C,_,_,_,_,1), d(D), 2 {  assigned(C,D,PE) },
+	assigned(C,R,D,P),
+	not assigned(C,R,D,P-1),
+	not assigned(C,R,D,P+1).
+  
 
 %%% Additional constraints (can be omitted)
 
@@ -54,7 +68,6 @@ N { assigned(C,D,P) : d(D), ppd(P) } N :- course(C,_,N,_,_,_).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%#hide.
 #show assigned/4.
 %#show penalty/3.
 

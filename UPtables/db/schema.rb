@@ -11,11 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206200039) do
+ActiveRecord::Schema.define(version: 20150209161046) do
+
 
   create_table "rooms", force: :cascade do |t|
     t.string   "name"
     t.integer  "capacity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "teachers", force: :cascade do |t|
+    t.string   "name"
+    t.string   "surname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -40,6 +48,14 @@ ActiveRecord::Schema.define(version: 20150206200039) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "costs"
+  end
+
+  create_table "unavailabilities", force: :cascade do |t|
+    t.integer  "teacher_id"
+    t.integer  "weekday_id"
+    t.integer  "timeframe_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "weekdays", force: :cascade do |t|
