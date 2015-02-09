@@ -1,5 +1,14 @@
 %p#notice= notice
 
+%p
+  %strong Name
+  %br
+  = @room.name
+%p
+  %strong Capacity
+  %br
+  = @room.capacity
+
 
 = link_to 'Edit', edit_room_path(@room)
 \|
