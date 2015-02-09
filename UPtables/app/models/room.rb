@@ -4,6 +4,6 @@ class Room < ActiveRecord::Base
 
 
   def to_fact
-    "room(#{id}, #{capacity}, \"Building\")"
+    "room(#{id}, #{capacity}, \"Building\")."
   end
 end
