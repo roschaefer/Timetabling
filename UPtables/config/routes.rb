@@ -1,8 +1,17 @@
 Rails.application.routes.draw do
+
+  get 'teachers/index'
+
   root 'timetables#index'
   get 'timetables/' => 'timetables#index'
   get 'timetables/:id' => 'timetables#show', :as => :show_timetable
   resources :rooms
+  
+  resources :teachers do
+    resources :unavailabilities do 
+      post 'set', on: :collection
+    end
+  end  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
