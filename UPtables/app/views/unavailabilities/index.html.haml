@@ -1,13 +1,11 @@
 %h1 Unavailabilities for #{@teacher.full_name}
 = form_tag(set_teacher_unavailabilities_path, :method => :post) do
-
   %table
     %thead
       %tr
         %th
         - @weekdays.each do |day|
-          %th= day.name
-          
+          %th= day.name          
     %tbody
       - @timeframes.each do |frame|
         %tr
