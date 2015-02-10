@@ -1,4 +1,4 @@
-%h1 Teacher Unavailabilities
+%h1 Unavailabilities for #{@teacher.full_name}
 = form_tag(set_teacher_unavailabilities_path, :method => :post) do
 
   %table
@@ -13,7 +13,7 @@
         %tr
           %td= frame.interval 
           - @weekdays.each do |day|
-            %td= check_box_tag "timeframe[#{day.id}][#{frame.id}]", "checked", @unavailabilities.any?{|u| u.weekday.id == day.id and u.timeframe.id == frame.id}
+            %td= check_box_tag "date[#{day.id}][#{frame.id}]", "checked", @unavailabilities.any?{|u| u.weekday.id == day.id and u.timeframe.id == frame.id}
             
   = link_to 'Back', teachers_path
   = submit_tag "Save"
