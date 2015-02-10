@@ -63,4 +63,8 @@ Unavailability.create(:id => 20, :teacher => teacher_schaub, :weekday_id => 2, :
 Unavailability.create(:id => 21, :teacher => teacher_schaub, :weekday_id => 3, :timeframe_id => 0)
 Unavailability.create(:id => 22, :teacher => teacher_schaub, :weekday_id => 3, :timeframe_id => 1)
 Unavailability.create(:id => 23, :teacher => teacher_schaub, :weekday_id => 3, :timeframe_id => 2)
+Unavailability.create(:id => 24, :teacher => teacher_schaub, :weekday_id => 3, :timeframe_id => 3)
+Unavailability.create(:id => 25, :teacher => teacher_schaub, :weekday_id => 3, :timeframe_id => 4)
+Unavailability.create(:id => 26, :teacher => teacher_schaub, :weekday_id => 3, :timeframe_id => 5)
+Unavailability.create(:id => 27, :teacher => teacher_schaub, :weekday_id => 3, :timeframe_id => 6)
 
