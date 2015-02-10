@@ -16,8 +16,6 @@ Room.create(:id => 6, :name => "2.01", :capacity => 16)
 Room.create(:id => 7, :name => "2.14", :capacity => 12)
 h01 = Room.create(:id => 8, :name => "H01",  :capacity =>100)
 
-
-
 #Weekdays have correspondant predicates in encoding with corresponding ids!
 monday = Weekday.create(:id => 0, :name => "Montag")
 Weekday.create(:id => 1, :name => "Dienstag" )
