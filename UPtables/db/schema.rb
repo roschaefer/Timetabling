@@ -76,6 +76,18 @@ ActiveRecord::Schema.define(version: 20150214191014) do
     t.integer  "costs"
   end
 
+  create_table "unavailabilities", force: :cascade do |t|
+    t.integer  "teacher_id"
+    t.integer  "weekday_id"
+    t.integer  "timeframe_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "unavailabilities", ["teacher_id"], name: "index_unavailabilities_on_teacher_id"
+  add_index "unavailabilities", ["timeframe_id"], name: "index_unavailabilities_on_timeframe_id"
+  add_index "unavailabilities", ["weekday_id"], name: "index_unavailabilities_on_weekday_id"
+
   create_table "weekdays", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
