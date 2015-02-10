@@ -4,4 +4,5 @@ class Teacher < ActiveRecord::Base
   def full_name
     "#{first_name} #{surname}"
   end
+
 end
