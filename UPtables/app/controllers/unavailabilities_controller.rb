@@ -1,21 +1,13 @@
 class UnavailabilitiesController < ApplicationController
   
-  before_action :set_unavailabilities, only: [:index]
+  before_action :set_week_day_teacher, only: [:index, :set]
   
   
-  def index  
-    @weekdays = Weekday.all
-    @timeframes = Timeframe.all
-    @teacher = Teacher.find(params[:teacher_id])
+  def index
+    @unavailabilities = Unavailability.where(teacher_id:params[:teacher_id])
   end
   
   def set
-    
-    @weekdays = Weekday.all
-    @timeframes = Timeframe.all
-    @teacher = Teacher.find(params[:teacher_id])
-    
-    
     @weekdays.each do |day|
       @timeframes.each do |frame|    
         if params[:date]["#{day.id}"] and params[:date]["#{day.id}"]["#{frame.id}"] then
@@ -31,7 +23,9 @@ class UnavailabilitiesController < ApplicationController
   end
 
   private
-    def set_unavailabilities
-      @unavailabilities = Unavailability.where(teacher_id:params[:teacher_id])
+    def set_week_day_teacher
+      @weekdays = Weekday.all
+      @timeframes = Timeframe.all
+      @teacher = Teacher.find(params[:teacher_id])
     end
 end
