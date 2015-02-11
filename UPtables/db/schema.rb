@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150209161046) do
+ActiveRecord::Schema.define(version: 20150211233500) do
 
   create_table "room_unavailabilities", force: :cascade do |t|
     t.integer  "room_id"
@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(version: 20150209161046) do
     t.integer  "capacity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "teacher_unavailabilities", force: :cascade do |t|
+    t.integer  "teacher_id"
+    t.integer  "weekday_id"
+    t.integer  "timeframe_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "teachers", force: :cascade do |t|
@@ -55,14 +63,6 @@ ActiveRecord::Schema.define(version: 20150209161046) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "costs"
-  end
-
-  create_table "unavailabilities", force: :cascade do |t|
-    t.integer  "teacher_id"
-    t.integer  "weekday_id"
-    t.integer  "timeframe_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
   end
 
   create_table "weekdays", force: :cascade do |t|
