@@ -19,8 +19,7 @@
         %tr
           %td=timeframe.interval
           - @weekdays.each do |weekday|
-            - checked = @room.unavailabilities.find {|u| (u.weekday == weekday) && (u.timeframe == timeframe)}.present?
-            %td= check_box_tag 'unavailable', 'yes', checked
+            %td= check_box_tag "unavailability[#{weekday.id}][#{timeframe.id}]", "checked", @room.unavailabilities.any?{|u| (u.weekday.id == weekday.id) && (u.timeframe.id == frame.id)}
 
   - if @room.errors.any?
     #error_explanation
