@@ -4,16 +4,16 @@ class UnavailabilitiesController < ApplicationController
   
   
   def index
-    @unavailabilities = Unavailability.where(teacher_id:params[:teacher_id])
+    @unavailabilities = Teacher::Unavailability.where(teacher_id:params[:teacher_id])
   end
   
   def set
     @weekdays.each do |day|
       @timeframes.each do |frame|    
         if params[:date]["#{day.id}"] and params[:date]["#{day.id}"]["#{frame.id}"] then
-          Unavailability.where(teacher:@teacher,weekday_id:"#{day.id}",timeframe_id:"#{frame.id}").first_or_create
+          Teacher::Unavailability.where(teacher:@teacher,weekday_id:"#{day.id}",timeframe_id:"#{frame.id}").first_or_create
         else
-          erasable = Unavailability.find_by(teacher:@teacher,weekday_id:"#{day.id}",timeframe_id:"#{frame.id}")
+          erasable = Teacher::Unavailability.find_by(teacher:@teacher,weekday_id:"#{day.id}",timeframe_id:"#{frame.id}")
           erasable.destroy if erasable
         end
       end
