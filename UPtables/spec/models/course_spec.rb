@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Course, type: :model do
   let(:course) { create :course, course_attributes}
   let(:teacher) { create :teacher, teacher_attributes }
+
   describe "#to_fact" do
     let(:teacher_attributes) {{
       :first_name => "Horst",
