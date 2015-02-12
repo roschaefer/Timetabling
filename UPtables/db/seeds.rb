@@ -35,10 +35,10 @@ Timeframe.create(:id => 5, :interval => "18:00 - 20:00" )
 Timeframe.create(:id => 6, :interval => "20:00 - 22:00" )
 
 teacher_schaub = Teacher.create(:id => 0, :name => "Torsten", :surname =>"Schaub")
-Teacher.create(:id => 1, :name => "Javier",  :surname =>"Romero")
-Teacher.create(:id => 2, :name => "Bettina", :surname =>"Schnor")
-Teacher.create(:id => 3, :name => "Henning", :surname =>"Bordihn")
-Teacher.create(:id => 4, :name => "Tobias", :surname =>"Scheffer")
+Teacher.create(:id => 1, :first_name => "Javier",  :surname =>"Romero")
+Teacher.create(:id => 2, :first_name => "Bettina", :surname =>"Schnor")
+Teacher.create(:id => 3, :first_name => "Henning", :surname =>"Bordihn")
+Teacher.create(:id => 4, :first_name => "Tobias", :surname =>"Scheffer")
 
 # Unavailabilities of teaching persons
 Teacher::Unavailability.create(:id =>  0, :teacher => teacher_schaub, :weekday_id => 0, :timeframe_id => 0)
