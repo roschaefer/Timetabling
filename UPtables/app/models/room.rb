@@ -21,7 +21,7 @@ class Room < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       Weekday.all.each do |weekday|
         Timeframe.all.each do |timeframe|
-          if params[weekday.id.to_s] and params[weekday.id.to_s][timeframe.id.to_s] then
+          if params and params[weekday.id.to_s] and params[weekday.id.to_s][timeframe.id.to_s] then
             unavailable_at! weekday, timeframe
           else
             available_at! weekday, timeframe
