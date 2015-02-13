@@ -1,7 +1,8 @@
 describe Asp::Model do
   describe "#extract" do
-    let(:value_hash) { {"Value" => ["assigned(3,2,4,1)"]} }
-    subject(:model) { Asp::Model.new(value_hash) }
+    let(:model_hash) { {"Value" => ["assigned(3,2,4,1)"]} }
+    subject(:model) { Asp::Model.new(model_hash) }
+
     it "extracts ruby objects" do
       expect(model.extract Timetable::Entry ).to have(1).item
     end

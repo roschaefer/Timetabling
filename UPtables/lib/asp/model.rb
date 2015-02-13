@@ -1,18 +1,22 @@
 class Asp::Model
   attr_reader :assignments, :cost
 
-  def initialize(hash)
+  def initialize(model_hash)
+    @model_hash = model_hash
     @assignments = []
-    @cost = hash["Costs"]
-    hash["Value"].each do |v|
-      @assignments.push(parse(v))
-    end
+    @cost = model_hash["Costs"]
   end
 
-  private
-  # TODO: remove hard coding
-  def parse(assigned_string)
-    elements = assigned_string.scan(/assigned\((.*),(.*),(.*),(.*)\)/)
-    Hash[[:course, :room, :day, :time].zip(*elements)]
+  def extract(aclass)
+    results = []
+    part = aclass.asp_attributes.collect{|a| "(.*)" }.join(",")
+    regex = /#{aclass.asp_label}\(#{part}\)/
+    @model_hash["Value"].each do |v|
+      elements = v.scan(regex)
+      option_hash = Hash[aclass.asp_attributes.zip(*elements)]
+      results << aclass.new(option_hash)
+    end
+    results
   end
+
 end
