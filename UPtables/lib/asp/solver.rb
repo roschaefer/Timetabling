@@ -12,21 +12,28 @@ class Asp::Solver
   end
 
   def solve(problem)
-    @problem = "\"#{problem}\""
 
-    # TODO: proper pipelining here
-    cmd = "echo #{@problem} | #{GROUNDER}"
+    # TODO: try not to use Tempfile
+    t = Tempfile.new("asp_solving_temp")
+    begin
+      t.write(problem)
+      t.rewind
+      cmd = "#{GROUNDER} #{t.path}"
 
 
-    stdout_str, stderr_str, status = Open3.capture3(cmd)
-    status.success? or return
+      stdout_str, stderr_str, status = Open3.capture3(cmd)
+      status.success? or return
 
-    Open3.pipeline_r(["echo", stdout_str], [SOLVER, *SOLVER_OPTS]) do |stdout, wait_thr|
-      json = JSON.parse(stdout.read)
-      witnesses = json["Call"][0]["Witnesses"]
-      witnesses.each do |w|
-       @models << Asp::Model.new(w)
+      Open3.pipeline_r(["echo", stdout_str], [SOLVER, *SOLVER_OPTS]) do |stdout, wait_thr|
+        json = JSON.parse(stdout.read)
+        witnesses = json["Call"][0]["Witnesses"]
+        witnesses.each do |w|
+          @models << Asp::Model.new(w)
+        end
       end
+    ensure
+    t.close
+    t.unlink
     end
   end
 
