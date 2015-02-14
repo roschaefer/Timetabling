@@ -1,5 +1,6 @@
 class Timetable::Entry < ActiveRecord::Base
   belongs_to :timetable
+  belongs_to :course
   belongs_to :room
   belongs_to :weekday
   belongs_to :timeframe
@@ -9,6 +10,6 @@ class Timetable::Entry < ActiveRecord::Base
   end
 
   def self.asp_attributes
-    [:course, :room_id, :weekday_id, :timeframe_id]
+    [:course_id, :room_id, :weekday_id, :timeframe_id]
   end
 end

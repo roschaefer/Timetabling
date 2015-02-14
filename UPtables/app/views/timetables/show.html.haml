@@ -21,4 +21,8 @@
           - @rooms.each do |room|
             - entry = @timetable.entries.find {|e| (e.timeframe == timeframe) && (e.weekday == weekday) && (e.room == room)}
             - bgcolor = "#AAAAAA"  if room.unavailabilities.find {|u| (u.weekday == weekday) && (u.timeframe == timeframe)}
-            %td{:bgcolor => bgcolor}= entry.course if entry
+            %td{:bgcolor => bgcolor}
+              - if entry
+                = entry.course.name
+                %br
+                = entry.course.teacher.full_name

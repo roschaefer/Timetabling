@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150212203325) do
+ActiveRecord::Schema.define(version: 20150214191014) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "name"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20150212203325) do
   end
 
   create_table "timetable_entries", force: :cascade do |t|
-    t.string   "course"
+    t.integer  "course_id"
     t.integer  "room_id"
     t.integer  "weekday_id"
     t.integer  "timeframe_id"
