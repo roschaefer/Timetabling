@@ -3,6 +3,10 @@ class Room < ActiveRecord::Base
   validates :name, presence: true
 
 
+  def self.to_fact
+    "rooms(#{count})."
+  end
+
   def to_fact
     "room(#{id}, #{capacity}, \"Building\")."
   end

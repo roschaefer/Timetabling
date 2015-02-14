@@ -1,18 +1,21 @@
 
 def concat_encoding
-  facts = IO.read("./script/facts.lp")
+  #facts = IO.read("./script/facts.lp")
   timetabling = IO.read("./script/timetabling.lp")
   new_facts = ""
+  [Room, Weekday, Timeframe, Course].each do |fact_class|
+      new_facts += fact_class.to_fact #periods_per_day(..) and days(...)
+      new_facts += "\n"
+  end
+  new_facts += "\n"
   [Room, Room::Unavailability, Course, Teacher::Unavailability].each do |fact_class|
     fact_class.all.each do |fact_instance|
-      new_facts += fact_instance.to_fact
+      new_facts += fact_instance.to_fact # room(...) course(...)
       new_facts += "\n"
     end
     new_facts += "\n"
   end
   encoding = new_facts
-  encoding += "\n"
-  encoding += facts
   encoding += "\n"
   encoding += timetabling
   encoding

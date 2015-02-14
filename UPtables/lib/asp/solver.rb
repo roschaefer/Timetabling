@@ -20,6 +20,8 @@ class Asp::Solver
       t.rewind
       cmd = "#{GROUNDER} #{t.path}"
 
+      #File.open("script/debug.lp", 'w') { |file| file.write(problem) }
+
       grounded_program, stderr_str, status = Open3.capture3(cmd)
       status.success? or return
 
