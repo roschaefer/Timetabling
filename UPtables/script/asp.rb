@@ -3,7 +3,7 @@ def concat_encoding
   facts = IO.read("./script/facts.lp")
   timetabling = IO.read("./script/timetabling.lp")
   new_facts = ""
-  [Room, Room::Unavailability].each do |fact_class|
+  [Room, Room::Unavailability, Course, Teacher::Unavailability].each do |fact_class|
     fact_class.all.each do |fact_instance|
       new_facts += fact_instance.to_fact
       new_facts += "\n"
