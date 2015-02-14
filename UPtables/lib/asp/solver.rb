@@ -20,11 +20,12 @@ class Asp::Solver
       t.rewind
       cmd = "#{GROUNDER} #{t.path}"
 
-
-      stdout_str, stderr_str, status = Open3.capture3(cmd)
+      grounded_program, stderr_str, status = Open3.capture3(cmd)
       status.success? or return
 
-      Open3.pipeline_r(["echo", stdout_str], [SOLVER, *SOLVER_OPTS]) do |stdout, wait_thr|
+      Open3.popen3(SOLVER, *SOLVER_OPTS) do |stdin, stdout, stderr, wait_thr|
+        stdin.puts grounded_program
+        stdin.close
         json = JSON.parse(stdout.read)
         witnesses = json["Call"][0]["Witnesses"]
         witnesses.each do |w|
@@ -35,6 +36,7 @@ class Asp::Solver
     t.close
     t.unlink
     end
+    true
   end
 
 
