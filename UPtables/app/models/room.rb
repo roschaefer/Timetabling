@@ -1,6 +1,7 @@
 class Room < ActiveRecord::Base
   has_many :unavailabilities, dependent: :destroy
   validates :name, presence: true
+  validates :capacity, :numericality => { :greater_than_or_equal_to => 0 }
 
 
   def self.to_fact

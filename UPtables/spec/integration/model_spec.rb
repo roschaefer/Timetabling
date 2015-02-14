@@ -18,5 +18,14 @@ describe Asp::Model do
       expect(entry.weekday_id).to eq 4
       expect(entry.timeframe_id).to eq 1
     end
+
+
+    context "for unsatisfiable problems" do
+      let(:model_hash) { { } }
+
+      it "extracts nothing" do
+        expect(model.extract(Timetable::Entry)).to be_empty
+      end
+    end
   end
 end
