@@ -1,10 +1,10 @@
 class Asp::Model
-  attr_reader :assignments, :cost
+  attr_reader :assignments, :costs
 
   def initialize(model_hash)
     @model_hash = model_hash
     @assignments = []
-    @cost = model_hash["Costs"]
+    @costs = model_hash["Costs"]
   end
 
   def extract(aclass)
