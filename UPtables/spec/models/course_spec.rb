@@ -6,10 +6,12 @@ RSpec.describe Course, type: :model do
 
   describe "#to_fact" do
     let(:teacher_attributes) {{
+      :id => 21,
       :first_name => "Horst",
       :surname => "Voigt"
     }}
     let(:course_attributes) { {
+      :id                   => 9,
       :name                 => "Informatik für Naturwissenschaftler I Vorlesung",
       :teacher              => teacher,
       :dates                => 1,
@@ -19,7 +21,7 @@ RSpec.describe Course, type: :model do
     } }
 
     it "returns a valid asp fact" do
-      expect(course.to_fact).to eq "course(\"Informatik für Naturwissenschaftler I Vorlesung\",\"Horst Voigt\",1,1,90,0)."
+      expect(course.to_fact).to eq "course(9,21,1,1,90,0)."
     end
   end
 end
