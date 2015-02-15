@@ -16,11 +16,19 @@ describe Asp::Job do
         expect { run }.to change { [Timetable.count, Timetable::Entry.count] }.from([0,0]).to([1,1])
       end
 
-      it "and two courses and only one room is unsatisfiable" do
+      it "and two courses but only one room is unsatisfiable" do
         create :room
         create :course
         create :course
         expect { run }.not_to change { [Timetable.count, Timetable::Entry.count] }
+      end
+
+      it "and two courses and two rooms yields two possible timetables", :pending => "optimization suppresses generation of second timetable" do
+        create :room
+        create :room
+        create :course
+        create :course
+        expect { run }.to change { [Timetable.count, Timetable::Entry.count] }.from([0,0]).to([2,4])
       end
     end
 

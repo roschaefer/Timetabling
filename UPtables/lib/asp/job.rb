@@ -17,9 +17,11 @@ class Asp::Job
     end
     encoding = new_facts
     encoding += "\n"
-    encoding += timetabling
+    configuration = Asp::Configuration.default
+    encoding += configuration.asp_rule_encoding
 
-    File.open("script/debug.lp", 'w') { |file| file.write(encoding) }
+    #File.open("script/debug.lp", 'w') { |file| file.write(encoding) }
+
     solver = Asp::Solver.new
     if (solver.solve(encoding))
       solver.models.each_with_index do |model, i|

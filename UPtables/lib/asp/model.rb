@@ -16,8 +16,10 @@ class Asp::Model
     regex = /#{aclass.asp_label}\(#{part}\)/
     @model_hash["Value"].each do |v|
       elements = v.scan(regex)
-      option_hash = Hash[aclass.asp_attributes.zip(*elements)]
-      results << aclass.new(option_hash)
+      unless elements.empty?
+        option_hash = Hash[aclass.asp_attributes.zip(*elements)]
+        results << aclass.new(option_hash)
+      end
     end
     results
   end
