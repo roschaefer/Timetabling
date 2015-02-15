@@ -1,26 +1,42 @@
 class Asp::Job
+  attr_accessor :configuration
+
+  def initialize
+    @fact_classes = [Room, Weekday, Timeframe, Course, Room::Unavailability, Teacher::Unavailability]
+  end
+
+  def configuration
+    @configuration ||= Asp::Configuration.default
+  end
+
+
+  def collect_facts
+    collected_facts = ""
+    @fact_classes.each do |aclass|
+      if aclass.respond_to?(:to_fact)
+        collected_facts += aclass.to_fact #periods_per_day(..) and days(...)
+        collected_facts += "\n"
+      end
+    end
+
+    @fact_classes.each do |aclass|
+      if aclass.method_defined?(:to_fact)
+        aclass.all.each do |instance|
+          collected_facts +=  instance.to_fact #room(...) course(..)
+          collected_facts += "\n"
+        end
+      end
+    end
+    collected_facts
+  end
 
   def run
-    timetabling = IO.read("./script/timetabling.lp")
-    new_facts = ""
-    [Room, Weekday, Timeframe, Course].each do |fact_class|
-      new_facts += fact_class.to_fact #periods_per_day(..) and days(...)
-      new_facts += "\n"
-    end
-    new_facts += "\n"
-    [Room, Room::Unavailability, Course, Teacher::Unavailability].each do |fact_class|
-      fact_class.all.each do |fact_instance|
-        new_facts += fact_instance.to_fact # room(...) course(...)
-        new_facts += "\n"
-      end
-      new_facts += "\n"
-    end
-    encoding = new_facts
+    encoding = collect_facts
     encoding += "\n"
-    configuration = Asp::Configuration.default
     encoding += configuration.asp_rule_encoding
 
     #File.open("script/debug.lp", 'w') { |file| file.write(encoding) }
+    #binding.pry
 
     solver = Asp::Solver.new
     if (solver.solve(encoding))
