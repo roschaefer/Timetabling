@@ -1,3 +1,6 @@
+name("Universität Potsdam").
+
+
 c(C) :- course(C,_,_,_,_,_).
 t(T) :- course(_,T,_,_,_,_).
 r(R) :- room(R,_,_).

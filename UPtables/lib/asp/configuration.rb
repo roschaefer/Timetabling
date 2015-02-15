@@ -33,8 +33,15 @@ def asp_rule_encoding
     encoding += "\n"
   end
 
+  # TODO: refactor
   if optimize?
-    encoding += "\n#minimize {P,N,V : penalty(N,V,P)}.\n"
+    encoding << %{
+#const penalty_of_room_capacity = 1.
+#const penalty_of_min_working_days = 5.
+#const penalty_of_isolated_lectures = 1.
+
+#minimize {P,N,V : penalty(N,V,P)}.
+}
   end
   encoding
 end
