@@ -47,6 +47,15 @@ describe Asp::Job do
           create :course
           expect { run }.to change { [Timetable.count, Timetable::Entry.count] }.from([0,0]).to([2,4])
         end
+
+        it "same teacher can't hold two lectures at the same time in different rooms" do
+          teacher = create :teacher
+          create :room
+          create :room
+          create :course, :teacher => teacher
+          create :course, :teacher => teacher
+          expect { run }.not_to change { [Timetable.count, Timetable::Entry.count] } # because it's unsatisfiable
+        end
       end
 
     end
