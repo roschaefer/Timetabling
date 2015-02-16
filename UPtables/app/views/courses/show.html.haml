@@ -1,5 +1,29 @@
 %p#notice= notice
 
+%p
+  %strong Name
+  %br
+  = @course.name
+%p
+  %strong Teacher
+  %br
+  = @course.teacher.full_name
+%p
+  %strong Dates
+  %br
+  = @course.dates
+%p
+  %strong Mininum Working Days
+  %br
+  = @course.minimum_working_days
+%p
+  %strong Participants
+  %br
+  = @course.participants
+- if @course.double_lecture
+  %p
+    %strong Double Lecture
+
 
 = link_to 'Edit', edit_course_path(@course)
 \|
