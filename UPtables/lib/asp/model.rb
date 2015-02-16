@@ -4,7 +4,7 @@ class Asp::Model
   def initialize(model_hash)
     @model_hash = model_hash
     @assignments = []
-    @costs = model_hash["Costs"]
+    @costs = model_hash["Costs"][0] if model_hash["Costs"]
   end
 
   def extract(aclass)

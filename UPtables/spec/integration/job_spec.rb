@@ -5,6 +5,19 @@ describe Asp::Job do
   describe "#run" do
     subject(:run) { job.run }
 
+    context "with soft and hard constraints" do
+      #before { job.configuration = Asp::Configuration.default }
+      it "creates timetables with costs" do
+        create :weekday
+        create :timeframe
+        create :room
+        create :course
+        run
+        expect(Timetable.first.costs).not_to be_nil
+      end
+
+    end
+
     context "given only hard constraints" do
       before { job.configuration = Asp::Configuration.only_hard_constraints }
 
