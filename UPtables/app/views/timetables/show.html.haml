@@ -2,11 +2,17 @@
 %h2= "Costs: #{@timetable.costs}"
 %table
   %tbody
-    %tr
-      %td
-      %td
-      - @rooms.each do |room|
-        %td= room.name
+    %thead
+      %tr
+        %th
+        %th
+        - @rooms.each do |room|
+          %th= room.name
+      %tr
+        %th
+        %th
+        - @rooms.each do |room|
+          %th= "#{room.capacity} Seats"
     - @weekdays.each do |weekday|
       - @timeframes.each_with_index do |timeframe, i|
         %tr
