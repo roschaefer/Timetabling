@@ -1,0 +1,35 @@
+= form_for @course do |f|
+  %p
+    = f.label :name
+    %br
+    = f.text_field :name, :size => 50
+  %p
+    = f.label :teacher
+    %br
+    = f.select :teacher_id, Teacher.all.collect {|t| [t.full_name, t.id]}
+  %p
+    = f.label :dates
+    %br
+    = f.number_field :dates
+  %p
+    = f.label :minimum_working_days
+    %br
+    = f.number_field :minimum_working_days
+  %p
+    = f.label :participants
+    %br
+    = f.number_field :participants
+  %p
+    = f.label :double_lecture
+    %br
+    = f.check_box :double_lecture
+
+  - if @course.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@course.errors.count, "error")} prohibited this course from being saved:"
+      %ul
+        - @course.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

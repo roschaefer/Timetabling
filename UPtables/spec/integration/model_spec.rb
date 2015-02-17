@@ -1,6 +1,6 @@
 describe Asp::Model do
   describe "#extract" do
-    let(:model_hash) { {"Costs" => 5, "Value" => ["assigned(3,2,4,1)"]} }
+    let(:model_hash) { {"Costs" => [5], "Value" => ["assigned(3,2,4,1)"]} }
     subject(:model) { Asp::Model.new(model_hash) }
 
     it "parses the costs" do
@@ -21,7 +21,7 @@ describe Asp::Model do
 
 
     context "for many different assignments" do
-    let(:model_hash) { {"Costs" => 5, "Value" => ["assigned(3,2,4,1)", "somethingelse(3,2,4,1)"]} }
+    let(:model_hash) { {"Costs" => [5], "Value" => ["assigned(3,2,4,1)", "somethingelse(3,2,4,1)"]} }
       it "extracts only the matching ruby objects" do
         expect(model.extract Timetable::Entry ).to have(1).item # not two!
       end

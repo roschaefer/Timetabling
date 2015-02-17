@@ -5,6 +5,19 @@ describe Asp::Job do
   describe "#run" do
     subject(:run) { job.run }
 
+    context "with soft and hard constraints" do
+      #before { job.configuration = Asp::Configuration.default }
+      it "creates timetables with costs" do
+        create :weekday
+        create :timeframe
+        create :room
+        create :course
+        run
+        expect(Timetable.first.costs).not_to be_nil
+      end
+
+    end
+
     context "given only hard constraints" do
       before { job.configuration = Asp::Configuration.only_hard_constraints }
 
@@ -33,6 +46,15 @@ describe Asp::Job do
           create :course
           create :course
           expect { run }.to change { [Timetable.count, Timetable::Entry.count] }.from([0,0]).to([2,4])
+        end
+
+        it "same teacher can't hold two lectures at the same time in different rooms" do
+          teacher = create :teacher
+          create :room
+          create :room
+          create :course, :teacher => teacher
+          create :course, :teacher => teacher
+          expect { run }.not_to change { [Timetable.count, Timetable::Entry.count] } # because it's unsatisfiable
         end
       end
 
