@@ -20,7 +20,6 @@ class Asp::Solver
       t.rewind
       cmd = "#{GROUNDER} #{t.path}"
 
-      #File.open("script/debug.lp", 'w') { |file| file.write(problem) }
 
       grounded_program, stderr_str, status = Open3.capture3(cmd)
       status.success? or return
@@ -30,7 +29,7 @@ class Asp::Solver
         stdin.close
         json = JSON.parse(stdout.read)
         witnesses = json["Call"][0]["Witnesses"]
-        witnesses.each do |w|
+        witnesses.present? and witnesses.each do |w|
           @models << Asp::Model.new(w)
         end
       end
