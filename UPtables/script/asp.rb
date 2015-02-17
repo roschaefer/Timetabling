@@ -1,54 +1,41 @@
-require 'open3'
-require 'json'
-cmd = "gringo ./script/facts.lp ./script/newfacts.lp ./script/timetabling.lp | clasp --outf=2 --quiet=0 --verbose=0"
 
-
-def write_facts!
+def concat_encoding
+  #facts = IO.read("./script/facts.lp")
+  timetabling = IO.read("./script/timetabling.lp")
   new_facts = ""
-  Room.all.each do |room|
-    new_facts += room.to_fact
-    new_facts += "\n"
+  [Room, Weekday, Timeframe, Course].each do |fact_class|
+      new_facts += fact_class.to_fact #periods_per_day(..) and days(...)
+      new_facts += "\n"
   end
   new_facts += "\n"
-  Room::Unavailability.all.each do |unavailability|
-    new_facts += unavailability.to_fact
+  [Room, Room::Unavailability, Course, Teacher::Unavailability].each do |fact_class|
+    fact_class.all.each do |fact_instance|
+      new_facts += fact_instance.to_fact # room(...) course(...)
+      new_facts += "\n"
+    end
     new_facts += "\n"
   end
-  File.open("script/newfacts.lp", 'w') { |file| file.write(new_facts) }
+  encoding = new_facts
+  encoding += "\n"
+  encoding += timetabling
+  encoding
 end
 
-def parse_assigned(assigned_string)
-  elements = assigned_string.scan(/assigned\((.*),(.*),(.*),(.*)\)/)
-  Hash[[:course, :room, :day, :time].zip(*elements)]
-end
-
-
-def parse(output)
-  json = JSON.parse(output)
-  witnesses = json["Call"][0]["Witnesses"]
-  ActiveRecord::Base.transaction do
-    witnesses.each_with_index do |w, i|
+solver = Asp::Solver.new
+if (solver.solve(concat_encoding))
+  solver.models.each_with_index do |model, i|
+    ActiveRecord::Base.transaction do
       timetable = Timetable.new
       timetable.id = i
-      timetable.costs = w["Costs"][0]
-      w["Value"].each do |v| 
-        assigned_hash = parse_assigned(v)
-        entry = Timetable::Entry.new
+      timetable.costs = model.costs
+      model.extract(Timetable::Entry).each do |entry|
         entry.timetable_id = timetable.id
-        entry.course       = assigned_hash[:course]
-        entry.room_id      = assigned_hash[:room]
-        entry.weekday_id   = assigned_hash[:day]
-        entry.timeframe_id = assigned_hash[:time]
         entry.save!
       end
       timetable.save!
     end
   end
-end
-
-
-write_facts!
-Open3.popen3(cmd) do |stdin, stdout, stderr, wait_thr|
-  parse(stdout.read) 
+else
+  raise "ASP solving raised errors!"
 end
 
