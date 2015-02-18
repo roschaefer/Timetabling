@@ -1,4 +1,7 @@
 class Teacher::Unavailability < ActiveRecord::Base
+  
+  validates :teacher, :weekday, :timeframe, presence: true
+  
   belongs_to :teacher
   belongs_to :weekday
   belongs_to :timeframe
