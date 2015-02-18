@@ -1,6 +1,8 @@
 class Course < ActiveRecord::Base
   validates :dates, :numericality => { :greater_than => 0}
   belongs_to :teacher
+  has_and_belongs_to_many :ects_modules
+  has_many :curricula, :through => :ects_modules
 
   def self.to_fact
     "courses(#{count})."
