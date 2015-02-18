@@ -39,8 +39,11 @@ RSpec.describe Room, type: :model do
     let(:monday) { create :weekday, :id => 0}
     let(:eleven) { create :timeframe, :id => 1}
 
+    
+    
+    
     it "deletes an Unavailability at this time" do
-      Room::Unavailability.create!(:room_id => room.id, :weekday_id => 0, :timeframe_id =>1)
+      create :room_unavailability, :room => room, :weekday => monday,  :timeframe => eleven 
       expect{
         room.available_at! monday, eleven
       }.to change{Room::Unavailability.count}.from(1).to(0)
