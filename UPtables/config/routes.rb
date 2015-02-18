@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
 
-  get 'teachers/index'
-
   root 'timetables#index'
   get 'timetables/' => 'timetables#index'
   post 'timetables/' => 'timetables#solve'
   get 'timetables/:id' => 'timetables#show', :as => :show_timetable
+  
   resources :rooms
 
   resources :courses
