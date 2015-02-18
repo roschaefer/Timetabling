@@ -1,0 +1,20 @@
+%h1 Unavailabilities for #{@teacher.full_name}
+= form_for @teacher do |f|
+  %table
+    %thead
+      %tr
+        %th
+        - @weekdays.each do |day|
+          %th= day.name          
+    %tbody
+      - @timeframes.each do |frame|
+        %tr
+          %td= frame.interval 
+          - @weekdays.each do |day|
+            %td= check_box_tag "teacher_unavailability_ids[]", [day.id, frame.id], @unavailabilities.any?{|u| u.weekday_id == day.id and u.timeframe_id == frame.id}
+            
+  = link_to 'Back', teachers_path
+  = f.submit "Save"
+%br
+
+
