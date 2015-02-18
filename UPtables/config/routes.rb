@@ -10,12 +10,8 @@ Rails.application.routes.draw do
 
   resources :courses
 
-  resources :teachers do
-    resources :unavailabilities do 
-      post 'set', on: :collection
-    end
-  end  
-  
+  resources :teachers
+    
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
