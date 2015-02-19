@@ -16,6 +16,10 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+### Load custom matcher
+Dir[File.expand_path(File.join(File.dirname(__FILE__),'matcher','**','*.rb'))].each {|f| require f}
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
