@@ -24,6 +24,19 @@
   %p
     %strong Double Lecture
 
+%p
+  %table
+    %theader
+      %tr
+        %th Ects Module
+        %th Curricula
+    %tbody
+      - @course.ects_modules.each do |m|
+        - m.curricula.each do |c|
+          %tr
+            %td= m.name
+            %td= c.name
+
 
 = link_to 'Edit', edit_course_path(@course)
 \|
