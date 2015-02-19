@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :edit, :update, :destroy]
+  before_action :set_weekdays_and_timeframes, only: [:show, :new, :edit]
 
   # GET /rooms
   # GET /rooms.json
@@ -10,8 +11,6 @@ class RoomsController < ApplicationController
   # GET /rooms/1
   # GET /rooms/1.json
   def show
-    @weekdays = Weekday.all
-    @timeframes = Timeframe.all
   end
 
   # GET /rooms/new
@@ -21,8 +20,6 @@ class RoomsController < ApplicationController
 
   # GET /rooms/1/edit
   def edit
-    @weekdays = Weekday.all
-    @timeframes = Timeframe.all
   end
 
   # POST /rooms
@@ -74,5 +71,10 @@ class RoomsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def room_params
       params.require(:room).permit(:capacity, :name)
+    end
+
+    def set_weekdays_and_timeframes
+      @weekdays   = Weekday.all
+      @timeframes = Timeframe.all
     end
 end
