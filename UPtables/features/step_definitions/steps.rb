@@ -18,3 +18,27 @@ end
 Dann(/^sollte der Kurs in der Datenbank dem neuen Lehrer zugeordnet sein$/) do
   expect(Course.first.teacher).to eq @another_teacher
 end
+
+
+Angenommen(/^es gibt noch keinen Raum in der Datenbank$/) do
+  expect(Room.count).to eq 0
+end
+
+Wenn(/^ich einen neuen Raum erzeugen will$/) do
+  visit new_room_path
+end
+
+Wenn(/^ich diese Daten eintrage und speichere$/) do |table|
+  options = table.rows_hash
+  fill_in "Name", :with => options["Name"]
+  fill_in "Capacity", :with => options["Capacity"]
+  click_button 'Save'
+end
+
+Dann(/^gibt es genau einen Raum in der Datenbank$/) do
+  expect(Room.count).to eq 1
+end
+
+Dann(/^dieser Raum hat (\d+) Sitzplätze$/) do |capacity|
+  expect(Room.first.capacity).to eq capacity.to_i
+end
