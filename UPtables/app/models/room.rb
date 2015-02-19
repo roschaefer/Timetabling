@@ -21,6 +21,10 @@ class Room < ActiveRecord::Base
     Room::Unavailability.where(:room => self, :weekday => weekday, :timeframe => timeframe).first_or_create
   end
 
+  def available_at?(weekday, timeframe)
+    not unavailabilities.any? {|u| (u.weekday == weekday) && (u.timeframe == timeframe) }
+  end
+
 
   def update_unavailabilities(params)
     ActiveRecord::Base.transaction do
