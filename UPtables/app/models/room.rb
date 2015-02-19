@@ -22,9 +22,7 @@ class Room < ActiveRecord::Base
   end
 
   def available_at?(weekday, timeframe)
-    weekday   = weekday.id   if weekday.respond_to? :id
-    timeframe = timeframe.id if timeframe.respond_to? :id
-    not unavailabilities.any? {|u| (u.weekday_id == weekday) && (u.timeframe_id == timeframe) }
+    not unavailabilities.any? {|u| (u.weekday == weekday) && (u.timeframe == timeframe) }
   end
 
 

@@ -28,7 +28,7 @@ class RoomsController < ApplicationController
     @room = Room.new(room_params)
 
     respond_to do |format|
-      if @room.save
+      if @room.save and @room.update_unavailabilities(params[:unavailability])
         format.html { redirect_to @room, notice: 'Room was successfully created.' }
         format.json { render :show, status: :created, location: @room }
       else
