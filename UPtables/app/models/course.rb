@@ -10,6 +10,10 @@ class Course < ActiveRecord::Base
 
   def to_fact
     dl = (double_lecture && "1") || "0"
-    "course(#{id},#{teacher_id},#{dates},#{minimum_working_days},#{participants},#{dl})."
+    facts = ["course(#{id},#{teacher_id},#{dates},#{minimum_working_days},#{participants},#{dl})."]
+    curricula.each do |c|
+      facts << "curricula(#{c.id}, #{id})."
+    end
+    facts.join("\n")
   end
 end
