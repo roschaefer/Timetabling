@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root 'timetables#index'
+  root :to => redirect('timetables/')
   get 'timetables/' => 'timetables#index'
   post 'timetables/' => 'timetables#solve'
   get 'timetables/:id' => 'timetables#show', :as => :show_timetable

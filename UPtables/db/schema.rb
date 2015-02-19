@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214191014) do
+ActiveRecord::Schema.define(version: 20150218231303) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "name"
@@ -22,6 +22,34 @@ ActiveRecord::Schema.define(version: 20150214191014) do
     t.boolean  "double_lecture"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+  end
+
+  create_table "courses_ects_modules", id: false, force: :cascade do |t|
+    t.integer "course_id"
+    t.integer "ects_module_id"
+  end
+
+  add_index "courses_ects_modules", ["course_id"], name: "index_courses_ects_modules_on_course_id"
+  add_index "courses_ects_modules", ["ects_module_id"], name: "index_courses_ects_modules_on_ects_module_id"
+
+  create_table "curricula", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "curricula_ects_modules", id: false, force: :cascade do |t|
+    t.integer "curriculum_id"
+    t.integer "ects_module_id"
+  end
+
+  add_index "curricula_ects_modules", ["curriculum_id"], name: "index_curricula_ects_modules_on_curriculum_id"
+  add_index "curricula_ects_modules", ["ects_module_id"], name: "index_curricula_ects_modules_on_ects_module_id"
+
+  create_table "ects_modules", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "room_unavailabilities", force: :cascade do |t|
