@@ -25,7 +25,7 @@ end
 
 def asp_rule_encoding
   encoding = ""
-  encoding += IO.read(File.join("lib","asp","constraints","basic_structure.lp"))
+  encoding += IO.read(Rails.root.join("lib","asp","constraints","basic_structure.lp"))
   encoding += "\n"
 
   @constraints.each do |constraint|

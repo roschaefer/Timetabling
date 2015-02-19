@@ -21,7 +21,7 @@ class Asp::Constraint
   end
 
 def initialize(location)
-  @location = File.join("lib", "asp", "constraints", "#{location}.lp")
+  @location = Rails.root.join("lib", "asp", "constraints", "#{location}.lp")
 end
 
 def to_asp
