@@ -56,6 +56,34 @@ describe Asp::Job do
           create :course, :teacher => teacher
           expect { run }.not_to change { [Timetable.count, Timetable::Entry.count] } # because it's unsatisfiable
         end
+
+
+      end
+      context "with a two-slot timetable" do
+        before {
+          create :weekday
+          create :timeframe
+          create :timeframe
+        }
+        context "and two rooms" do
+          before {
+            create :room
+            create :room
+          }
+          context "if two courses belong to the same curriculum" do
+            let(:curriculum) { create :curriculum, :name => "It-Systems-Engineering Master" }
+            let(:course1) { create :course_with_curriculum, :name => "Softskills", :curriculum  => curriculum }
+            let(:course2) { create :course_with_curriculum, :name => "Hardskills", :curriculum  => curriculum }
+            before { course1; course2 }
+
+            it "doesn't schedule the two courses in the same timeslot" do
+              run
+              Timetable.find_each do |t|
+                expect(t.entries).to be_scheduled_at_different_times
+              end
+            end
+          end
+        end
       end
 
     end
