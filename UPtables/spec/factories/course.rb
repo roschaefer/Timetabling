@@ -8,7 +8,7 @@ FactoryGirl.define do
       double_lecture       false
   end
   factory :course_with_curriculum, parent: :course do
-    ignore do
+    transient do
       curriculum  { create :curriculum }
     end
 
