@@ -11,7 +11,9 @@ group :development, :test do
   gem 'database_cleaner'
 end
 gem 'capistrano-rails', '~> 1.1'
-
+gem 'capistrano-rvm'
+gem 'capistrano-secrets-yml'
+gem 'rake'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
