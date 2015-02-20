@@ -3,7 +3,7 @@ lock '3.3.5'
 
 set :application, 'UPtables'
 set :repo_url, 'https://github.com/roschaefer/Timetabling.git'
-
+set :repo_tree, 'UPtables'
 
 
 # Default branch is :master
