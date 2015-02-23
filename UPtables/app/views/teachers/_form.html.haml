@@ -1,0 +1,27 @@
+= form_for @teacher do |f|
+  %p
+    = f.label :first_name
+    %br
+    = f.text_field :first_name
+  %p
+    = f.label :surname
+    %br
+    = f.text_field :surname
+  %p
+
+  %h3 Unavailabilities
+  
+  %table
+    %thead
+      %tr
+        %th
+        - @weekdays.each do |day|
+          %th= day.name          
+    %tbody
+      - @timeframes.each do |frame|
+        %tr
+          %td= frame.interval 
+          - @weekdays.each do |day|
+            %td= check_box_tag "teacher_unavailability_ids[]", [day.id, frame.id], @teacher.unavailabilities ? @teacher.unavailabilities.any?{|u| u.weekday_id == day.id and u.timeframe_id == frame.id} : false
+            
+  = f.submit "Save"
