@@ -10,9 +10,11 @@ group :development, :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
 end
+gem 'passenger'
 gem 'capistrano-rails', '~> 1.1'
 gem 'capistrano-rvm'
 gem 'capistrano-secrets-yml'
+gem 'capistrano-passenger'
 gem 'rake'
 
 
