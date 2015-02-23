@@ -11,7 +11,17 @@ namespace :custom do
       end
     end
   end
+
+  desc "restart passenger"
+  task :restart_server do
+    on roles(:web) do
+      within current_path do
+          execute :touch, "tmp/restart.txt"
+      end
+    end
+  end
 end
 
 
 after "deploy", "custom:full_database_setup"
+after "custom:full_database_setup", "custom:restart_server"
