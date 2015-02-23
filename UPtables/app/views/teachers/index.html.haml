@@ -12,7 +12,8 @@
       %tr
         %td= teacher.surname
         %td= teacher.first_name
-        %td= link_to 'Unavailabilities', edit_teacher_path(teacher)
-  %br
+        %td= link_to 'Edit', edit_teacher_path(teacher)
+        %td= link_to 'Delete', teacher, :method => :delete, :data => { :confirm => 'Are you sure?' }
+%br
 
-= link_to 'Back', root_path
+= link_to 'Add New Teacher', new_teacher_path
