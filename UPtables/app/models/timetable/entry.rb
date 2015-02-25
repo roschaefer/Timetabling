@@ -4,6 +4,7 @@ class Timetable::Entry < ActiveRecord::Base
   belongs_to :room
   belongs_to :weekday
   belongs_to :timeframe
+  has_one :overfull_room
 
   def self.asp_attributes
     [:course_id, :room_id, :weekday_id, :timeframe_id]

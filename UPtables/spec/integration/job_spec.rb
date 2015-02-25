@@ -44,6 +44,12 @@ describe Asp::Job do
               expect(violation.entry).not_to be nil
             end
 
+            it "associated timetable entry is in fact the problematic one" do
+              3.times { create :timetable_entry }
+              run
+              expect(violation.entry.course.participants).to be > violation.entry.room.capacity
+            end
+
           end
         end
       end
