@@ -50,7 +50,6 @@ class Asp::Job
             entry.save!
           end
           model.extract(Timetable::OverfullRoom).each do |overfull|
-            overfull.timetable_id = timetable.id
             overfull.save!
           end
           timetable.save!

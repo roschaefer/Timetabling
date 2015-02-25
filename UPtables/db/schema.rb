@@ -99,15 +99,13 @@ ActiveRecord::Schema.define(version: 20150225204249) do
   end
 
   create_table "timetable_overfull_rooms", force: :cascade do |t|
-    t.integer  "timetable_id"
     t.integer  "entry_id"
     t.integer  "severity"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "timetable_overfull_rooms", ["entry_id"], name: "index_timetable_overfull_rooms_on_entry_id"
-  add_index "timetable_overfull_rooms", ["timetable_id"], name: "index_timetable_overfull_rooms_on_timetable_id"
 
   create_table "timetables", force: :cascade do |t|
     t.datetime "created_at", null: false

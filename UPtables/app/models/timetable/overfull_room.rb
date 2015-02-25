@@ -1,5 +1,4 @@
 class Timetable::OverfullRoom < ActiveRecord::Base
-  belongs_to :timetable
   belongs_to :entry
   validates :entry_id, :presence => true
 
