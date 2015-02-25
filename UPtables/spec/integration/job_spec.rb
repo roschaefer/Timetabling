@@ -41,7 +41,7 @@ describe Asp::Job do
 
             it "problematic timetable entry is associated" do
               run
-              expect(violation.entry).to be present
+              expect(violation.entry).not_to be nil
             end
 
           end

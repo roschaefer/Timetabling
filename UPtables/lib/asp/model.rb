@@ -9,16 +9,13 @@ class Asp::Model
 
   def extract(aclass)
     results = []
-    unless (@model_hash["Value"] && aclass.respond_to?(:asp_attributes) && aclass.respond_to?(:asp_attributes))
+    unless (@model_hash["Value"])
       return results
     end
-    part = aclass.asp_attributes.collect{|a| "(.*)" }.join(",")
-    regex = /#{aclass.asp_label}\(#{part}\)/
     @model_hash["Value"].each do |v|
-      elements = v.scan(regex)
+      elements = v.scan(aclass.asp_regex)
       unless elements.empty?
-        option_hash = Hash[aclass.asp_attributes.zip(*elements)]
-        results << aclass.new(option_hash)
+        results << aclass.from_asp(elements)
       end
     end
     results
