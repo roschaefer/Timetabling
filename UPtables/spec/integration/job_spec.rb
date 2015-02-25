@@ -16,6 +16,38 @@ describe Asp::Job do
         expect(Timetable.first.costs).not_to be_nil
       end
 
+      context "with a single-slot timetable" do
+        before {
+          create :weekday
+          create :timeframe
+        }
+
+        context "soft constraint violations" do
+          context "overfull rooms" do
+            let(:violation) { Timetable::OverfullRoom.first }
+            before {
+              create :room, :capacity => 10
+              create :course, :participants => 100
+            }
+
+            it "will be noticed" do
+              expect { run }.to change {Timetable::OverfullRoom.count}.from(0).to(1)
+            end
+
+            it "severity is equal to the number of exceeded seats" do
+              run
+              expect(violation.severity).to eq 90
+            end
+
+            it "problematic timetable entry is associated" do
+              run
+              expect(violation.entry).to be present
+            end
+
+          end
+        end
+      end
+
     end
 
     context "given only hard constraints" do
