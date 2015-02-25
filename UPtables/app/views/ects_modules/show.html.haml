@@ -1,0 +1,11 @@
+%p#notice= notice
+
+%p
+  %strong Name
+  %br
+  = @ects_module.name
+
+
+= link_to 'Edit', edit_ects_module_path(@ects_module)
+\|
+= link_to 'Back', ects_modules_path

@@ -1,0 +1,16 @@
+= form_for @ects_module do |f|
+  
+  %p
+    = f.label :name
+    %br
+    = f.text_field :name
+
+  - if @ects_module.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@ects_module.errors.count, "error")} prohibited this ects_module from being saved:"
+      %ul
+        - @ects_module.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'
