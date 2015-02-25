@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150218231303) do
+ActiveRecord::Schema.define(version: 20150225204249) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "name"
@@ -97,6 +97,17 @@ ActiveRecord::Schema.define(version: 20150218231303) do
     t.datetime "updated_at",   null: false
     t.integer  "timetable_id"
   end
+
+  create_table "timetable_overfull_rooms", force: :cascade do |t|
+    t.integer  "timetable_id"
+    t.integer  "timetable_entry_id"
+    t.integer  "severity"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "timetable_overfull_rooms", ["timetable_entry_id"], name: "index_timetable_overfull_rooms_on_timetable_entry_id"
+  add_index "timetable_overfull_rooms", ["timetable_id"], name: "index_timetable_overfull_rooms_on_timetable_id"
 
   create_table "timetables", force: :cascade do |t|
     t.datetime "created_at", null: false
