@@ -2,7 +2,7 @@ class CreateTimetableOverfullRooms < ActiveRecord::Migration
   def change
     create_table :timetable_overfull_rooms do |t|
       t.references :timetable, index: true
-      t.references :timetable_entry, index: true
+      t.references :entry, index: true
       t.integer :severity
 
       t.timestamps null: false
