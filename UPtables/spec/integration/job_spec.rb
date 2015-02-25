@@ -30,6 +30,10 @@ describe Asp::Job do
               create :course, :participants => 100
             }
 
+            it "only one timetable entry will be created, the word \"assigned\" is not accidently evaluated to a new Timetable::Entry" do
+              expect { run }.to change {Timetable::Entry.count}.from(0).to(1)
+            end
+
             it "will be noticed" do
               expect { run }.to change {Timetable::OverfullRoom.count}.from(0).to(1)
             end

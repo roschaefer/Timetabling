@@ -15,7 +15,8 @@ class Asp::Model
     @model_hash["Value"].each do |v|
       elements = v.scan(aclass.asp_regex)
       unless elements.empty?
-        results << aclass.from_asp(elements)
+        results << aclass.from_asp(elements, @assignments)
+        @assignments.push( * results)
       end
     end
     results
