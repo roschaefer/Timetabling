@@ -2,6 +2,7 @@ require 'open3'
 
 class Asp::Solver
   attr_reader :models
+  attr_accessor :time_out
 
   GROUNDER    = "gringo"
   SOLVER      = "clasp"
@@ -24,7 +25,10 @@ class Asp::Solver
       grounded_program, stderr_str, status = Open3.capture3(cmd)
       status.success? or return
 
-      Open3.popen3(SOLVER, *SOLVER_OPTS) do |stdin, stdout, stderr, wait_thr|
+      options = SOLVER_OPTS
+      options << "--time-limit=#{@time_out}" if @time_out
+
+      Open3.popen3(SOLVER, *options) do |stdin, stdout, stderr, wait_thr|
         stdin.puts grounded_program
         stdin.close
         json = JSON.parse(stdout.read)
