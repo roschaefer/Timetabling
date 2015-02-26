@@ -13,7 +13,9 @@
           %a.navbar-brand{:href => "#"} University Potsdam Timetabling
           %ul.nav.navbar-nav
             %li= link_to "Timetables", timetables_path
+            %li= link_to "Modules", ects_modules_path
             %li= link_to "Rooms", rooms_path
             %li= link_to "Courses", courses_path
             %li= link_to "Teachers", teachers_path
+            
     .container= yield

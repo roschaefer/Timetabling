@@ -97,9 +97,13 @@ courses << Course.create(:name => "Deklarative Problemlösung und Optimierung V
 courses << Course.create(:name => "Deklarative Problemlösung und Optimierung Übung"                 , :teacher => romero     , :dates => 1, :minimum_working_days => 1, :participants => 10 , :double_lecture => false )
 courses << Course.create(:name => "Current Topics in Computational Intelligence Seminar"            , :teacher => schaub     , :dates => 1, :minimum_working_days => 1, :participants => 10 , :double_lecture => false )
 
-
-
 Room::Unavailability.create(:room => h01, :weekday => monday, :timeframe => eight_o_clock)
+
+EctsModule.create(:name => "Grundlagen der Programmierung")
+EctsModule.create(:name => "Algorithmen und Datenstrukturen")
+EctsModule.create(:name => "Theoretische Grundlagen: Effiziente Algorithmen")
+EctsModule.create(:name => "Konzepte paralleler Programmierung")
+
 
 #courses.each do |c|
   #e = EctsModule.create(:name => c.name)
