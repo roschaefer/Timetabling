@@ -1,6 +1,6 @@
 %h1= "Timetable #{@timetable.id}"
 %h2= "Costs: #{@timetable.costs}"
-%table
+%table.table.table-striped.fixed
   %tbody
     %thead
       %tr
@@ -9,10 +9,10 @@
         - @rooms.each do |room|
           %th= room.name
       %tr
-        %th
-        %th
+        %th.col-md-1
+        %th.col-md-2
         - @rooms.each do |room|
-          %th= "#{room.capacity} Seats"
+          %th.col-md-4= "#{room.capacity} Seats"
     - @weekdays.each do |weekday|
       - @timeframes.each_with_index do |timeframe, i|
         %tr
@@ -20,8 +20,10 @@
           %td= timeframe.interval
           - @rooms.each do |room|
             - entry = @timetable.entries.find {|e| (e.timeframe == timeframe) && (e.weekday == weekday) && (e.room == room)}
-            - bgcolor = "#AAAAAA"  if room.unavailabilities.find {|u| (u.weekday == weekday) && (u.timeframe == timeframe)}
-            %td{:bgcolor => bgcolor}
+            - classes = []
+            - classes << "room-unavailable"  if room.unavailabilities.find {|u| (u.weekday == weekday) && (u.timeframe == timeframe)}
+            - classes << "room-overfull"  if (entry and entry.overfull_room)
+            %td{:class => classes}
               - if entry
                 = entry.course.name
                 %br
@@ -29,4 +31,3 @@
                 %br
                 %strong= entry.course.participants
                 %br
-                %strong= "Overfull!" if entry.overfull_room
