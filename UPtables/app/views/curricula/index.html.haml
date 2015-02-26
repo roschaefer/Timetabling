@@ -6,10 +6,12 @@
       %th
       %th
       %th
+      %th
       
   %tbody
     - @curricula.each do |curriculum|
       %tr
+        %td= curriculum.name
         %td= link_to 'Show', curriculum
         %td= link_to 'Edit', edit_curriculum_path(curriculum)
         %td= link_to 'Destroy', curriculum, :method => :delete, :data => { :confirm => 'Are you sure?' }

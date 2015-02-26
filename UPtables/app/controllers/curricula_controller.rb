@@ -69,6 +69,6 @@ class CurriculaController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def curriculum_params
-      params[:curriculum]
+      params.require(:curriculum).permit(:name, :ects_module_ids => [])
     end
 end

@@ -24,11 +24,11 @@ RSpec.describe CurriculaController, type: :controller do
   # Curriculum. As you add validations to Curriculum, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {:name => "Informatik Bachelor"}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {:name => nil}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +103,19 @@ RSpec.describe CurriculaController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {:name => "Module with some courses", :ects_module_ids => [8, 88]}
       }
 
       it "updates the requested curriculum" do
+        
+        create :ects_module, :id => 8
+        create :ects_module, :id => 88
+        
         curriculum = Curriculum.create! valid_attributes
         put :update, {:id => curriculum.to_param, :curriculum => new_attributes}, valid_session
         curriculum.reload
-        skip("Add assertions for updated state")
+        
+        expect(curriculum.ects_modules).to have(2).items
       end
 
       it "assigns the requested curriculum as @curriculum" do
