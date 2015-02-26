@@ -39,6 +39,8 @@ class Asp::Job
     #binding.pry
 
     solver = Asp::Solver.new
+    solver.time_out = 5.seconds
+
     if (solver.solve(encoding))
       solver.models.each_with_index do |model, i|
         ActiveRecord::Base.transaction do
