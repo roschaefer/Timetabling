@@ -104,6 +104,10 @@ EctsModule.create(:name => "Algorithmen und Datenstrukturen")
 EctsModule.create(:name => "Theoretische Grundlagen: Effiziente Algorithmen")
 EctsModule.create(:name => "Konzepte paralleler Programmierung")
 
+Curriculum.create(:name => "Informatik Bachelor")
+Curriculum.create(:name => "Informatik Master")
+Curriculum.create(:name => "CS Bachelor")
+Curriculum.create(:name => "CS Master")
 
 #courses.each do |c|
   #e = EctsModule.create(:name => c.name)

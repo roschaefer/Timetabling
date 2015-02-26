@@ -1,0 +1,16 @@
+%p#notice= notice
+
+%p
+  %strong Name
+  %br
+  = @curriculum.name
+  
+  %p
+    %strong Modules
+  %ul
+    - @curriculum.ects_modules.each do |m|
+      %li= m.name
+  
+= link_to 'Edit', edit_curriculum_path(@curriculum)
+\|
+= link_to 'Back', curricula_path
