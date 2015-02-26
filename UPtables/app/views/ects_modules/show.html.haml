@@ -4,6 +4,13 @@
   %strong Name
   %br
   = @ects_module.name
+  
+
+%p
+  %strong Courses
+%ul
+  - @ects_module.courses.each do |c|
+    %li= c.name
 
 
 = link_to 'Edit', edit_ects_module_path(@ects_module)

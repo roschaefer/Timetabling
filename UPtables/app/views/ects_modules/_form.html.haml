@@ -5,6 +5,11 @@
     %br
     = f.text_field :name
 
+  %p
+    = f.label :courses
+    %br
+    = f.collection_select :course_ids, Course.all, :id, :name, {:selected => @ects_module.courses.collect{|c|c.id}, :include_blank => false}, {:multiple => true}
+
   - if @ects_module.errors.any?
     #error_explanation
       %h2= "#{pluralize(@ects_module.errors.count, "error")} prohibited this ects_module from being saved:"
