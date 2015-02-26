@@ -25,8 +25,11 @@ class Asp::Solver
       grounded_program, stderr_str, status = Open3.capture3(cmd)
       status.success? or return
 
-      options = SOLVER_OPTS
-      options << "--time-limit=#{@time_out}" if @time_out
+      options = []
+      options.push(* SOLVER_OPTS)
+      if @time_out
+        options << "--time-limit=#{@time_out}"
+      end
 
       Open3.popen3(SOLVER, *options) do |stdin, stdout, stderr, wait_thr|
         stdin.puts grounded_program
