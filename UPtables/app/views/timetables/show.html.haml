@@ -28,3 +28,5 @@
                 = entry.course.teacher.full_name
                 %br
                 %strong= entry.course.participants
+                %br
+                %strong= "Overfull!" if entry.overfull_room
