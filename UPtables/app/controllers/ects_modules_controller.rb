@@ -41,8 +41,6 @@ class EctsModulesController < ApplicationController
   # PATCH/PUT /ects_modules/1
   # PATCH/PUT /ects_modules/1.json
   def update
-    @ects_module.course_ids = params[:ects_module][:course_ids]
-    
     respond_to do |format|
       if @ects_module.update(ects_module_params)
         format.html { redirect_to @ects_module, notice: 'ects module was successfully updated.' }
@@ -72,6 +70,6 @@ class EctsModulesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ects_module_params
-      params.require(:ects_module).permit(:name,:course_ids)
+      params.require(:ects_module).permit(:name, :course_ids => [])
     end
 end
