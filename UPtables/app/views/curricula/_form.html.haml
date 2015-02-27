@@ -8,7 +8,7 @@
   %p
     = f.label :ects_modules
     %br
-    = f.collection_select :ects_module_ids, EctsModule.all, :id, :name, {:selected => @curriculum.ects_modules.collect{|m|m.id}}, {:multiple => true}
+    = f.collection_select :ects_module_ids, EctsModule.all, :id, :name, {:selected => @curriculum.ects_modules.collect{|m|m.id}}, {:multiple => true, :class => 'multiselect'}
 
   - if @curriculum.errors.any?
     #error_explanation
