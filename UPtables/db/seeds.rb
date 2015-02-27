@@ -30,7 +30,6 @@ Timeframe.create(:id => 2, :interval => "12:00 - 14:00" )
 Timeframe.create(:id => 3, :interval => "14:00 - 16:00" )
 Timeframe.create(:id => 4, :interval => "16:00 - 18:00" )
 Timeframe.create(:id => 5, :interval => "18:00 - 20:00" )
-Timeframe.create(:id => 6, :interval => "20:00 - 22:00" )
 
 schaub         =  Teacher.create(:id => 0,  :first_name => "Torsten",   :surname =>"Schaub")
 romero         =  Teacher.create(:id => 1,  :first_name => "Javier",    :surname =>"Romero")
