@@ -87,7 +87,7 @@ Wenn(/^außerdem diese Unverfügbarkeiten angebe$/) do |table|
       if ( cell =~ /X/ )
         timeframe_i = i + 1 # default id sequence start with 1 in rails
         weekday_i   = j + 1
-        check "unavailability[#{weekday_i}][#{timeframe_i}]"
+        find(:css, "#room_unavailability_ids_[value='#{weekday_i} #{timeframe_i}']").set(true)
       end
     end
   end

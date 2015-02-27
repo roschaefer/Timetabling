@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :edit, :update, :destroy]
-  before_action :set_weekdays_and_timeframes, only: [:show, :new, :edit]
+  before_action :set_weekdays_and_timeframes, only: [:show, :new, :edit, :create]
 
   # GET /rooms
   # GET /rooms.json
@@ -28,7 +28,7 @@ class RoomsController < ApplicationController
     @room = Room.new(room_params)
 
     respond_to do |format|
-      if @room.save and @room.update_unavailabilities(params[:unavailability])
+      if @room.save and @room.update_unavailabilities(params[:room_unavailability_ids])
         format.html { redirect_to @room, notice: 'Room was successfully created.' }
         format.json { render :show, status: :created, location: @room }
       else
@@ -42,7 +42,7 @@ class RoomsController < ApplicationController
   # PATCH/PUT /rooms/1.json
   def update
     respond_to do |format|
-      if @room.update(room_params) and @room.update_unavailabilities(params[:unavailability])
+      if @room.update(room_params) and @room.update_unavailabilities(params[:room_unavailability_ids])
         format.html { redirect_to @room, notice: 'Room was successfully updated.' }
         format.json { render :show, status: :ok, location: @room }
       else
