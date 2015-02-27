@@ -12,11 +12,11 @@
  *
  */
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+
+@import "multi-select";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "timetables";
-
-
 
 /*see http://stackoverflow.com/questions/19203816/vertical-divider-wont-work-in-bootstrap-3-0*/
 .navbar .divider-vertical {
