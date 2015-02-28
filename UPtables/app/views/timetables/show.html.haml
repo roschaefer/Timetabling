@@ -1,7 +1,6 @@
-%h1= "Timetable #{@timetable.id}"
-%h2= "Costs: #{@timetable.costs}"
-%table.table.table-striped.fixed
-  %tbody
+.table-responsive
+  %table.table.table-condensed
+    %caption= "Timetable #{@timetable.id} with costs of #{@timetable.costs}"
     %thead
       %tr
         %th
@@ -9,25 +8,26 @@
         - @rooms.each do |room|
           %th= room.name
       %tr
-        %th.col-md-1
-        %th.col-md-2
+        %th
+        %th
         - @rooms.each do |room|
-          %th.col-md-4= "#{room.capacity} Seats"
-    - @weekdays.each do |weekday|
-      - @timeframes.each_with_index do |timeframe, i|
-        %tr
-          %td= weekday.name if (i == 0)
-          %td= timeframe.interval
-          - @rooms.each do |room|
-            - entry = @timetable.entries.find {|e| (e.timeframe == timeframe) && (e.weekday == weekday) && (e.room == room)}
-            - classes = []
-            - classes << "room-unavailable"  if room.unavailabilities.find {|u| (u.weekday == weekday) && (u.timeframe == timeframe)}
-            - classes << "room-overfull"  if (entry and entry.overfull_room)
-            %td{:class => classes}
-              - if entry
-                = entry.course.name
-                %br
-                = entry.course.teacher.full_name
-                %br
-                %strong= entry.course.participants
-                %br
+          %th= "#{room.capacity} Seats"
+    %tbody
+      - @weekdays.each do |weekday|
+        - @timeframes.each_with_index do |timeframe, i|
+          %tr
+            %td= weekday.name if (i == 0)
+            %td= timeframe.interval
+            - @rooms.each do |room|
+              - entry = @timetable.entries.find {|e| (e.timeframe == timeframe) && (e.weekday == weekday) && (e.room == room)}
+              - classes = []
+              - classes << "room-unavailable"  if room.unavailabilities.find {|u| (u.weekday == weekday) && (u.timeframe == timeframe)}
+              - classes << "room-overfull"  if (entry and entry.overfull_room)
+              %td{:class => classes}
+                - if entry
+                  = entry.course.name
+                  %br
+                  = entry.course.teacher.full_name
+                  %br
+                  %strong= entry.course.participants
+                  %br
