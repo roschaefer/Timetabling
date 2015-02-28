@@ -47,6 +47,7 @@ class Asp::Job
           timetable = Timetable.new
           timetable.id = i
           timetable.costs = model.costs
+          timetable.optimum = model.optimum
           model.extract(Timetable::Entry).each do |entry|
             entry.timetable_id = timetable.id
             entry.save!
