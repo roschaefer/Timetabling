@@ -6,6 +6,7 @@
 
 require 'cucumber/rails'
 require 'factory_girl_rails'
+require 'capybara-screenshot/cucumber'
 
 World(FactoryGirl::Syntax::Methods)
 

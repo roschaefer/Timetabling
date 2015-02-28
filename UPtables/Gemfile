@@ -10,6 +10,7 @@ group :development, :test do
   gem 'rspec-collection_matchers'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
+  gem 'capybara-screenshot'
 end
 gem 'passenger'
 gem 'capistrano-rails', '~> 1.1'
