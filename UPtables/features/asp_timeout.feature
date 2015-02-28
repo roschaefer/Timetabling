@@ -15,7 +15,8 @@ um je nach Situation schnellere oder bessere Ergebnisse zu bekommen.
        | 16:00 - 18:00 |
        | 18:00 - 20:00 |
     Und es gibt 10 Kurse in der Datenbank
-    Und es gibt 5 Räume in der Datenbank
+    Und alle Kurse gehören zu einer Studienordnung
+    Und es gibt 5 Räume mit jeweils 10 Plätzen in der Datenbank
 
   Szenario: Eine Sekunde Time out
     Wenn ich auf die Stundenplan Seite gehe
