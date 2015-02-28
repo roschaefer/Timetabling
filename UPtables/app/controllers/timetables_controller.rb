@@ -11,8 +11,8 @@ class TimetablesController < ApplicationController
   end
 
   def solve
-    Timetable.destroy_all
     job = Asp::Job.new
+    job.time_out = params[:time_out]
     job.run
     redirect_to action: 'index'
   end

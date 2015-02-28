@@ -1,8 +1,10 @@
 class Asp::Job
-  attr_accessor :configuration
+  attr_accessor :configuration, :solver
+  delegate :time_out, :time_out=, :to => :solver
 
   def initialize
     @fact_classes = [Room, Weekday, Timeframe, Course, Room::Unavailability, Teacher::Unavailability]
+    @solver = Asp::Solver.new
   end
 
   def configuration
@@ -38,10 +40,8 @@ class Asp::Job
     #File.open("script/debug.lp", 'w') { |file| file.write(encoding) }
     #binding.pry
 
-    solver = Asp::Solver.new
-    solver.time_out = 5.seconds
-
     if (solver.solve(encoding))
+      Timetable.destroy_all
       solver.models.each_with_index do |model, i|
         ActiveRecord::Base.transaction do
           timetable = Timetable.new
