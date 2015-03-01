@@ -3,6 +3,9 @@ class Course < ActiveRecord::Base
   belongs_to :teacher
   has_and_belongs_to_many :ects_modules
   has_many :curricula, :through => :ects_modules
+  has_many :recommendations
+  has_many :recommended_curricula, :through => :recommendations, :source => :curriculum
+  accepts_nested_attributes_for :recommendations, :reject_if => :all_blank, :allow_destroy => true
 
   def self.to_fact
     "courses(#{count})."

@@ -23,6 +23,12 @@ RSpec.describe Recommendation, type: :model do
           create(:ects_module, :courses => [course], :curricula => [curriculum])
         }
         it { is_expected.to be_valid}
+        context "and is already recommended for a curriculum" do
+          before {
+            create(:recommendation, :course => course, :curriculum => curriculum)
+          }
+          it { is_expected.not_to be_valid}
+        end
       end
     end
 
