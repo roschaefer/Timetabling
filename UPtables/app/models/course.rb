@@ -1,6 +1,6 @@
 class Course < ActiveRecord::Base
   validates :dates, :numericality => { :greater_than => 0}
-  validate  :check_for_double_recommendations
+  validate  :check_for_duplicate_recommendations
   belongs_to :teacher
   has_and_belongs_to_many :ects_modules
   has_many :curricula, :through => :ects_modules
@@ -21,7 +21,7 @@ class Course < ActiveRecord::Base
     facts.join("\n")
   end
 
-  def check_for_double_recommendations
+  def check_for_duplicate_recommendations
     if recommendations.map(&:curriculum_id).uniq.size < recommendations.size
       errors.add(:recommendations, "belong to the same curriculum")
     end
