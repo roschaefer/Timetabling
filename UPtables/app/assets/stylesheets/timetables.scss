@@ -7,9 +7,24 @@
 .room-overfull {
   background-color: #FFCCCC
 }
-.fixed {
-  overflow: auto;
-  max-width: none;
-  table-layout: fixed;
-  word-wrap: break-word;
+
+.weekday {
+  min-width: 50px !important;
+  max-width: 50px !important;
+  width: 50px !important;
+}
+.timeframe {
+  min-width: 100px !important;
+  max-width: 100px !important;
+  width: 100px !important;
+}
+.timetable-row{
+  height: 100px !important;
+  min-height: 100px !important;
+  max-height: 100px !important;
+}
+.timetable-cell{
+  min-width: 200px !important;
+  max-width: 200px !important;
+  width: 200px !important;
 }
