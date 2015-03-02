@@ -1,10 +1,10 @@
 .table-responsive
-  %table.table.table-condensed
+  %table.table.table-striped.table-condensed
     %caption= "Timetable #{@timetable.id} with costs of #{@timetable.costs}"
     %thead
       %tr
-        %th
-        %th
+        %th.weekday
+        %th.timeframe
         - @rooms.each do |room|
           %th= room.name
       %tr
@@ -15,7 +15,7 @@
     %tbody
       - @weekdays.each do |weekday|
         - @timeframes.each_with_index do |timeframe, i|
-          %tr
+          %tr.timetable-row
             %td= weekday.name if (i == 0)
             %td= timeframe.interval
             - @rooms.each do |room|
@@ -23,7 +23,7 @@
               - classes = []
               - classes << "room-unavailable"  if room.unavailabilities.find {|u| (u.weekday == weekday) && (u.timeframe == timeframe)}
               - classes << "room-overfull"  if (entry and entry.overfull_room)
-              %td{:class => classes}
+              %td.timetable-cell{:class => classes}
                 - if entry
                   = entry.course.name
                   %br
