@@ -24,11 +24,12 @@
     %br
     = f.check_box :double_lecture
 
-  %h3 Enrollment recommendations per curriculum
-  = f.fields_for :recommendations do | recommendation |
-    = render "recommendation_fields", :f => recommendation
-  .links
-    = link_to_add_association "Add recommendation", f, :recommendations
+  - if @course.curricula.present?
+    %h3 Enrollment recommendations per curriculum
+    = f.fields_for :recommendations do | recommendation |
+      = render "recommendation_fields", :f => recommendation
+    .links
+      = link_to_add_association "Add recommendation", f, :recommendations
 
 
 
