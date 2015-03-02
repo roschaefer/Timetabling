@@ -1,28 +1,36 @@
 = form_for @course do |f|
-  %p
+  %p.field
     = f.label :name
     %br
     = f.text_field :name, :size => 50
-  %p
+  %p.field
     = f.label :teacher
     %br
     = f.select :teacher_id, Teacher.all.collect {|t| [t.full_name, t.id]}
-  %p
+  %p.field
     = f.label :dates
     %br
     = f.number_field :dates
-  %p
+  %p.field
     = f.label :minimum_working_days
     %br
     = f.number_field :minimum_working_days
-  %p
+  %p.field
     = f.label :participants
     %br
     = f.number_field :participants
-  %p
+  %p.field
     = f.label :double_lecture
     %br
     = f.check_box :double_lecture
+
+  %h3 Enrollment recommendations per curriculum
+  = f.fields_for :recommendations do | recommendation |
+    = render "recommendation_fields", :f => recommendation
+  .links
+    = link_to_add_association "Add recommendation", f, :recommendations
+
+
 
   - if @course.errors.any?
     #error_explanation
