@@ -11,6 +11,8 @@ group :development, :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'capybara-screenshot'
+  gem "capybara-webkit"
+  gem "launchy"
 end
 gem 'passenger'
 gem 'capistrano-rails', '~> 1.1'
@@ -18,6 +20,10 @@ gem 'capistrano-rvm'
 gem 'capistrano-secrets-yml'
 gem 'capistrano-passenger'
 gem 'rake'
+
+#nested form helper
+gem 'cocoon'
+
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
