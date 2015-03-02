@@ -39,7 +39,9 @@ class Asp::Solver
         witnesses.present? and witnesses.each do |w|
           @models << Asp::Model.new(w)
         end
-        @models.last.optimum = (json["Result"] == "OPTIMUM FOUND")
+        if @models.present?
+          @models.last.optimum = (json["Result"] == "OPTIMUM FOUND")
+        end
       end
     ensure
     t.close
