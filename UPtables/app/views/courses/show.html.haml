@@ -24,9 +24,11 @@
   %p
     %strong Double Lecture
 
-%p
+%br
+.container
   %table.table
-    %theader
+    %caption Curricula
+    %thead
       %tr
         %th Ects Module
         %th Curricula
@@ -36,6 +38,20 @@
           %tr
             %td= m.name
             %td= c.name
+
+%br
+.container
+  %table.table
+    %thead
+    %caption Enrollment recommendations per curriculum
+    %thead
+      %tr
+        %th Curriculum
+        %th Semester
+      - @course.recommendations.each do |r|
+        %tr
+          %td= r.curriculum.name
+          %td= r.semester
 
 
 = link_to 'Edit', edit_course_path(@course)

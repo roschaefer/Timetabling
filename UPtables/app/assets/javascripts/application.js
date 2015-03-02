@@ -16,6 +16,7 @@
 //= require multi-select
 //= require turbolinks
 //= require bootstrap
+//= require cocoon
 //= require_tree .
 
 $(document).ready(function() {

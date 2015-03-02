@@ -195,3 +195,56 @@ end
 Dann(/^wie ich sehe, wurde keine optimale Lösung gefunden$/) do
   expect(page).to have_text("Timed out before optimal solution could be found")
 end
+
+Angenommen(/^es gibt die Studienordnung "(.*?)"$/) do |curriculum|
+  create :curriculum, :name => curriculum
+end
+
+Angenommen(/^der Kurs gehört zur Studienordnung "(.*?)"$/) do |curriculum|
+  ects_module = create(:ects_module)
+  @course.ects_modules << ects_module
+  Curriculum.find_by!(:name => curriculum).ects_modules << ects_module
+end
+
+Wenn(/^ich den Kurs bearbeiten möchte$/) do
+  visit edit_course_path(@course)
+end
+
+Dann(/^ist in der Datenbank der Kurs im zweiten Semester für diese Studienordnung empfohlen$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+def recommend(n, curriculum, semester)
+  click_link "Add recommendation"
+  all(".select_box_for_curricula")[n].select(curriculum)
+  all(".semester")[n].set(semester)
+end
+
+Wenn(/^den Kurs für die Studienordnung "(.*?)" im (\d+)\. Semester empfehle$/) do |curriculum, semester|
+  recommend(0, curriculum, semester)
+end
+
+Wenn(/^den Kurs für die Studienordnung "(.*?)" auch im (\d+)\. Semester empfehle$/) do |curriculum, semester|
+  recommend(1, curriculum, semester)
+end
+
+Wenn(/^dann versuche zu speichern$/) do
+  click_button "Save"
+end
+
+Dann(/^ist in der Datenbank der Kurs im (\d+)\. Semester im Studiengang "(.*?)" empfohlen$/) do |semester, curriculum|
+  find "#notice" # wait for update
+  @course.reload
+  expect(@course.recommendations.first.semester).to eq semester.to_i
+  expect(@course.recommendations.first.curriculum.name).to eq curriculum
+end
+
+Dann(/^sehe ich Validierungsfehler$/) do
+  expect(page).to have_text("error")
+end
+
+Dann(/^der Kurs hat keine Empfehlung für irgendeine Studienordnung$/) do
+  @course.reload
+  expect(@course.recommendations).to be_empty
+end
+
