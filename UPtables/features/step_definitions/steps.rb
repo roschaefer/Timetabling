@@ -153,3 +153,45 @@ Dann(/^möchte ich die Studienordnungen (?:"(.*)",)* "(.*)" und "(.*)" sehen$/) 
   curricula.each {|c| expect(page).to have_content(c) }
 end
 
+Angenommen(/^es gibt (\d+) Räume mit jeweils (\d+) Plätzen in der Datenbank$/) do |number_of_rooms, number_of_seats|
+  number_of_rooms.to_i.times do
+    create :room, :capacity => number_of_seats
+  end
+end
+
+Angenommen(/^es gibt (\d+) Kurse in der Datenbank$/) do |number_of_courses|
+  number_of_courses.to_i.times do
+    create :course
+  end
+end
+
+Angenommen(/^alle Kurse gehören zu einer Studienordnung$/) do
+  curriculum  = create :curriculum
+  ects_module = create :ects_module
+  curriculum.ects_modules << ects_module
+  Course.find_each do |c|
+    c.ects_modules << ects_module
+  end
+end
+
+Wenn(/^ich auf die Stundenplan Seite gehe$/) do
+  visit timetables_path
+end
+
+Wenn(/^ich einen Time out von einer Sekunde einstelle$/) do
+  fill_in :time_out, :with => 1
+end
+
+Wenn(/^die Suche starte$/) do
+  @seach_started = Time.now
+  click_button "Solve!"
+end
+
+Dann(/^habe ich nach kaum mehr als einer Sekunde schon Ergebnisse$/) do
+  page.find ".timetable"
+  expect(Time.now - @seach_started).to be < 2.seconds
+end
+
+Dann(/^wie ich sehe, wurde keine optimale Lösung gefunden$/) do
+  expect(page).to have_text("Timed out before optimal solution could be found")
+end

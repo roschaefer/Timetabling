@@ -22,6 +22,13 @@ describe Asp::Job do
           create :timeframe
         }
 
+        it "finds optimal solutions" do
+          create :room
+          create :course
+          run
+          expect(Timetable.all.find_all {|t| t.optimum?}).to have_at_least(1).item
+        end
+
         context "soft constraint violations" do
           context "overfull rooms" do
             let(:violation) { Timetable::OverfullRoom.first }

@@ -1,5 +1,6 @@
 class Asp::Model
   attr_reader :assignments, :costs
+  attr_accessor :optimum
 
   def initialize(model_hash)
     @model_hash = model_hash
