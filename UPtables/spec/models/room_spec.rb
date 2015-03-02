@@ -51,14 +51,14 @@ RSpec.describe Room, type: :model do
   end
 
   describe "#update_unavailabilities" do
-    it "bulk inserts and deletes unavailabilities" do
+    it "bulk inserts unavailabilities" do
       create :weekday, :id =>1
       create :weekday, :id =>2
       create :timeframe, :id =>2
       create :timeframe, :id =>3
       create :timeframe, :id =>4
       expect {
-        room.update_unavailabilities({"1" => {"2" => true, "3" => true}, "2" => {"4" => true}})
+        room.update_unavailabilities(["1 2","2 3","2 4"])
       }.to change{Room::Unavailability.count}.from(0).to(3)
     end
 

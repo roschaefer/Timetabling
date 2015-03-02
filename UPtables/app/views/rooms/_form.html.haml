@@ -17,11 +17,15 @@
         - @weekdays.each do |weekday|
           %th= weekday.name
     %tbody
+      %tr
+        %td Whole day
+        - @weekdays.each do |weekday|
+          %td= check_box_tag weekday.id, 'yes', false, :class => 'check_whole_day'
       - @timeframes.each do |timeframe|
         %tr
           %td=timeframe.interval
           - @weekdays.each do |weekday|
-            %td= check_box_tag "unavailability[#{weekday.id}][#{timeframe.id}]", "checked", @room.unavailabilities.any?{|u| (u.weekday.id == weekday.id) && (u.timeframe.id == timeframe.id)}
+            %td= check_box_tag "room_unavailability_ids[]", [weekday.id, timeframe.id], @room.unavailabilities.any?{|u| (u.weekday.id == weekday.id) && (u.timeframe.id == timeframe.id)}
 
   - if @room.errors.any?
     #error_explanation
