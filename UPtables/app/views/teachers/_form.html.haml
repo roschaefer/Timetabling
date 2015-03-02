@@ -9,19 +9,18 @@
     = f.text_field :surname
   %p
 
-  %h3 Unavailabilities
-  
   %table.table
+    %caption.text-center Unavailabilities
     %thead
       %tr
         %th
         - @weekdays.each do |day|
-          %th= day.name          
+          %th= day.name
     %tbody
       - @timeframes.each do |frame|
         %tr
-          %td= frame.interval 
+          %td= frame.interval
           - @weekdays.each do |day|
             %td= check_box_tag "teacher_unavailability_ids[]", [day.id, frame.id], @teacher.unavailabilities ? @teacher.unavailabilities.any?{|u| u.weekday_id == day.id and u.timeframe_id == frame.id} : false
-            
+
   = f.submit "Save"

@@ -10,11 +10,13 @@
   %p
 
   %table.table
-    %tbody
+    %caption.text-center Unavailabilities
+    %thead
       %tr
         %th
         - @weekdays.each do |weekday|
           %th= weekday.name
+    %tbody
       - @timeframes.each do |timeframe|
         %tr
           %td=timeframe.interval
