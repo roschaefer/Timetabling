@@ -1,7 +1,7 @@
 FactoryGirl.define do
-  factory :curriculum_module_assingment do
+  factory :curriculum_module_assignment do
     mandatory   false
-    ects_module
-    curriculum
+    association :ects_module
+    association :curriculum
   end
 end
