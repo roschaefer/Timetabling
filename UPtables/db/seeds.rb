@@ -98,19 +98,22 @@ courses << Course.create(:name => "Current Topics in Computational Intelligence 
 
 Room::Unavailability.create(:room => h01, :weekday => monday, :timeframe => eight_o_clock)
 
-EctsModule.create(:name => "Grundlagen der Programmierung")
-EctsModule.create(:name => "Algorithmen und Datenstrukturen")
-EctsModule.create(:name => "Theoretische Grundlagen: Effiziente Algorithmen")
-EctsModule.create(:name => "Konzepte paralleler Programmierung")
+ects_modules = []
+ects_modules << EctsModule.create(:name => "Grundlagen der Programmierung")
+ects_modules << EctsModule.create(:name => "Algorithmen und Datenstrukturen")
+ects_modules << EctsModule.create(:name => "Theoretische Grundlagen: Effiziente Algorithmen")
+ects_modules << EctsModule.create(:name => "Konzepte paralleler Programmierung")
 
-Curriculum.create(:name => "Informatik Bachelor")
-Curriculum.create(:name => "Informatik Master")
-Curriculum.create(:name => "CS Bachelor")
-Curriculum.create(:name => "CS Master")
+curricula = []
+curricula << Curriculum.create(:name => "Informatik Bachelor")
+curricula << Curriculum.create(:name => "Informatik Master")
+curricula << Curriculum.create(:name => "CS Bachelor")
+curricula << Curriculum.create(:name => "CS Master")
 
-#courses.each do |c|
-  #e = EctsModule.create(:name => c.name)
-  #cu = Curriculum.create(:name => c.name)
-  #c.ects_modules << e
-  #cu.ects_modules << e
-#end
+curricula.each do |c|
+  c.ects_modules << ects_modules.sample(Random.rand(ects_modules.size))
+end
+
+courses.each do |course|
+  course.ects_modules << ects_modules.sample(Random.rand(ects_modules.size))
+end
