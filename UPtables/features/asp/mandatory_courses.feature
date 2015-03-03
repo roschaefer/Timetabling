@@ -12,7 +12,6 @@ Funktionalität: Pflichtveranstaltungen
   Und es gibt die Kurse "Face Recognition" und "Cluster Computing"
   Und es gibt die zwei Studienordnungen "Bachelor Informatik" und "Master Informatik"
 
-  @debug
   Szenario: Pflichtveranstaltungen mit gleicher Semesterempfehlung
   Angenommen die Kurse sind beides Pflichtveranstaltungen im Studiengang "Bachelor Informatik"
   Und die Kurse sind beide im 4. Semester empfohlen
