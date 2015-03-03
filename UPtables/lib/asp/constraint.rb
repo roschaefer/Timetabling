@@ -1,7 +1,7 @@
 class Asp::Constraint
 
   HARD_CONSTRAINTS = ["scheduled", "conflicts", "room_occupancy", "availability", "double_lectures", "additional", "room_availability"]
-  SOFT_CONSTRAINTS = ["room_capacity", "minimum_working_days", "isolated_lectures"]
+  SOFT_CONSTRAINTS = ["room_capacity", "minimum_working_days"]
 
   class << self
     protected :new
