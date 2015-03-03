@@ -18,6 +18,12 @@ um je nach Situation schnellere oder bessere Ergebnisse zu bekommen.
     Und alle Kurse gehören zu einer Studienordnung
     Und es gibt 5 Räume mit jeweils 10 Plätzen in der Datenbank
 
+
+  Szenario: Meldung wird nicht angezeigt, wenn keine Lösungen vorhanden sind
+    Wenn ich auf die Stundenplan Seite gehe
+    Und es keine Stundenpläne gibt
+    Dann sollte auch keine Meldung vorhanden sein, dass keine optimale Lösung gefunden wurde
+
   Szenario: Eine Sekunde Time out
     Wenn ich auf die Stundenplan Seite gehe
     Und ich einen Time out von einer Sekunde einstelle

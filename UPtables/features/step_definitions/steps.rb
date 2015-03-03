@@ -193,7 +193,7 @@ Dann(/^habe ich nach kaum mehr als einer Sekunde schon Ergebnisse$/) do
 end
 
 Dann(/^wie ich sehe, wurde keine optimale Lösung gefunden$/) do
-  expect(page).to have_text("Timed out before optimal solution could be found")
+  expect(page).to have_css(".timed-out")
 end
 
 Angenommen(/^es gibt die Studienordnung "(.*?)"$/) do |curriculum|
@@ -248,3 +248,10 @@ Dann(/^der Kurs hat keine Empfehlung für irgendeine Studienordnung$/) do
   expect(@course.recommendations).to be_empty
 end
 
+Wenn(/^es keine Stundenpläne gibt$/) do
+  expect(Timetable.count).to eq 0
+end
+
+Dann(/^sollte auch keine Meldung vorhanden sein, dass keine optimale Lösung gefunden wurde$/) do
+  expect(page).not_to have_css(".timed-out")
+end
