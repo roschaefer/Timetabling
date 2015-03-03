@@ -1,9 +1,10 @@
 class Curriculum < ActiveRecord::Base
   include HasUnavailabilities
-  has_many :curriculum_ects_module_joins
-  has_many :ects_modules, :through => :curriculum_ects_module_joins
+  
   has_many :unavailabilities, dependent: :destroy
-
+  has_many :curriculum_module_assignments
+  has_many :ects_modules, through: :curriculum_module_assignments
+  
   validates :name, :presence => true
 
   def self.to_fact
