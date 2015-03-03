@@ -19,7 +19,7 @@ class Course < ActiveRecord::Base
       facts << "curricula(#{c.id}, #{id})."
     end
     recommendations.each do |r|
-      facts << "recommendation(#{r.id}, #{r.semester}, #{id})."
+      facts << "recommendation(#{id}, #{r.semester}, #{r.curriculum_id})."
     end
     facts.join("\n")
   end
