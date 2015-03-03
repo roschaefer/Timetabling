@@ -188,7 +188,7 @@ Wenn(/^die Suche starte$/) do
 end
 
 Dann(/^habe ich nach kaum mehr als einer Sekunde schon Ergebnisse$/) do
-  page.find ".timetable"
+  all ".timetable"
   expect(Time.now - @seach_started).to be < 2.seconds
 end
 
