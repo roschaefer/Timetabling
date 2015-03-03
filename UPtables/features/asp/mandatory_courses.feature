@@ -7,6 +7,7 @@ Funktionalität: Pflichtveranstaltungen
   Grundlage:
   Angenommen unser Stundenplan sieht so aus:
     |          |       | Raum 1 | Raum 2 |
+    |          |       | 100    | 150    |
     | Mittwoch | 10:00 |        |        |
   Und es gibt die Kurse "Face Recognition" und "Cluster Computing"
   Und es gibt die zwei Studienordnungen "Bachelor Informatik" und "Master Informatik"
