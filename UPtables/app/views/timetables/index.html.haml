@@ -6,8 +6,8 @@
       = number_field_tag :time_out, 5
       = submit_tag "Solve!"
 
-- unless @optimum_found
-  %p.alert.alert-danger{:role => :alert} Timed out before optimal solution could be found
+- if @timed_out
+  %p.alert.alert-danger.timed-out{:role => :alert} Timed out before optimal solution could be found
 
 %table.table
   %tbody

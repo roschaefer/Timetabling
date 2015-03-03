@@ -1,7 +1,7 @@
 class TimetablesController < ApplicationController
   def index
     @timetables = Timetable.all
-    @optimum_found = @timetables.any? {|t| t.optimum? }
+    @timed_out = (@timetables.present? && @timetables.none? {|t| t.optimum? })
   end
 
   def show
