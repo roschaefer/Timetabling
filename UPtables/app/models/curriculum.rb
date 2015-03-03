@@ -1,8 +1,9 @@
 class Curriculum < ActiveRecord::Base
-  has_and_belongs_to_many :ects_modules
-  
+  has_many :curriculum_ects_module_joins
+  has_many :ects_modules, :through => :curriculum_ects_module_joins
+
   validates :name, :presence => true
-  
+
   def self.to_fact
     "curricula(#{count})."
   end

@@ -2,6 +2,8 @@
 %%% given minimum number of days. Each day below the minimum counts as
 %%% 1 violation.
 
+#const penalty_of_min_working_days = 5.
+
 working_day(C,D) :- assigned(C,D,P).
 
 penalty("MinWorkingDays",course(C,MWD,N),(MWD-N)*penalty_of_min_working_days) :- 
