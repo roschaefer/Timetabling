@@ -28,7 +28,6 @@ end
 def create_mandatory_module_for(course, curriculum)
   ects_module = create(:ects_module)
   course.ects_modules << ects_module
-  # TODO: implemenet mandatory functionality here
   curriculum.ects_modules << ects_module
 end
 
@@ -47,9 +46,7 @@ Angenommen(/^die Kurse sind beide im (\d+)\. Semester empfohlen$/) do |semester|
 end
 
 Dann(/^gibt es keine Lösung, weil sich die Kurse nicht überschneiden dürfen$/) do
-  job = Asp::Job.new
-  job.run
-  expect(Timetable.all).to be_empty
+  expect(Timetable.all).to have(0).items
 end
 
 Angenommen(/^der Kurs "(.*?)" ist im (\d+)\. Semester empfohlen$/) do |course_name, semester|
@@ -74,4 +71,9 @@ end
 
 Dann(/^diese Lösung hat sogar gar keine Kosten, weil es keine Überschneidungen gibt$/) do
   expect(Timetable.first.costs).to eq 0
+end
+
+Wenn(/^jetzt nach Stundenplänen gesucht wird$/) do
+  job = Asp::Job.new
+  job.run
 end
