@@ -13,7 +13,8 @@ class Asp::Constraint
 
   SOFT_CONSTRAINTS = [
     "room_capacity",
-    "minimum_working_days"
+    "minimum_working_days",
+    "same_curriculum"
 ]
 
   class << self
