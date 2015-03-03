@@ -1,17 +1,16 @@
 %h1 Modules
 
-%table
+%table.table.table-condensed
   %thead
     %tr
-      %th
+      %th Name
       %th
       %th
       
   %tbody
     - @ects_modules.each do |ects_module|
       %tr
-        %td= ects_module.name
-        %td= link_to 'Show', ects_module
+        %td= link_to ects_module.name, ects_module
         %td= link_to 'Edit', edit_ects_module_path(ects_module)
         %td= link_to 'Destroy', ects_module, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
