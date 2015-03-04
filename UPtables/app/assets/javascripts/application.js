@@ -20,5 +20,38 @@
 //= require_tree .
 
 $(document).ready(function() {
-  $('.multiselect').multiSelect();
+  
+  //$('.multiselect').multiSelect();
+  
+  $('#selectable_modules').multiSelect({
+    afterSelect: function(values){      
+      $.each(values,  function( index, value ) {
+          $('#mandatory_modules').find('option[value='+value+']').prop('disabled', true);  
+      });
+      $('#mandatory_modules').multiSelect('refresh');
+    },
+    afterDeselect: function(values){ 
+      $.each(values,  function( index, value ) {
+          $('#mandatory_modules').find('option[value='+value+']').removeProp('disabled');  
+      });
+      $('#mandatory_modules').multiSelect('refresh');
+    }
+  });
+  
+  $('#mandatory_modules').multiSelect({
+    afterSelect: function(values){ 
+      $.each(values,  function( index, value ) {
+          $('#selectable_modules').find('option[value='+value+']').prop('disabled', true);  
+      });
+      
+      $('#selectable_modules').multiSelect('refresh');         
+    },
+    afterDeselect: function(values){ 
+      $.each(values,  function( index, value ) {
+          $('#selectable_modules').find('option[value='+value+']').removeProp('disabled');  
+      });
+      $('#selectable_modules').multiSelect('refresh');
+    }
+  });
+  
 });

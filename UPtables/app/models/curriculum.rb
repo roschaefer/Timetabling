@@ -18,4 +18,22 @@ class Curriculum < ActiveRecord::Base
   def unavailable_at!(weekday_id, timeframe_id)
     Curriculum::Unavailability.where(:curriculum => self, :weekday_id => weekday_id, :timeframe_id => timeframe_id).first_or_create
   end
+  
+  def mandatory_modules
+   curriculum_module_assignments.where(mandatory:true).collect{|a| a.ects_module }
+  end
+  
+  def selectable_modules
+    curriculum_module_assignments.where(mandatory:nil).collect{|a| a.ects_module }
+  end
+  
+  def assign_mandatory_modules()
+  
+  end
+
+  
+  def assing_selectable_modules()
+  
+  end
+  
 end
