@@ -10,11 +10,13 @@
   = @room.capacity
 
 %table.table
-  %tbody
+  %caption Unavailabilities
+  %thead
     %tr
       %th
       - @weekdays.each do |weekday|
         %th= weekday.name
+  %tbody
     - @timeframes.each do |timeframe|
       %tr
         %td=timeframe.interval

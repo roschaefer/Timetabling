@@ -27,7 +27,7 @@ class CurriculaController < ApplicationController
     @curriculum = Curriculum.new(curriculum_params)
 
     respond_to do |format|
-      if @curriculum.save
+      if @curriculum.save and @curriculum.update_unavailabilities(params[:curriculum_unavailability_ids])
         format.html { redirect_to @curriculum, notice: 'Curriculum was successfully created.' }
         format.json { render :show, status: :created, location: @curriculum }
       else
@@ -41,7 +41,7 @@ class CurriculaController < ApplicationController
   # PATCH/PUT /curricula/1.json
   def update
     respond_to do |format|
-      if @curriculum.update(curriculum_params)
+      if @curriculum.update(curriculum_params) and @curriculum.update_unavailabilities(params[:curriculum_unavailability_ids])
         format.html { redirect_to @curriculum, notice: 'Curriculum was successfully updated.' }
         format.json { render :show, status: :ok, location: @curriculum }
       else

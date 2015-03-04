@@ -10,6 +10,25 @@
     %br
     = f.collection_select :ects_module_ids, EctsModule.all, :id, :name, {:selected => @curriculum.ects_modules.collect{|m|m.id}}, {:multiple => true, :class => 'multiselect'}
 
+  %p
+    %table.table
+      %caption.text-center Unavailabilities
+      %thead
+        %tr
+          %th
+          - Weekday.find_each do |weekday|
+            %th= weekday.name
+      %tbody
+        %tr
+          %td Whole day
+          - Weekday.find_each do |weekday|
+            %td= check_box_tag weekday.id, 'yes', false, :class => 'check_whole_day'
+        - Timeframe.find_each do |timeframe|
+          %tr
+            %td=timeframe.interval
+            - Weekday.find_each do |weekday|
+              %td= check_box_tag "curriculum_unavailability_ids[]", [weekday.id, timeframe.id], @curriculum.unavailabilities.any?{|u| (u.weekday.id == weekday.id) && (u.timeframe.id == timeframe.id)}
+
   - if @curriculum.errors.any?
     #error_explanation
       %h2= "#{pluralize(@curriculum.errors.count, "error")} prohibited this curriculum from being saved:"
