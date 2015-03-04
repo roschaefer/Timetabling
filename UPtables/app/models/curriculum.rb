@@ -27,13 +27,41 @@ class Curriculum < ActiveRecord::Base
     curriculum_module_assignments.where(mandatory:nil).collect{|a| a.ects_module }
   end
   
-  def assign_mandatory_modules()
-  
+  def set_mandatory_flag(module_id,mandatory_flag)
+    assignment = self.curriculum_module_assignments.find_by(ects_module_id:module_id)
+    
+    if assignment.mandatory != mandatory_flag
+      assignment.mandatory = mandatory_flag
+      assignment.save
+    end
   end
-
-  
-  def assing_selectable_modules()
-  
+    
+  def assign_ects_modules(params)
+        
+      if params and params[:mandatory_modules].kind_of?(Array) and params[:selectable_modules].kind_of?(Array)
+        
+        mandatory_module_ids = params[:mandatory_modules]
+        selectable_module_ids = params[:selectable_modules]
+        
+        unless (mandatory_module_ids & selectable_module_ids).empty?
+          return false
+        
+        else   
+          self.ects_module_ids = (mandatory_module_ids | selectable_module_ids)
+          
+          mandatory_module_ids.each do |module_id|
+            set_mandatory_flag(module_id,true)
+          end
+          
+          selectable_module_ids.each do |module_id|
+            set_mandatory_flag(module_id,false)
+          end
+                    
+          return true
+        end
+      end
+      
+        return false
   end
   
 end
