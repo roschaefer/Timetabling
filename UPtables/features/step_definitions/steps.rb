@@ -123,6 +123,18 @@ Angenommen(/^es gibt die Studienordnungen (?:"(.*)",)* "(.*)" und "(.*)"$/) do |
   curricula.each {|c| create :curriculum, :name => c }
 end
 
+Angenommen(/^es gibt die Studienordnungen "(.*?)" und "(.*?)"$/) do |name1, name2|
+  create :curriculum, :name => name1
+  create :curriculum, :name => name2
+end
+
+Angenommen(/^der Kurs gehört zum Studiengang "(.*?)"$/) do |curriculum_name|
+  ects_module = create(:ects_module)
+  @course.ects_modules << ects_module
+  curriculum = Curriculum.find_by(:name => curriculum_name)
+  curriculum.ects_modules << ects_module
+end
+
 Angenommen(/^es gibt die Module "(.*?)" und "(.*?)"$/) do |module1, module2|
   create :ects_module, :name => module1
   create :ects_module, :name => module2
@@ -284,3 +296,15 @@ Dann(/^es dürfen keine Kurse am (.*) um (.*) Uhr stattfinden$/) do |weekday_nam
   timeframe = Timeframe.find_by(:interval => interval)
   expect(@curriculum).not_to be_available_at(weekday, timeframe)
 end
+
+Angenommen(/^keine Studienordnung hat irgendwelche Sperrzeiten$/) do
+  expect(Curriculum::Unavailability.count).to eq 0
+end
+
+Angenommen(/^der Studiengang "(.*?)" hat eine Sperrzeit am (.*?) um (.*?) Uhr$/) do |curriculum_name, weekday_name, interval|
+  curriculum = Curriculum.find_by(:name => curriculum_name)
+  weekday   = Weekday.find_by(:name   => weekday_name)
+  timeframe = Timeframe.find_by(:interval => interval)
+  create(:curriculum_unavailability, :curriculum => curriculum, :weekday => weekday, :timeframe => timeframe)
+end
+

@@ -7,8 +7,10 @@ Angenommen(/^unser Stundenplan sieht so aus:$/) do |table|
 
   weekdays = table.raw.collect {|row| row[0] }
   weekdays.shift(2) # skip first two rows
+  weekdays.uniq!
   timeframes = table.raw.collect {|row| row[1] }
   timeframes.shift(2) # skip first two rows
+  timeframes.uniq!
 
   weekdays.each   {|w| create :weekday, :name => w }
   timeframes.each {|t| create :timeframe, :interval => t }
@@ -45,7 +47,7 @@ Angenommen(/^die Kurse sind beide im (\d+)\. Semester empfohlen$/) do |semester|
   end
 end
 
-Dann(/^gibt es keine Lösung, weil sich die Kurse nicht überschneiden dürfen$/) do
+Dann(/^gibt es keine Lösung/) do
   expect(Timetable.all).to have(0).items
 end
 
@@ -55,7 +57,7 @@ Angenommen(/^der Kurs "(.*?)" ist im (\d+)\. Semester empfohlen$/) do |course_na
   create :recommendation, :course => course, :curriculum => curriculum, :semester => semester
 end
 
-Dann(/^gibt es genau eine Lösung$/) do
+Dann(/^gibt es genau eine Lösung/) do
   expect(Timetable.all).to have(1).item
 end
 
@@ -73,7 +75,16 @@ Dann(/^diese Lösung hat sogar gar keine Kosten, weil es keine Überschneidungen
   expect(Timetable.first.costs).to eq 0
 end
 
+Angenommen(/^für diesen Test deaktivieren wir die Soft Constraints$/) do
+  @job = Asp::Job.new
+  @job.configuration = Asp::Configuration.only_hard_constraints
+end
+
 Wenn(/^jetzt nach Stundenplänen gesucht wird$/) do
-  job = Asp::Job.new
-  job.run
+  @job ||= Asp::Job.new
+  @job.run
+end
+
+Dann(/^gibt es (\d+) Lösungen, weil der Kurs in zwei mögliche Slots gelegt werden kann$/) do |n|
+  expect(Timetable.all).to have(n.to_i).items
 end
