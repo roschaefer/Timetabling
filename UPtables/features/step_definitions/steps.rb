@@ -197,7 +197,7 @@ Dann(/^wie ich sehe, wurde keine optimale Lösung gefunden$/) do
 end
 
 Angenommen(/^es gibt die Studienordnung "(.*?)"$/) do |curriculum|
-  create :curriculum, :name => curriculum
+  @curriculum = create(:curriculum, :name => curriculum)
 end
 
 Angenommen(/^der Kurs gehört zur Studienordnung "(.*?)"$/) do |curriculum|
@@ -254,4 +254,33 @@ end
 
 Dann(/^sollte auch keine Meldung vorhanden sein, dass keine optimale Lösung gefunden wurde$/) do
   expect(page).not_to have_css(".timed-out")
+end
+
+Wenn(/^ich die Studienordnung editiere$/) do
+  visit edit_curriculum_path(@curriculum)
+end
+
+Wenn(/^ich diese Sperrzeiten für die Studienordnung angebe$/) do |table|
+  table.rows.each_with_index do |r, i|
+    r.slice(1, (r.size - 1)).each_with_index do |cell, j|
+      if ( cell =~ /X/ )
+        timeframe_i = i + 1 # default id sequence start with 1 in rails
+        weekday_i   = j + 1
+        find(:css, "#curriculum_unavailability_ids_[value='#{weekday_i} #{timeframe_i}']").set(true)
+      end
+    end
+  end
+end
+
+Dann(/^dürfen Kurse dieser Studienordnung auf den ganzen (.*) gelegt werden$/) do |weekday_name|
+  weekday = Weekday.find_by :name => weekday_name
+  Timeframe.all do |timeframe|
+    expect(@curriculum).to be_available_at(weekday, timeframe)
+  end
+end
+
+Dann(/^es dürfen keine Kurse am (.*) um (.*) Uhr stattfinden$/) do |weekday_name, interval|
+  weekday   = Weekday.find_by(:name => weekday_name)
+  timeframe = Timeframe.find_by(:interval => interval)
+  expect(@curriculum).not_to be_available_at(weekday, timeframe)
 end
