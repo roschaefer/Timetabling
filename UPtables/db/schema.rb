@@ -38,16 +38,16 @@ ActiveRecord::Schema.define(version: 20150304084230) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "curriculum_ects_module_joins", force: :cascade do |t|
+  create_table "curriculum_module_assignments", force: :cascade do |t|
     t.integer  "curriculum_id"
     t.integer  "ects_module_id"
-    t.boolean  "mandatory",      default: true
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.boolean  "mandatory",      default: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
-  add_index "curriculum_ects_module_joins", ["curriculum_id"], name: "index_curriculum_ects_module_joins_on_curriculum_id"
-  add_index "curriculum_ects_module_joins", ["ects_module_id"], name: "index_curriculum_ects_module_joins_on_ects_module_id"
+  add_index "curriculum_module_assignments", ["curriculum_id"], name: "index_curriculum_module_assignments_on_curriculum_id"
+  add_index "curriculum_module_assignments", ["ects_module_id"], name: "index_curriculum_module_assignments_on_ects_module_id"
 
   create_table "curriculum_unavailabilities", force: :cascade do |t|
     t.integer  "weekday_id"

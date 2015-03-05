@@ -24,7 +24,7 @@ class Curriculum < ActiveRecord::Base
   end
   
   def selectable_modules
-    curriculum_module_assignments.where(mandatory:nil).collect{|a| a.ects_module }
+    curriculum_module_assignments.where(mandatory:false).collect{|a| a.ects_module }
   end
   
   def set_mandatory_flag(module_id,mandatory_flag)

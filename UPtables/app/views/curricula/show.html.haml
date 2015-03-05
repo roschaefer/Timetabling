@@ -5,18 +5,17 @@
   %br
   = @curriculum.name
   
-  %p
-    %strong Mandatory modules
-  %ul
-    - @curriculum.mandatory_modules.each do |m|
-      %li= m.name
+%p
+  %strong Mandatory modules
+%ul
+  - @curriculum.mandatory_modules.each do |m|
+    %li= m.name
       
-   %p
-     %strong Selectable modules
-   %ul
-     - @curriculum.selectable_modules.each do |m|
-       %li= m.name   
-
+%p
+  %strong Selectable modules
+%ul
+  - @curriculum.selectable_modules.each do |m|
+    %li= m.name   
             
 %table.table
   %caption Unavailabilities
