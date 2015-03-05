@@ -5,4 +5,9 @@ class EctsModule < ActiveRecord::Base
   has_many :curricula, through: :curriculum_module_assignments
 
   validates :name, :presence => true
+  
+  def self.all_ordered
+     self.order('name asc')
+  end
+  
 end
