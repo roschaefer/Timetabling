@@ -6,15 +6,15 @@
     = f.text_field :name
 
   %p
-    = f.label "Selectable modules"
-    %br
-    = f.collection_select :ects_module_ids, EctsModule.all, :id, :name, {:selected => @curriculum.selectable_modules.collect{|m| m.id}, :disabled => @curriculum.mandatory_modules.collect{|m| m.id} }, {:multiple => true, :id => 'selectable_modules', :name => "selectable_modules[]"}
-    
-  %p
     = f.label "Mandatory modules"
     %br
     = f.collection_select :ects_module_ids, EctsModule.all, :id, :name, {:selected => @curriculum.mandatory_modules.collect{|m| m.id}, :disabled => @curriculum.selectable_modules.collect{|m| m.id}}, {:multiple => true, :id => 'mandatory_modules', :name => "mandatory_modules[]"}
     
+  %p
+    = f.label "Selectable modules"
+    %br
+    = f.collection_select :ects_module_ids, EctsModule.all, :id, :name, {:selected => @curriculum.selectable_modules.collect{|m| m.id}, :disabled => @curriculum.mandatory_modules.collect{|m| m.id} }, {:multiple => true, :id => 'selectable_modules', :name => "selectable_modules[]"}
+        
   %p
     %table.table
       %caption.text-center Unavailabilities
@@ -34,7 +34,6 @@
             - Weekday.find_each do |weekday|
               %td= check_box_tag "curriculum_unavailability_ids[]", [weekday.id, timeframe.id], @curriculum.unavailabilities.any?{|u| (u.weekday.id == weekday.id) && (u.timeframe.id == timeframe.id)}
 
-    
   - if @curriculum.errors.any?
     #error_explanation
       %h2= "#{pluralize(@curriculum.errors.count, "error")} prohibited this curriculum from being saved:"

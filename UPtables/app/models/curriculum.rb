@@ -30,18 +30,18 @@ class Curriculum < ActiveRecord::Base
   def set_mandatory_flag(module_id,mandatory_flag)
     assignment = self.curriculum_module_assignments.find_by(ects_module_id:module_id)
     
-    if assignment.mandatory != mandatory_flag
+    if assignment and (assignment.mandatory != mandatory_flag)
       assignment.mandatory = mandatory_flag
       assignment.save
     end
   end
     
   def assign_ects_modules(params)
+            
+      if params and params[:mandatory_modules].is_a?(Array) and params[:selectable_modules].is_a?(Array)
         
-      if params and params[:mandatory_modules].kind_of?(Array) and params[:selectable_modules].kind_of?(Array)
-        
-        mandatory_module_ids = params[:mandatory_modules]
-        selectable_module_ids = params[:selectable_modules]
+        mandatory_module_ids = params[:mandatory_modules].reject{|m_id| m_id.is_a?(String) and m_id.empty? }
+        selectable_module_ids = params[:selectable_modules].reject{|m_id| m_id.is_a?(String) and m_id.empty? }
         
         unless (mandatory_module_ids & selectable_module_ids).empty?
           return false
