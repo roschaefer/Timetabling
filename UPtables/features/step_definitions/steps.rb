@@ -123,11 +123,6 @@ Angenommen(/^es gibt die Studienordnungen (?:"(.*)",)* "(.*)" und "(.*)"$/) do |
   curricula.each {|c| create :curriculum, :name => c }
 end
 
-Angenommen(/^es gibt die Studienordnungen "(.*?)" und "(.*?)"$/) do |name1, name2|
-  create :curriculum, :name => name1
-  create :curriculum, :name => name2
-end
-
 Angenommen(/^der Kurs gehört zum Studiengang "(.*?)"$/) do |curriculum_name|
   ects_module = create(:ects_module)
   @course.ects_modules << ects_module
