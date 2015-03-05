@@ -21,7 +21,7 @@
 
 $(document).ready(function() {
   
-  //$('.multiselect').multiSelect();
+  $('.multiselect').multiSelect();
   
   $('#selectable_modules').multiSelect({
     afterSelect: function(values){      
