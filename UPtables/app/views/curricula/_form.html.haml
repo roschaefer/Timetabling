@@ -6,10 +6,15 @@
     = f.text_field :name
 
   %p
-    = f.label :ects_modules
+    = f.label "Mandatory modules"
     %br
-    = f.collection_select :ects_module_ids, EctsModule.all, :id, :name, {:selected => @curriculum.ects_modules.collect{|m|m.id}}, {:multiple => true, :class => 'multiselect'}
-
+    = f.collection_select :ects_module_ids, EctsModule.all, :id, :name, {:selected => @curriculum.mandatory_modules.collect{|m| m.id}, :disabled => @curriculum.selectable_modules.collect{|m| m.id}}, {:multiple => true, :id => 'mandatory_modules', :name => "mandatory_modules[]"}
+    
+  %p
+    = f.label "Selectable modules"
+    %br
+    = f.collection_select :ects_module_ids, EctsModule.all, :id, :name, {:selected => @curriculum.selectable_modules.collect{|m| m.id}, :disabled => @curriculum.mandatory_modules.collect{|m| m.id} }, {:multiple => true, :id => 'selectable_modules', :name => "selectable_modules[]"}
+        
   %p
     %table.table
       %caption.text-center Unavailabilities

@@ -27,7 +27,7 @@ class CurriculaController < ApplicationController
     @curriculum = Curriculum.new(curriculum_params)
 
     respond_to do |format|
-      if @curriculum.save and @curriculum.update_unavailabilities(params[:curriculum_unavailability_ids])
+      if @curriculum.save and @curriculum.update_unavailabilities(params[:curriculum_unavailability_ids]) and @curriculum.assign_ects_modules(params)
         format.html { redirect_to @curriculum, notice: 'Curriculum was successfully created.' }
         format.json { render :show, status: :created, location: @curriculum }
       else
@@ -41,7 +41,7 @@ class CurriculaController < ApplicationController
   # PATCH/PUT /curricula/1.json
   def update
     respond_to do |format|
-      if @curriculum.update(curriculum_params) and @curriculum.update_unavailabilities(params[:curriculum_unavailability_ids])
+      if @curriculum.assign_ects_modules(params) and @curriculum.update_unavailabilities(params[:curriculum_unavailability_ids]) and @curriculum.update(curriculum_params)
         format.html { redirect_to @curriculum, notice: 'Curriculum was successfully updated.' }
         format.json { render :show, status: :ok, location: @curriculum }
       else
@@ -69,6 +69,6 @@ class CurriculaController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def curriculum_params
-      params.require(:curriculum).permit(:name, :ects_module_ids => [])
+      params.require(:curriculum).permit(:name)
     end
 end
