@@ -21,7 +21,7 @@
 
 $(document).ready(function() {
   
-  $('.multiselect').multiSelect();
+  $('.multiselect').multiSelect({cssClass:"ms-custom"});
   
   $('#selectable_modules').multiSelect({
     afterSelect: function(values){      
@@ -35,7 +35,8 @@ $(document).ready(function() {
           $('#mandatory_modules').find('option[value='+value+']').removeProp('disabled');  
       });
       $('#mandatory_modules').multiSelect('refresh');
-    }
+    },
+    cssClass:"ms-custom"
   });
   
   $('#mandatory_modules').multiSelect({
@@ -51,7 +52,8 @@ $(document).ready(function() {
           $('#selectable_modules').find('option[value='+value+']').removeProp('disabled');  
       });
       $('#selectable_modules').multiSelect('refresh');
-    }
+    },
+    cssClass:"ms-custom"
   });
   
 });

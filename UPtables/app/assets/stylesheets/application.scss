@@ -36,3 +36,17 @@ border-left-color: #111111;
     display: none;
   }
 }
+
+
+div.ms-custom{
+  height: 300px !important;
+  width:  650px !important;
+  
+  div{
+    height: 100% !important;
+    
+    ul{
+      height: 100% !important;
+    }
+  }
+}

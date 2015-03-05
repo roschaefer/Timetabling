@@ -11,6 +11,10 @@ class Course < ActiveRecord::Base
   def self.to_fact
     "courses(#{count})."
   end
+  
+  def self.all_ordered
+     self.order('name asc')
+  end
 
   def to_fact
     dl = (double_lecture && "1") || "0"
