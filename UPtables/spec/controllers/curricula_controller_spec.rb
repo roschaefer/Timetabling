@@ -71,30 +71,38 @@ RSpec.describe CurriculaController, type: :controller do
     context "with valid params" do
       it "creates a new Curriculum" do
         expect {
-          post :create, {:curriculum => valid_attributes}, valid_session
+          post :create, {:curriculum => valid_attributes, :mandatory_modules => [], :selectable_modules => []}, valid_session
         }.to change(Curriculum, :count).by(1)
+      end
+      
+      
+      it "assigns mandatory/selectable modules when creating" do 
+        create :ects_module, :id => 9
+        post :create, {:curriculum => valid_attributes, :mandatory_modules => [9], :selectable_modules => []}, valid_session
+        
+        expect(assigns(:curriculum).ects_modules).to have(1).items
       end
 
       it "assigns a newly created curriculum as @curriculum" do
-        post :create, {:curriculum => valid_attributes}, valid_session
+        post :create, {:curriculum => valid_attributes, :mandatory_modules => [], :selectable_modules => []}, valid_session
         expect(assigns(:curriculum)).to be_a(Curriculum)
         expect(assigns(:curriculum)).to be_persisted
       end
 
       it "redirects to the created curriculum" do
-        post :create, {:curriculum => valid_attributes}, valid_session
+        post :create, {:curriculum => valid_attributes, :mandatory_modules => [], :selectable_modules => []}, valid_session
         expect(response).to redirect_to(Curriculum.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved curriculum as @curriculum" do
-        post :create, {:curriculum => invalid_attributes}, valid_session
+        post :create, {:curriculum => invalid_attributes, :mandatory_modules => [], :selectable_modules => []}, valid_session
         expect(assigns(:curriculum)).to be_a_new(Curriculum)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:curriculum => invalid_attributes}, valid_session
+        post :create, {:curriculum => invalid_attributes, :mandatory_modules => [], :selectable_modules => []}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -103,16 +111,15 @@ RSpec.describe CurriculaController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        {:name => "Module with some courses", :ects_module_ids => [8, 88]}
+        {:name => "Module with some courses"}
       }
-
-      it "updates the requested curriculum" do
-        
+      
+      it "updates the requested curriculum" do  
         create :ects_module, :id => 8
         create :ects_module, :id => 88
         
         curriculum = Curriculum.create! valid_attributes
-        put :update, {:id => curriculum.to_param, :curriculum => new_attributes}, valid_session
+        put :update, {:id => curriculum.to_param, :curriculum => new_attributes, :mandatory_modules => [8], :selectable_modules => [88]}, valid_session
         curriculum.reload
         
         expect(curriculum.ects_modules).to have(2).items
@@ -120,13 +127,13 @@ RSpec.describe CurriculaController, type: :controller do
 
       it "assigns the requested curriculum as @curriculum" do
         curriculum = Curriculum.create! valid_attributes
-        put :update, {:id => curriculum.to_param, :curriculum => valid_attributes}, valid_session
+        put :update, {:id => curriculum.to_param, :curriculum => valid_attributes, :mandatory_modules => [], :selectable_modules => [] }, valid_session
         expect(assigns(:curriculum)).to eq(curriculum)
       end
 
       it "redirects to the curriculum" do
         curriculum = Curriculum.create! valid_attributes
-        put :update, {:id => curriculum.to_param, :curriculum => valid_attributes}, valid_session
+        put :update, {:id => curriculum.to_param, :curriculum => valid_attributes, :mandatory_modules => [], :selectable_modules => []}, valid_session
         expect(response).to redirect_to(curriculum)
       end
     end
@@ -134,13 +141,13 @@ RSpec.describe CurriculaController, type: :controller do
     context "with invalid params" do
       it "assigns the curriculum as @curriculum" do
         curriculum = Curriculum.create! valid_attributes
-        put :update, {:id => curriculum.to_param, :curriculum => invalid_attributes}, valid_session
+        put :update, {:id => curriculum.to_param, :curriculum => invalid_attributes, :mandatory_modules => [], :selectable_modules => []}, valid_session
         expect(assigns(:curriculum)).to eq(curriculum)
       end
 
       it "re-renders the 'edit' template" do
         curriculum = Curriculum.create! valid_attributes
-        put :update, {:id => curriculum.to_param, :curriculum => invalid_attributes}, valid_session
+        put :update, {:id => curriculum.to_param, :curriculum => invalid_attributes, :mandatory_modules => [], :selectable_modules => []}, valid_session
         expect(response).to render_template("edit")
       end
     end

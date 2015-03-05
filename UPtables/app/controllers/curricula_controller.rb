@@ -27,7 +27,7 @@ class CurriculaController < ApplicationController
     @curriculum = Curriculum.new(curriculum_params)
 
     respond_to do |format|
-      if @curriculum.save and @curriculum.update_unavailabilities(params[:curriculum_unavailability_ids])
+      if @curriculum.save and @curriculum.update_unavailabilities(params[:curriculum_unavailability_ids]) and @curriculum.assign_ects_modules(params)
         format.html { redirect_to @curriculum, notice: 'Curriculum was successfully created.' }
         format.json { render :show, status: :created, location: @curriculum }
       else

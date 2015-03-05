@@ -2,7 +2,7 @@ class Curriculum < ActiveRecord::Base
   include HasUnavailabilities
   
   has_many :unavailabilities, dependent: :destroy
-  has_many :curriculum_module_assignments
+  has_many :curriculum_module_assignments, dependent: :destroy
   has_many :ects_modules, through: :curriculum_module_assignments
   
   validates :name, :presence => true
@@ -61,7 +61,7 @@ class Curriculum < ActiveRecord::Base
         end
       end
       
-        return false
+      return false
   end
   
 end
