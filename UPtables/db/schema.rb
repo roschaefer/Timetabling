@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303112302) do
+ActiveRecord::Schema.define(version: 20150304084230) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "name"
@@ -48,6 +48,18 @@ ActiveRecord::Schema.define(version: 20150303112302) do
 
   add_index "curriculum_ects_module_joins", ["curriculum_id"], name: "index_curriculum_ects_module_joins_on_curriculum_id"
   add_index "curriculum_ects_module_joins", ["ects_module_id"], name: "index_curriculum_ects_module_joins_on_ects_module_id"
+
+  create_table "curriculum_unavailabilities", force: :cascade do |t|
+    t.integer  "weekday_id"
+    t.integer  "timeframe_id"
+    t.integer  "curriculum_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "curriculum_unavailabilities", ["curriculum_id"], name: "index_curriculum_unavailabilities_on_curriculum_id"
+  add_index "curriculum_unavailabilities", ["timeframe_id"], name: "index_curriculum_unavailabilities_on_timeframe_id"
+  add_index "curriculum_unavailabilities", ["weekday_id"], name: "index_curriculum_unavailabilities_on_weekday_id"
 
   create_table "ects_modules", force: :cascade do |t|
     t.string   "name"

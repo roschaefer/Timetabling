@@ -10,7 +10,21 @@
   %ul
     - @curriculum.ects_modules.each do |m|
       %li= m.name
-  
+
+%table.table
+  %caption Unavailabilities
+  %thead
+    %tr
+      %th
+      - Weekday.find_each do |weekday|
+        %th= weekday.name
+  %tbody
+    - Timeframe.find_each do |timeframe|
+      %tr
+        %td=timeframe.interval
+        - Weekday.find_each do |weekday|
+          %td="unavailable" if @curriculum.unavailabilities.find {|u| (u.weekday == weekday) && (u.timeframe == timeframe)}
+
 = link_to 'Edit', edit_curriculum_path(@curriculum)
 \|
 = link_to 'Back', curricula_path
