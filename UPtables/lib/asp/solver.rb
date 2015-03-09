@@ -7,11 +7,11 @@ class Asp::Solver
 
   GROUNDER    = "gringo"
   SOLVER      = "clasp"
-  SOLVER_OPTS = ["0", "--outf=2","--quiet=0", "--opt-mode=optN"]
+  SOLVER_OPTS = ["0", "--outf=2","--quiet=0"]
 
-  def initialize()
+  def initialize(opts = {:optimize => true})
     @models = []
-    @optimize = true # default
+    @optimize = opts[:optimize] # default: true
   end
 
   def solve(problem)
@@ -31,6 +31,12 @@ class Asp::Solver
       options.push(* SOLVER_OPTS)
       if @time_out
         options << "--time-limit=#{@time_out}"
+      end
+
+      if optimize?
+        options << "--opt-mode=optN"
+      else
+        options << "--opt-mode=ignore"
       end
 
       Open3.popen3(SOLVER, *options) do |stdin, stdout, stderr, wait_thr|

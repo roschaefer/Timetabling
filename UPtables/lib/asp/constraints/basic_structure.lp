@@ -8,3 +8,5 @@ d(0..D-1) :- days(D).
 ppd(0..P-1) :- periods_per_day(P).
 cu(Cu) :- curricula(Cu,_).
 semester(S) :- recommendation(_, S, _).
+
+#minimize {P,N,V : penalty(N,V,P)}.

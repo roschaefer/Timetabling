@@ -1,5 +1,5 @@
 class Asp::Job
-  attr_accessor :configuration, :solver
+  attr_accessor :solver
   delegate :time_out, :time_out=, :to => :solver
 
   def initialize
@@ -11,6 +11,15 @@ class Asp::Job
     @configuration ||= Asp::Configuration.default
   end
 
+  def optimize=(o)
+    if (o)
+      @configuration = Asp::Configuration.default
+      @solver.optimize = true
+    else
+      @configuration = Asp::Configuration.only_hard_constraints
+      @solver.optimize = false
+    end
+  end
 
   def collect_facts
     collected_facts = ""

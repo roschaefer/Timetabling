@@ -81,7 +81,7 @@ end
 
 Angenommen(/^für diesen Test deaktivieren wir die Soft Constraints$/) do
   @job = Asp::Job.new
-  @job.configuration = Asp::Configuration.only_hard_constraints
+  @job.optimize = false
 end
 
 Wenn(/^jetzt nach Stundenplänen gesucht wird$/) do

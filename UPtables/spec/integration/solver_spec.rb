@@ -1,5 +1,5 @@
 describe Asp::Solver do
-  subject(:solver) { Asp::Solver.new }
+  subject(:solver) { Asp::Solver.new(:optimize => false) }
   describe "#models" do
     subject(:models) {solver.models}
     context "for a given ASP encoding" do
