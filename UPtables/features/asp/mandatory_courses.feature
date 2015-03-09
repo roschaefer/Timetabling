@@ -23,15 +23,15 @@ Funktionalität: Pflichtveranstaltungen
   Und der Kurs "Face Recognition" ist im 4. Semester empfohlen
   Und der Kurs "Cluster Computing" ist im 5. Semester empfohlen
   Wenn jetzt nach Stundenplänen gesucht wird
-  Dann gibt es genau eine Lösung
-  Aber diese Lösung hat gewisse Kosten wegen Überschneidungen im gleichen Studiengang
+  Dann gibt es 2 optimale Lösungen
+  Aber leider haben optimale Lösungen Kosten, wegen Überschneidungen im gleichen Studiengang
 
   Szenario: Pflichtveranstaltungen unterschiedlicher Studienordnungen
   Angenommen der Kurs "Face Recognition" ist im Studiengang "Bachelor Informatik" Pflicht
   Und der Kurs "Cluster Computing" ist im Studiengang "Master Informatik" Pflicht
   Und die Kurse sind beide im 4. Semester empfohlen
   Wenn jetzt nach Stundenplänen gesucht wird
-  Dann gibt es genau eine Lösung
-  Und diese Lösung hat sogar gar keine Kosten, weil es keine Überschneidungen gibt
+  Dann gibt es 2 optimale Lösungen
+  Und es gibt sogar optimale Lösungen ohne Kosten
 
 

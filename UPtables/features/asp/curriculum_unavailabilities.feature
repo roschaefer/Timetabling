@@ -15,15 +15,18 @@ Funktionalität: Sperrzeiten für Studienordnungen
   Szenario: Keine Sperrzeiten
   Angenommen keine Studienordnung hat irgendwelche Sperrzeiten
   Wenn jetzt nach Stundenplänen gesucht wird
-  Dann gibt es 2 Lösungen, weil der Kurs in zwei mögliche Slots gelegt werden kann
+  Dann gibt es 2 optimale Lösungen, weil der Kurs in zwei mögliche Slots gelegt werden kann
+  Und es gibt optimale Lösungen ohne Kosten
 
   Szenario: Eine Studienordnung hat eine Sperrzeit
   Angenommen der Studiengang "Bachelor Informatik" hat eine Sperrzeit am Montag um 10:00 Uhr
   Wenn jetzt nach Stundenplänen gesucht wird
-  Dann gibt es genau eine Lösung, weil der Kurs nur in einen Slot gelegt werden kann
+  Dann gibt es genau eine optimale Lösung, weil der Kurs nur in einen Slot gelegt werden kann
+  Und es gibt optimale Lösungen ohne Kosten
 
   Szenario: Beide Studienordnung haben Sperrzeiten
   Angenommen der Studiengang "Bachelor Informatik" hat eine Sperrzeit am Montag um 10:00 Uhr
   Und der Studiengang "Master Informatik" hat eine Sperrzeit am Mittwoch um 10:00 Uhr
   Wenn jetzt nach Stundenplänen gesucht wird
   Dann gibt es keine Lösung, weil kein Slot mehr übrig ist
+  #Aber leider haben optimale Lösungen auf jeden Fall Kosten

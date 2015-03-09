@@ -61,6 +61,10 @@ Dann(/^gibt es genau eine Lösung/) do
   expect(Timetable.all).to have(1).item
 end
 
+Dann(/^gibt es genau eine optimale Lösung/) do
+  expect(Timetable.optimal).to have(1).item
+end
+
 Dann(/^diese Lösung hat gewisse Kosten wegen Überschneidungen im gleichen Studiengang$/) do
   expect(Timetable.first.costs).to be > 0
 end
@@ -85,6 +89,18 @@ Wenn(/^jetzt nach Stundenplänen gesucht wird$/) do
   @job.run
 end
 
-Dann(/^gibt es (\d+) Lösungen, weil der Kurs in zwei mögliche Slots gelegt werden kann$/) do |n|
+Dann(/^gibt es (\d+) Lösungen/) do |n|
   expect(Timetable.all).to have(n.to_i).items
+end
+
+Dann(/^gibt es (\d+) optimale Lösungen/) do |n|
+  expect(Timetable.optimal).to have(n.to_i).items
+end
+
+Dann(/^es gibt(?: sogar)? optimale Lösungen ohne Kosten$/) do
+  expect(Timetable.optimal.first.costs).to eq 0
+end
+
+Dann(/^leider haben optimale Lösungen(?: auf jeden Fall)? Kosten/) do
+  expect(Timetable.optimal.first.costs).to be > 0
 end
