@@ -28,5 +28,5 @@ Funktionalität: Sperrzeiten für Studienordnungen
   Angenommen der Studiengang "Bachelor Informatik" hat eine Sperrzeit am Montag um 10:00 Uhr
   Und der Studiengang "Master Informatik" hat eine Sperrzeit am Mittwoch um 10:00 Uhr
   Wenn jetzt nach Stundenplänen gesucht wird
-  Dann gibt es keine Lösung, weil kein Slot mehr übrig ist
-  #Aber leider haben optimale Lösungen auf jeden Fall Kosten
+  Dann gibt es 2 optimale Lösungen, weil die Zuordnung wieder egal geworden ist
+  Aber leider haben optimale Lösungen auf jeden Fall Kosten
