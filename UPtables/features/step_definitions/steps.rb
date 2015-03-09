@@ -297,9 +297,9 @@ Angenommen(/^keine Studienordnung hat irgendwelche Sperrzeiten$/) do
 end
 
 Angenommen(/^der Studiengang "(.*?)" hat eine Sperrzeit am (.*?) um (.*?) Uhr$/) do |curriculum_name, weekday_name, interval|
-  curriculum = Curriculum.find_by(:name => curriculum_name)
-  weekday   = Weekday.find_by(:name   => weekday_name)
-  timeframe = Timeframe.find_by(:interval => interval)
+  curriculum = Curriculum.find_by!(:name => curriculum_name)
+  weekday   = Weekday.find_by!(:name   => weekday_name)
+  timeframe = Timeframe.find_by!(:interval => interval)
   create(:curriculum_unavailability, :curriculum => curriculum, :weekday => weekday, :timeframe => timeframe)
 end
 

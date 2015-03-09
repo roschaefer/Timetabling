@@ -3,7 +3,7 @@ class Asp::Job
   delegate :time_out, :time_out=, :to => :solver
 
   def initialize
-    @fact_classes = [Room, Weekday, Timeframe, Course, Room::Unavailability, Teacher::Unavailability]
+    @fact_classes = [Room, Weekday, Timeframe, Course, Curriculum, Room::Unavailability, Teacher::Unavailability, Curriculum::Unavailability]
     @solver = Asp::Solver.new
   end
 

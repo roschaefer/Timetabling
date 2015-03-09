@@ -11,7 +11,6 @@ Funktionalität: Sperrzeiten für Studienordnungen
   Und es gibt die zwei Studienordnungen "Bachelor Informatik" und "Master Informatik"
   Und der Kurs gehört zum Studiengang "Bachelor Informatik"
   Und der Kurs gehört zum Studiengang "Master Informatik"
-  Und für diesen Test deaktivieren wir die Soft Constraints
 
   Szenario: Keine Sperrzeiten
   Angenommen keine Studienordnung hat irgendwelche Sperrzeiten

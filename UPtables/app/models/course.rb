@@ -19,9 +19,6 @@ class Course < ActiveRecord::Base
   def to_fact
     dl = (double_lecture && "1") || "0"
     facts = ["course(#{id},#{teacher_id},#{dates},#{minimum_working_days},#{participants},#{dl})."]
-    curricula.each do |c|
-      facts << "curricula(#{c.id}, #{id})."
-    end
     recommendations.each do |r|
       facts << "recommendation(#{id}, #{r.semester}, #{r.curriculum_id})."
     end

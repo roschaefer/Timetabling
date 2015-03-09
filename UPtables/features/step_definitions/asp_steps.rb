@@ -12,8 +12,8 @@ Angenommen(/^unser Stundenplan sieht so aus:$/) do |table|
   timeframes.shift(2) # skip first two rows
   timeframes.uniq!
 
-  weekdays.each   {|w| create :weekday, :name => w }
-  timeframes.each {|t| create :timeframe, :interval => t }
+  weekdays.each_with_index   {|w, i| create :weekday, :name => w, :id => i }
+  timeframes.each_with_index {|t, i| create :timeframe, :interval => t, :id => i }
 end
 
 Angenommen(/^es gibt die zwei Studienordnungen "(.*?)" und "(.*?)"$/) do |curriculum1, curriculum2|
