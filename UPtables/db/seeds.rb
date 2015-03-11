@@ -73,7 +73,7 @@ courses[7]  = Course.create(:name => "ClusterComputing Fachseminar"             
 courses[8]  = Course.create(:name => "Face Recognition"                                                , :teacher => scheffer    , :participants => 5  )
 courses[9]  = Course.create(:name => "Grundlagen der Betriebssysteme und Rechnernetze"                 , :teacher => schnor      , :participants => 10 )
 courses[10] = Course.create(:name => "Grundlagen der Stochastik"                                       , :teacher => blanchard   , :participants => 10 )
-courses[11] = Course.create(:name => "Mikroprozessortechnik Vorlesung"                                 , :teacher => behr        , :participants => 10 )
+courses[11] = Course.create(:name => "Mikroprozessortechnik"                                           , :teacher => behr        , :participants => 10 )
 courses[12] = Course.create(:name => "Multimedia-Technologie"                                          , :teacher => lucke       , :participants => 10 )
 courses[13] =  Course.create(:name => "Pimp your video conference!"                                    , :teacher => koehlmann   , :participants => 10 )
 

@@ -22,6 +22,7 @@
         %th Type
         %th Dates
         %th Teacher
+        %th Minimum working days
         %th Double lecture
     %tbody
       - @course.course_components.each do |cc|
@@ -29,6 +30,7 @@
           %td= cc.type
           %td= cc.dates
           %td= cc.teacher.full_name
+          %td= cc.minimum_working_days
           %td
             -if cc.double_lecture
               %strong Yes
