@@ -4,7 +4,7 @@
     %br
     = f.text_field :name, :size => 50
   %p.field
-    = f.label :teacher
+    = f.label :teacher, 'Leading teacher'
     %br
     = f.select :teacher_id, Teacher.all.collect {|t| [t.full_name, t.id]}
   %p.field

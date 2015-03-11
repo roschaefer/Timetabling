@@ -1,5 +1,4 @@
 class Course < ActiveRecord::Base
-  validates :dates, :numericality => { :greater_than => 0}
   validate  :check_for_duplicate_recommendations
   belongs_to :teacher
   has_and_belongs_to_many :ects_modules
@@ -7,7 +6,7 @@ class Course < ActiveRecord::Base
   has_many :recommendations
   has_many :recommended_curricula, :through => :recommendations, :source => :curriculum
   has_many :course_components
-  accepts_nested_attributes_for :course_components, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :course_components, :reject_if => proc {|a| a['type'].blank? and a['teacher_id'].blank? and a['dates'].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :recommendations, :reject_if => :all_blank, :allow_destroy => true
 
   def self.to_fact
