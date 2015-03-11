@@ -16,11 +16,12 @@ ActiveRecord::Schema.define(version: 20150311131536) do
   create_table "course_components", force: :cascade do |t|
     t.string   "type"
     t.integer  "dates"
+    t.integer  "minimum_working_days"
     t.boolean  "double_lecture"
     t.integer  "teacher_id"
     t.integer  "course_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   add_index "course_components", ["course_id"], name: "index_course_components_on_course_id"
@@ -29,12 +30,9 @@ ActiveRecord::Schema.define(version: 20150311131536) do
   create_table "courses", force: :cascade do |t|
     t.string   "name"
     t.integer  "teacher_id"
-    t.integer  "dates"
-    t.integer  "minimum_working_days"
     t.integer  "participants"
-    t.boolean  "double_lecture"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "courses_ects_modules", id: false, force: :cascade do |t|
