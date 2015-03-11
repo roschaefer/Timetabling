@@ -2,14 +2,16 @@ require 'open3'
 
 class Asp::Solver
   attr_reader :models
-  attr_accessor :time_out
+  attr_accessor :time_out, :optimize
+  alias_method :optimize?, :optimize
 
   GROUNDER    = "gringo"
   SOLVER      = "clasp"
-  SOLVER_OPTS = ["0", "--outf=2","--quiet=0","--verbose=0"]
+  SOLVER_OPTS = ["0", "--outf=2","--quiet=0"]
 
-  def initialize
+  def initialize(opts = {:optimize => true})
     @models = []
+    @optimize = opts[:optimize] # default: true
   end
 
   def solve(problem)
@@ -31,6 +33,12 @@ class Asp::Solver
         options << "--time-limit=#{@time_out}"
       end
 
+      if optimize?
+        options << "--opt-mode=optN"
+      else
+        options << "--opt-mode=ignore"
+      end
+
       Open3.popen3(SOLVER, *options) do |stdin, stdout, stderr, wait_thr|
         stdin.puts grounded_program
         stdin.close
@@ -39,8 +47,10 @@ class Asp::Solver
         witnesses.present? and witnesses.each do |w|
           @models << Asp::Model.new(w)
         end
-        if @models.present?
-          @models.last.optimum = (json["Result"] == "OPTIMUM FOUND")
+        if (optimize? && @models.present?)
+          n = json["Models"]["Optimal"]
+          optimals = @models.last(n)
+          optimals.each {|o| o.optimum = true }
         end
       end
     ensure

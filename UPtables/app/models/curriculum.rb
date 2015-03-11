@@ -4,11 +4,20 @@ class Curriculum < ActiveRecord::Base
   has_many :unavailabilities, dependent: :destroy
   has_many :curriculum_module_assignments, dependent: :destroy
   has_many :ects_modules, through: :curriculum_module_assignments
+  has_many :courses, through: :ects_modules 
   
   validates :name, :presence => true
 
   def self.to_fact
     "curricula(#{count})."
+  end
+
+  def to_fact
+    facts = []
+    courses.each do |course|
+      facts << "curricula(#{id}, #{course.id})."
+    end
+    facts.join("\n")
   end
 
   def available_at!(weekday_id, timeframe_id)

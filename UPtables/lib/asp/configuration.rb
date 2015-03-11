@@ -1,5 +1,4 @@
 class Asp::Configuration
-attr_accessor :optimize
 
 def self.default
   constraints = Asp::Constraint::HARD_CONSTRAINTS + Asp::Constraint::SOFT_CONSTRAINTS
@@ -8,18 +7,11 @@ end
 
 def self.only_hard_constraints
   constraints = Asp::Constraint::HARD_CONSTRAINTS
-  i = new(*constraints)
-  i.optimize = false
-  i
-end
-
-def optimize?
-  @optimize
+  new(*constraints)
 end
 
 def initialize(*constraints)
   @constraints = constraints.collect {|c| Asp::Constraint.send(c) }
-  @optimize = true
 end
 
 
@@ -33,10 +25,6 @@ def asp_rule_encoding
     encoding += "\n"
   end
 
-  # TODO: refactor
-  if optimize?
-    encoding << "\n#minimize {P,N,V : penalty(N,V,P)}.\n"
-  end
   encoding
 end
 

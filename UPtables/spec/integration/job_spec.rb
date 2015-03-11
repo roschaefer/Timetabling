@@ -37,12 +37,18 @@ describe Asp::Job do
               create :course, :participants => 100
             }
 
-            it "only one timetable entry will be created, the word \"assigned\" is not accidently evaluated to a new Timetable::Entry" do
-              expect { run }.to change {Timetable::Entry.count}.from(0).to(1)
+            it "only one timetable entry per timetable will be created, the word \"assigned\" is not accidently evaluated to a new Timetable::Entry" do
+              run
+              Timetable.find_each do |t|
+                expect(t.entries).to have(1).item
+              end
             end
 
             it "will be noticed" do
-              expect { run }.to change {Timetable::OverfullRoom.count}.from(0).to(1)
+              run
+              Timetable::Entry.find_each do |e|
+                expect(e.overfull_room).to be_present
+              end
             end
 
             it "severity is equal to the number of exceeded seats" do
@@ -93,7 +99,7 @@ describe Asp::Job do
     end
 
     context "given only hard constraints" do
-      before { job.configuration = Asp::Configuration.only_hard_constraints }
+      before { job.optimize = false }
 
       context "with a single-slot timetable" do
         before {

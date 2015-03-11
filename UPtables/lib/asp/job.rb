@@ -1,9 +1,9 @@
 class Asp::Job
-  attr_accessor :configuration, :solver
+  attr_accessor :solver
   delegate :time_out, :time_out=, :to => :solver
 
   def initialize
-    @fact_classes = [Room, Weekday, Timeframe, Course, Room::Unavailability, Teacher::Unavailability]
+    @fact_classes = [Room, Weekday, Timeframe, Course, Curriculum, Room::Unavailability, Teacher::Unavailability, Curriculum::Unavailability]
     @solver = Asp::Solver.new
   end
 
@@ -11,6 +11,15 @@ class Asp::Job
     @configuration ||= Asp::Configuration.default
   end
 
+  def optimize=(o)
+    if (o)
+      @configuration = Asp::Configuration.default
+      @solver.optimize = true
+    else
+      @configuration = Asp::Configuration.only_hard_constraints
+      @solver.optimize = false
+    end
+  end
 
   def collect_facts
     collected_facts = ""
@@ -37,7 +46,9 @@ class Asp::Job
     encoding += "\n"
     encoding += configuration.asp_rule_encoding
 
-    #File.open("script/debug.lp", 'w') { |file| file.write(encoding) }
+    if ((Rails.env == "debug") || (Rails.env == "test"))
+      File.open("script/debug.lp", 'w') { |file| file.write(encoding) }
+    end
     #binding.pry
 
     if (solver.solve(encoding))

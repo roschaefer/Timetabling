@@ -14,8 +14,9 @@ class Asp::Constraint
   SOFT_CONSTRAINTS = [
     "room_capacity",
     "minimum_working_days",
-    "same_curriculum"
-]
+    "same_curriculum",
+    "curriculum_unavailabilities"
+  ]
 
   class << self
     protected :new

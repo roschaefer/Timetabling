@@ -7,11 +7,13 @@ Angenommen(/^unser Stundenplan sieht so aus:$/) do |table|
 
   weekdays = table.raw.collect {|row| row[0] }
   weekdays.shift(2) # skip first two rows
+  weekdays.uniq!
   timeframes = table.raw.collect {|row| row[1] }
   timeframes.shift(2) # skip first two rows
+  timeframes.uniq!
 
-  weekdays.each   {|w| create :weekday, :name => w }
-  timeframes.each {|t| create :timeframe, :interval => t }
+  weekdays.each_with_index   {|w, i| create :weekday, :name => w, :id => i }
+  timeframes.each_with_index {|t, i| create :timeframe, :interval => t, :id => i }
 end
 
 Angenommen(/^es gibt die zwei Studienordnungen "(.*?)" und "(.*?)"$/) do |curriculum1, curriculum2|
@@ -45,7 +47,7 @@ Angenommen(/^die Kurse sind beide im (\d+)\. Semester empfohlen$/) do |semester|
   end
 end
 
-Dann(/^gibt es keine Lösung, weil sich die Kurse nicht überschneiden dürfen$/) do
+Dann(/^gibt es keine Lösung/) do
   expect(Timetable.all).to have(0).items
 end
 
@@ -55,8 +57,12 @@ Angenommen(/^der Kurs "(.*?)" ist im (\d+)\. Semester empfohlen$/) do |course_na
   create :recommendation, :course => course, :curriculum => curriculum, :semester => semester
 end
 
-Dann(/^gibt es genau eine Lösung$/) do
+Dann(/^gibt es genau eine Lösung/) do
   expect(Timetable.all).to have(1).item
+end
+
+Dann(/^gibt es genau eine optimale Lösung/) do
+  expect(Timetable.optimal).to have(1).item
 end
 
 Dann(/^diese Lösung hat gewisse Kosten wegen Überschneidungen im gleichen Studiengang$/) do
@@ -73,7 +79,28 @@ Dann(/^diese Lösung hat sogar gar keine Kosten, weil es keine Überschneidungen
   expect(Timetable.first.costs).to eq 0
 end
 
+Angenommen(/^für diesen Test deaktivieren wir die Soft Constraints$/) do
+  @job = Asp::Job.new
+  @job.optimize = false
+end
+
 Wenn(/^jetzt nach Stundenplänen gesucht wird$/) do
-  job = Asp::Job.new
-  job.run
+  @job ||= Asp::Job.new
+  @job.run
+end
+
+Dann(/^gibt es (\d+) Lösungen/) do |n|
+  expect(Timetable.all).to have(n.to_i).items
+end
+
+Dann(/^gibt es (\d+) optimale Lösungen/) do |n|
+  expect(Timetable.optimal).to have(n.to_i).items
+end
+
+Dann(/^es gibt(?: sogar)? optimale Lösungen ohne Kosten$/) do
+  expect(Timetable.optimal.first.costs).to eq 0
+end
+
+Dann(/^leider haben optimale Lösungen(?: auf jeden Fall)? Kosten/) do
+  expect(Timetable.optimal.first.costs).to be > 0
 end
