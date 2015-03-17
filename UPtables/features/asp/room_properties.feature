@@ -22,7 +22,7 @@ sonst können z.B. keine Beamer-Präsentationen oder Computerübungen durchgefü
   Und Raum 2 ist mit einem Beamer ausgestattet
   Und Raum 3 ist mit einem Beamer ausgestattet
   Wenn jetzt nach Stundenplänen gesucht wird
-  Dann gibt es 2 Lösungen, weil der Kurs in beiden Räumen stattfinden kann
+  Dann gibt es 2 optimale Lösungen, weil der Kurs in beiden Räumen stattfinden kann
 
   Szenario: Anforderungen an einen Raum müssen alle erfüllt sein
   Angenommen der Kurs muss in einem Raum stattfinden, der mit einem Beamer ausgestattet ist
@@ -31,4 +31,4 @@ sonst können z.B. keine Beamer-Präsentationen oder Computerübungen durchgefü
   Und Raum 3 ist mit einem Beamer ausgestattet
   Und Raum 3 ist mit Computerarbeitsplätzen ausgestattet
   Wenn jetzt nach Stundenplänen gesucht wird
-  Dann gibt es genau eine Lösung, weil es nur einen geeigneten Raum gibt
+  Dann gibt es genau eine optimale Lösung, weil es nur einen geeigneten Raum gibt
