@@ -143,23 +143,25 @@ Angenommen(/^es gibt (\d+) Kurse ohne Komponenten in der Datenbank$/) do |number
 end
 
 Angenommen(/^der Kurs muss in einem Raum stattfinden, der mit einem Beamer ausgestattet ist$/) do
-  property = Room::Property.create(:id => Room::Property::BEAMER, :name => "Beamer")
+  property = create(:room_property, :name => "Beamer")
   @course.required_room_properties << property
 end
 
 Angenommen(/^(.+) ist mit einem Beamer ausgestattet$/) do |room_name|
   room = Room.find_by!(:name => room_name)
-  room.properties << Room::Property.beamer
+  beamer_property = Room::Property.find_by!(:name => "Beamer")
+  room.properties << beamer_property
 end
 
 Angenommen(/^der Kurs muss in einem Raum stattfinden, der über Computerarbeitsplätze verfügt$/) do
-  property = Room::Property.create(:id => Room::Property::COMPUTER, :name => "Computerpool")
+  property = create(:room_property, :name => "Computer pool")
   @course.required_room_properties << property
 end
 
 Angenommen(/^(.+) ist mit Computerarbeitsplätzen ausgestattet$/) do |room_name|
   room = Room.find_by!(:name => room_name)
-  room.properties << Room::Property.computer
+  computer_property = Room::Property.find_by!(:name => "Computer pool")
+  room.properties << computer_property
 end
 
 
