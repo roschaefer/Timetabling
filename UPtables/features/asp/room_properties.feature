@@ -1,5 +1,4 @@
 #language: de
-@debug
 Funktionalität: Beschaffenheit von Räumen
 Als Student oder Dozent möchte ich,
 dass die Ausstattung der Räume bei der Belegung von Veranstaltungen berücksichtigt wird,
