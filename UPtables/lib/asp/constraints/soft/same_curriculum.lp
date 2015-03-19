@@ -4,7 +4,7 @@
 
 #const penalty_of_same_curriculum = 1.
 
-penalty("SameCurriculum", conflicting_courses(C1,C2,Cu), penalty_of_same_curriculum) :-
+penalty("SameCurriculum", conflicting_course_components(C1,C2,Cu), penalty_of_same_curriculum) :-
     assigned(C1,D,P),
     assigned(C2,D,P),
     curricula(Cu,C1),

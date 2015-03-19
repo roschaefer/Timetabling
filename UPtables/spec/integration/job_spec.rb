@@ -34,7 +34,7 @@ describe Asp::Job do
             let(:violation) { Timetable::OverfullRoom.first }
             before {
               create :room, :capacity => 10
-              create :course, :participants => 100
+              create :course_component, :participants => 100
             }
 
             it "only one timetable entry per timetable will be created, the word \"assigned\" is not accidently evaluated to a new Timetable::Entry" do

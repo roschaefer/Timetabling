@@ -6,7 +6,7 @@
 
 working_day(C,D) :- assigned(C,D,P).
 
-penalty("MinWorkingDays",course(C,MWD,N),(MWD-N)*penalty_of_min_working_days) :- 
-	course(C,_,_,MWD,_,_),
+penalty("MinWorkingDays",course_component(C,MWD,N),(MWD-N)*penalty_of_min_working_days) :- 
+	course_component(C,_,_,MWD,_,_),
 	N = #count {1,D : working_day(C,D)},
 	N < MWD.

@@ -7,6 +7,6 @@
 
 penalty("RoomCapacity",assigned(C,R,D,P),(N-Cap)*penalty_of_room_capacity) :- 
 	assigned(C,R,D,P),
-	course(C,_,_,_,N,_),
+	course_component(C,_,_,_,N,_),
 	room(R,Cap,_),
 	N > Cap.

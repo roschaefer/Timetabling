@@ -2,4 +2,4 @@
 %%% must be assigned to distinct periods. A violation occurs if a
 %%% lecture is not scheduled or two lectures are in the same period.
 
-N { assigned(C,D,P) : d(D), ppd(P) } N :- course(C,_,N,_,_,_).
+N { assigned(C,D,P) : d(D), ppd(P) } N :- course_component(C,_,N,_,_,_).
