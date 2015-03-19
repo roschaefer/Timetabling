@@ -13,7 +13,7 @@ class Course::Component < ActiveRecord::Base
   
   def to_fact
     dl = (double_lecture && "1") || "0"
-    "course_component(#{id},#{course_id},#{type},#{teacher_id},#{dates},#{minimum_working_days},#{dl})."
+    "course_component(#{id},#{course_id},#{type},#{teacher_id},#{dates},#{minimum_working_days},#{participants},#{dl})."
   end
   
 end
