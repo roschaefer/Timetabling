@@ -25,7 +25,7 @@
         %th Minimum working days
         %th Double lecture
     %tbody
-      - @course.course_components.each do |cc|
+      - @course.components.each do |cc|
         %tr
           %td= cc.type
           %td= cc.dates

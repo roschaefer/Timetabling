@@ -1,0 +1,29 @@
+.nested-fields
+
+  %p.field
+    = f.label :type
+    %br
+    = f.select :type, Course::Component::TYPES.collect{|type| [type,type]}, :include_blank => true
+  
+  %p.field
+    = f.label :teacher
+    %br
+    = f.select :teacher_id, Teacher.all.collect {|t| [t.full_name, t.id]}, :include_blank => true
+  
+  %p.field
+    = f.label :dates
+    %br
+    = f.number_field :dates
+    
+  %p.field
+    = f.label :minimum_working_days
+    %br
+    = f.number_field :minimum_working_days 
+  
+  %p.field
+    = f.label :double_lecture
+    %br
+    = f.check_box :double_lecture
+    
+    
+  = link_to_remove_association "Remove component", f

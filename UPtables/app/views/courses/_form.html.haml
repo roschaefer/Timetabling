@@ -12,11 +12,11 @@
     %br
     = f.number_field :participants
   
-  %h3 Course Components
-  = f.fields_for :course_components do | course_component |
-    = render "course_component_fields", :f => course_component
+  %h3 Components
+  = f.fields_for :components do | component |
+    = render "component_fields", :f => component
   .links
-    = link_to_add_association "Add course component", f, :course_components
+    = link_to_add_association "Add component", f, :components
   
   - if @course.curricula.present?
     %h3 Enrollment recommendations per curriculum
