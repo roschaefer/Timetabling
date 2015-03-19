@@ -14,14 +14,11 @@ RSpec.describe Course, type: :model do
       :id                   => 9,
       :name                 => "Informatik für Naturwissenschaftler I Vorlesung",
       :teacher              => teacher,
-      :dates                => 1,
-      :minimum_working_days => 1,
-      :participants         => 90,
-      :double_lecture       => false
+      :participants         => 90
     } }
 
     it "returns a valid asp fact" do
-      expect(course.to_fact).to eq "course(9,21,1,1,90,0)."
+      expect(course.to_fact).to eq "course(9,21,90)."
     end
   end
 end
