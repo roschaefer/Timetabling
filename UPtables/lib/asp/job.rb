@@ -46,7 +46,7 @@ class Asp::Job
     encoding += "\n"
     encoding += configuration.asp_rule_encoding
 
-    if ((Rails.env == "debug") || (Rails.env == "test"))
+    if ((Rails.env == "development") || (Rails.env == "test"))
       File.open("script/debug.lp", 'w') { |file| file.write(encoding) }
     end
     #binding.pry
