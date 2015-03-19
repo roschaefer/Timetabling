@@ -8,6 +8,7 @@ class Course::Component < ActiveRecord::Base
   validates :dates, :minimum_working_days, :numericality => { :greater_than => 0}
   validates  :course, :teacher, :dates,  presence: true
   validates  :type, inclusion: { in: TYPES }
+  validates  :participants,  presence: true
   
   self.inheritance_column = nil
   
