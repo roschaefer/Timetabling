@@ -24,11 +24,11 @@ RSpec.describe CoursesController, type: :controller do
   # Course. As you add validations to Course, be sure to
   # adjust the attributes here as well.  
   let(:valid_attributes) {
-    { :name => "I am a valid course", :participants => 30 }
+    { :name => "I am a valid course" }
   }
 
   let(:invalid_attributes) {
-    { :name => "", :participants => 30 }
+    { :name => "" }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -104,24 +104,20 @@ RSpec.describe CoursesController, type: :controller do
     context "with valid params" do
           
       let(:new_attributes) {
-        {:name => "I am a new name for the course", :participants => 1}
+        {:name => "I am a new name for the course" }
       }
       
-      
-      #  :components_attributes => [:id, :type, :teacher_id, :dates, :minimum_working_days, :double_lecture]
-
       it "updates the requested course" do
         teacher = create :teacher
-        
-        cc1 =  attributes_for(:course_component, :teacher_id => teacher.id)
-        cc2 =  attributes_for(:course_component, :teacher_id => teacher.id)
+        cc1 =  attributes_for(:course_component, :teacher_id => teacher.id, :participants => 30)
         
         course = Course.create! valid_attributes
-        put :update, {:id => course.to_param, :course => {:name => "I am a new name for the course", :participants => 1, :components_attributes =>[cc1,cc2]}}, valid_session
+        put :update, {:id => course.to_param, :course => {:name => "I am a new name for the course", :components_attributes =>[cc1]}}, valid_session
         course.reload
         expect(course.name).to eq "I am a new name for the course"
-        expect(course.participants).to eq 1
-        expect(course.components.count).to eq 2
+        expect(course.components.count).to eq 1
+        expect(course.components.first.participants).to eq 30
+        
       end
 
       it "assigns the requested course as @course" do

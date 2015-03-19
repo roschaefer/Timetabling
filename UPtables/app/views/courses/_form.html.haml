@@ -7,11 +7,7 @@
     = f.label :teacher, 'Leading teacher'
     %br
     = f.select :teacher_id, Teacher.all.collect {|t| [t.full_name, t.id]}
-  %p.field
-    = f.label :participants
-    %br
-    = f.number_field :participants
-  
+    
   %h3 Components
   = f.fields_for :components do | component |
     = render "component_fields", :f => component
