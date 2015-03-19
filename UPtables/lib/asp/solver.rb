@@ -48,9 +48,12 @@ class Asp::Solver
           @models << Asp::Model.new(w)
         end
         if (optimize? && @models.present?)
-          n = json["Models"]["Optimal"]
-          optimals = @models.last(n)
-          optimals.each {|o| o.optimum = true }
+          # TODO: is this a proper fallback?
+          if (json["Models"]["Optimal"])
+            n = json["Models"]["Optimal"]
+            optimals = @models.last(n)
+            optimals.each {|o| o.optimum = true }
+          end
         end
       end
     ensure
