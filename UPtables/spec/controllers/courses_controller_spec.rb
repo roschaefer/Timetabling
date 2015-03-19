@@ -22,7 +22,7 @@ RSpec.describe CoursesController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
   # Course. As you add validations to Course, be sure to
-  # adjust the attributes here as well.
+  # adjust the attributes here as well.  
   let(:valid_attributes) {
     { :name => "I am a valid course", :participants => 30 }
   }
@@ -102,16 +102,26 @@ RSpec.describe CoursesController, type: :controller do
 
   describe "PUT #update" do
     context "with valid params" do
+          
       let(:new_attributes) {
         {:name => "I am a new name for the course", :participants => 1}
       }
+      
+      
+      #  :components_attributes => [:id, :type, :teacher_id, :dates, :minimum_working_days, :double_lecture]
 
       it "updates the requested course" do
+        teacher = create :teacher
+        
+        cc1 =  attributes_for(:course_component, :teacher_id => teacher.id)
+        cc2 =  attributes_for(:course_component, :teacher_id => teacher.id)
+        
         course = Course.create! valid_attributes
-        put :update, {:id => course.to_param, :course => new_attributes}, valid_session
+        put :update, {:id => course.to_param, :course => {:name => "I am a new name for the course", :participants => 1, :components_attributes =>[cc1,cc2]}}, valid_session
         course.reload
         expect(course.name).to eq "I am a new name for the course"
         expect(course.participants).to eq 1
+        expect(course.components.count).to eq 2
       end
 
       it "assigns the requested course as @course" do

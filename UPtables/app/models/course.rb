@@ -7,8 +7,8 @@ class Course < ActiveRecord::Base
   has_many :curricula, :through => :ects_modules
   has_many :recommendations
   has_many :recommended_curricula, :through => :recommendations, :source => :curriculum
-  has_many :course_components
-  accepts_nested_attributes_for :course_components, :reject_if => proc {|a| a['type'].blank? and a['teacher_id'].blank? }, :allow_destroy => true
+  has_many :components, dependent: :destroy
+  accepts_nested_attributes_for :components, :reject_if => proc {|a| a['type'].blank? and a['teacher_id'].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :recommendations, :reject_if => :all_blank, :allow_destroy => true
 
   def self.to_fact
