@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319145233) do
+ActiveRecord::Schema.define(version: 20150319151745) do
 
   create_table "course_components", force: :cascade do |t|
     t.string   "type"
@@ -127,12 +127,12 @@ ActiveRecord::Schema.define(version: 20150319145233) do
   end
 
   create_table "timetable_entries", force: :cascade do |t|
-    t.integer  "course_id"
+    t.integer  "course_component_id"
     t.integer  "room_id"
     t.integer  "weekday_id"
     t.integer  "timeframe_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.integer  "timetable_id"
   end
 
