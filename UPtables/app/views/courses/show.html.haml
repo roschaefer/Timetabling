@@ -8,10 +8,6 @@
   %strong Leading teacher
   %br
   = @course.teacher.full_name
-%p
-  %strong Participants
-  %br
-  = @course.participants
 
 %br
 .container
@@ -22,6 +18,7 @@
         %th Type
         %th Dates
         %th Teacher
+        %th Participants
         %th Minimum working days
         %th Double lecture
     %tbody
@@ -30,6 +27,7 @@
           %td= cc.type
           %td= cc.dates
           %td= cc.teacher.full_name
+          %td= cc.participants
           %td= cc.minimum_working_days
           %td
             -if cc.double_lecture
