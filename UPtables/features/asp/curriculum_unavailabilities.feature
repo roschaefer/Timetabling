@@ -8,6 +8,7 @@ Funktionalität: Sperrzeiten für Studienordnungen
     | Montag   | 10:00 |        |
     | Mittwoch | 10:00 |        |
   Und es gibt den Kurs "Face Recognition"
+  Und der Kurs hat eine Vorlesung die einmal pro Woche stattfindet
   Und es gibt die zwei Studienordnungen "Bachelor Informatik" und "Master Informatik"
   Und der Kurs gehört zum Studiengang "Bachelor Informatik"
   Und der Kurs gehört zum Studiengang "Master Informatik"

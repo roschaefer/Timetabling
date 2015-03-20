@@ -104,3 +104,8 @@ end
 Dann(/^leider haben optimale Lösungen(?: auf jeden Fall)? Kosten/) do
   expect(Timetable.optimal.first.costs).to be > 0
 end
+
+Angenommen(/^der Kurs hat eine Vorlesung die einmal pro Woche stattfindet$/) do
+  component = create(:course_component, :dates => 1) # :type => :lecture
+  @course.components << component
+end
