@@ -12,6 +12,7 @@ Funktionalität: Sperrzeiten für Studienordnungen
   Und es gibt die zwei Studienordnungen "Bachelor Informatik" und "Master Informatik"
   Und der Kurs gehört zum Studiengang "Bachelor Informatik"
   Und der Kurs gehört zum Studiengang "Master Informatik"
+  Und der Kurs besitzt eine Komponente vom Typ "Vorlesung" mit genau 1 Termin
 
   Szenario: Keine Sperrzeiten
   Angenommen keine Studienordnung hat irgendwelche Sperrzeiten

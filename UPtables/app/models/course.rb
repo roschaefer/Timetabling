@@ -22,7 +22,9 @@ class Course < ActiveRecord::Base
   def to_fact
     facts = ["course(#{id},#{teacher_id},#{participants})."]
     recommendations.each do |r|
-      facts << "recommendation(#{id}, #{r.semester}, #{r.curriculum_id})."
+      components.each do |cc|  
+        facts << "recommendation(#{cc.id}, #{r.semester}, #{r.curriculum_id})."
+      end
     end
     facts.join("\n")
   end
