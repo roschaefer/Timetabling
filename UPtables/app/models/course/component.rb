@@ -14,7 +14,10 @@ class Course::Component < ActiveRecord::Base
   
   def to_fact
     dl = (double_lecture && "1") || "0"
-    "course_component(#{id},#{teacher_id},#{dates},#{minimum_working_days},#{participants},#{dl})."
+    facts = []
+    facts << "course_component(#{id},#{teacher_id},#{dates},#{minimum_working_days},#{participants},#{dl})."
+    facts << "has_component(#{course_id},#{id})."
+    facts.join("\n")
   end
   
 end

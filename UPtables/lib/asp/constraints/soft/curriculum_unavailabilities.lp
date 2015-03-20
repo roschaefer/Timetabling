@@ -4,6 +4,6 @@
 
 #const penalty_of_curriculum_unavailabilities = 10.
 
-penalty("CurriculumUnavailability", curricula(Cu,C), penalty_of_curriculum_unavailabilities) :-
-assigned(C,D,P), curricula(Cu, C), curriculum_unavailable(Cu,D,P).
+penalty("CurriculumUnavailability", curricula(Cu,Course), penalty_of_curriculum_unavailabilities) :-
+assigned(C,D,P), has_component(Course, C), curricula(Cu, Course), curriculum_unavailable(Cu,D,P).
 
