@@ -57,6 +57,17 @@ Angenommen(/^der Kurs "(.*?)" ist im (\d+)\. Semester empfohlen$/) do |course_na
   create :recommendation, :course => course, :curriculum => curriculum, :semester => semester
 end
 
+Angenommen(/^der Kurs besitzt eine Komponente vom Typ "(.*?)" mit genau (\d+) Termin$/) do |component_type, component_dates|
+  course_component = create(:course_component, :id => @course.id + 1 ,:type => component_type, :dates => component_dates)
+  @course.components = [course_component]
+end
+
+Angenommen(/^der Kurs "(.*?)" besitzt eine Komponente vom Typ "(.*?)" mit genau (\d+) Termin$/) do |course_name, component_type, component_dates|
+  course     = Course.find_by :name     => course_name
+  course_component = create(:course_component, :id => course.id + 1 ,:type => component_type, :dates => component_dates)
+  course.components = [course_component]
+end
+
 Dann(/^gibt es genau eine Lösung/) do
   expect(Timetable.all).to have(1).item
 end
