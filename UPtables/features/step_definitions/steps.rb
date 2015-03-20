@@ -16,6 +16,12 @@ def many_to_many_table(table, &block)
   end
 end
 
+def course_belongs_to_curriculum(course, curriculum)
+  ects_module = create(:ects_module)
+  course.ects_modules << ects_module
+  curriculum.ects_modules << ects_module
+end
+
 Angenommen(/^es gibt einen Kurs/) do
   create :course
 end
@@ -124,11 +130,16 @@ Angenommen(/^es gibt die Studienordnungen (?:"(.*)",)* "(.*)" und "(.*)"$/) do |
 end
 
 Angenommen(/^der Kurs gehört zum Studiengang "(.*?)"$/) do |curriculum_name|
-  ects_module = create(:ects_module)
-  @course.ects_modules << ects_module
   curriculum = Curriculum.find_by(:name => curriculum_name)
-  curriculum.ects_modules << ects_module
+  course_belongs_to_curriculum(@course, curriculum)
 end
+
+Angenommen(/^der Kurs "(.*?)" gehört zum Studiengang "(.*?)"$/) do |course_name, curriculum_name|
+  course = Course.find_by!(:name => course_name)
+  curriculum = Curriculum.find_by(:name => curriculum_name)
+  course_belongs_to_curriculum(course, curriculum)
+end
+
 
 Angenommen(/^es gibt die Module "(.*?)" und "(.*?)"$/) do |module1, module2|
   create :ects_module, :name => module1
