@@ -16,5 +16,13 @@ FactoryGirl.define do
       course.ects_modules << ects_module 
     end
   end
+  factory :course_with_component, parent: :course do
+    transient do
+      components_count 1
+    end
+    after(:create) do |course, evaluator|
+      create_list(:course_components, evaluator.components_count, course: course)
+    end
+  end
 end
   

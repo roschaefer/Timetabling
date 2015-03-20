@@ -130,6 +130,11 @@ Angenommen(/^der Kurs gehört zum Studiengang "(.*?)"$/) do |curriculum_name|
   curriculum.ects_modules << ects_module
 end
 
+Angenommen(/^der Kurs besitzt eine Komponente vom Typ "(.*?)" mit genau (\d+) Termin$/) do |component_type, component_dates|
+  course_component = create(:course_component, :type => component_type, :dates => component_dates)
+  @course.components = [course_component]
+end
+
 Angenommen(/^es gibt die Module "(.*?)" und "(.*?)"$/) do |module1, module2|
   create :ects_module, :name => module1
   create :ects_module, :name => module2
