@@ -106,13 +106,11 @@ Dann(/^leider haben optimale Lösungen(?: auf jeden Fall)? Kosten/) do
 end
 
 Angenommen(/^der Kurs hat eine Vorlesung die einmal pro Woche stattfindet$/) do
-  component = create(:course_component, :dates => 1) # :type => :lecture
-  @course.components << component
+  create(:course_component, :course => @course, :dates => 1) # :type => :lecture
 end
 
 Angenommen(/^der Kurs "(.*?)" hat eine Vorlesung die einmal pro Woche stattfindet$/) do |course_name|
   course = Course.find_by!(:name => course_name)
-  component = create(:course_component, :dates => 1) # :type => :lecture
-  course.components << component
+  create(:course_component, :course => course, :dates => 1) # :type => :lecture
 end
 

@@ -14,7 +14,7 @@ Funktionalität: Sperrzeiten für Studienordnungen
   Und der Kurs gehört zum Studiengang "Bachelor Informatik"
   Und der Kurs gehört zum Studiengang "Master Informatik"
 
-  Szenario: Fremde Kurse sind unbetroffen
+  Szenario: Fremde Kurse sind nicht betroffen
   Angenommen es gibt den Kurs "Computer Vision"
   Und der Kurs "Computer Vision" hat eine Vorlesung die einmal pro Woche stattfindet
   Und der Kurs "Computer Vision" gehört zum Studiengang "Bachelor Informatik"
