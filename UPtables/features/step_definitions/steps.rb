@@ -131,7 +131,7 @@ Angenommen(/^der Kurs gehört zum Studiengang "(.*?)"$/) do |curriculum_name|
 end
 
 Angenommen(/^der Kurs besitzt eine Komponente vom Typ "(.*?)" mit genau (\d+) Termin$/) do |component_type, component_dates|
-  course_component = create(:course_component, :type => component_type, :dates => component_dates)
+  course_component = create(:course_component, :id => @course.id + 1 ,:type => component_type, :dates => component_dates)
   @course.components = [course_component]
 end
 
