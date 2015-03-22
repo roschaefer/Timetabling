@@ -314,3 +314,7 @@ Angenommen(/^der Studiengang "(.*?)" hat eine Sperrzeit am (.*?) um (.*?) Uhr$/)
   create(:curriculum_unavailability, :curriculum => curriculum, :weekday => weekday, :timeframe => timeframe)
 end
 
+Dann(/^es ich kann mir den ersten Stundenplan ansehen$/) do
+  visit show_timetable_path(1)
+end
+
