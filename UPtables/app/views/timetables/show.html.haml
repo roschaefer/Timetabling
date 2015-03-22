@@ -25,9 +25,11 @@
               - classes << "room-overfull"  if (entry and entry.overfull_room)
               %td.timetable-cell{:class => classes}
                 - if entry
-                  = entry.course.name
+                  = entry.course_component.name
                   %br
-                  = entry.course.teacher.full_name
+                  = entry.course_component.type
                   %br
-                  %strong= entry.course.participants
+                  = entry.course_component.teacher.full_name
+                  %br
+                  %strong= entry.course_component.participants
                   %br

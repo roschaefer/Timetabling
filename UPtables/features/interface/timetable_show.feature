@@ -9,7 +9,6 @@ Funktionalität: Anzeige des Stundenplans
   Und es gibt den Kurs "Face Recognition"
   Und der Kurs hat eine Vorlesung die einmal pro Woche stattfindet
 
-  @debug
   Szenario:
   Wenn ich auf die Stundenplan Seite gehe
   Und die Suche starte
