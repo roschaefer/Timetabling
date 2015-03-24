@@ -31,9 +31,8 @@ ActiveRecord::Schema.define(version: 20150319151745) do
   create_table "courses", force: :cascade do |t|
     t.string   "name"
     t.integer  "teacher_id"
-    t.integer  "participants"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "courses_ects_modules", id: false, force: :cascade do |t|

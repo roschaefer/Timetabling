@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :course do
       name                 "Informatik für Naturwissenschaften"
       association          :teacher
-      participants         20
+      
   end
   factory :course_with_curriculum, parent: :course do
     transient do
