@@ -4,4 +4,4 @@
 %%% violation. Three conflicting lectures count as 3 violations: one
 %%% for each pair.
 
-:- not { assigned(C,D,P) : course_component(C,T,_,_,_,_) } 1, t(T), d(D), ppd(P).
+:- not { assigned(C,D,P) : course_component(C,T,_,_,_) } 1, t(T), d(D), ppd(P).

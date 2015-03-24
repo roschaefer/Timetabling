@@ -13,7 +13,6 @@ class Asp::Constraint
 
   SOFT_CONSTRAINTS = [
     "room_capacity",
-    "minimum_working_days",
     "same_curriculum",
     "curriculum_unavailabilities"
   ]
