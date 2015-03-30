@@ -8,7 +8,8 @@ Funktionalität: Anzeige des Stundenplans
     | Montag   | 10:00 |        |
   Und es gibt den Kurs "Face Recognition"
   Und der Kurs hat eine Vorlesung die einmal pro Woche stattfindet
-
+  
+  @requires_optimization_report
   Szenario:
   Wenn ich auf die Stundenplan Seite gehe
   Und die Suche starte

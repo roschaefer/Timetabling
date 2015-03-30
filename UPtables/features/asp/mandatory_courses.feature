@@ -27,7 +27,8 @@ Funktionalität: Pflichtveranstaltungen
   Wenn jetzt nach Stundenplänen gesucht wird
   Dann gibt es 2 optimale Lösungen
   Aber leider haben optimale Lösungen Kosten, wegen Überschneidungen im gleichen Studiengang
-
+  
+  @requires_optimization_report
   Szenario: Pflichtveranstaltungen unterschiedlicher Studienordnungen
   Angenommen der Kurs "Face Recognition" ist im Studiengang "Bachelor Informatik" Pflicht
   Und der Kurs "Cluster Computing" ist im Studiengang "Master Informatik" Pflicht

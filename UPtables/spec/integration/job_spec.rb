@@ -8,6 +8,9 @@ describe Asp::Job do
     context "with soft and hard constraints" do
       #before { job.configuration = Asp::Configuration.default }
       it "creates timetables with costs" do
+        
+        #@requires_optimization_report (requires clasp optimization report)
+        
         create :weekday
         create :timeframe
         create :room
@@ -23,6 +26,9 @@ describe Asp::Job do
         }
 
         it "finds optimal solutions" do
+          
+          #@requires_optimization_report (requires clasp optimization report)
+          
           create :room
           create :course_component
           run

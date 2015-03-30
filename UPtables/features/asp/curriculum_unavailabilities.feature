@@ -14,6 +14,8 @@ Funktionalität: Sperrzeiten für Studienordnungen
   Und der Kurs gehört zum Studiengang "Master Informatik"
   Und der Kurs besitzt eine Komponente vom Typ "Vorlesung" mit genau 1 Termin
 
+  
+  @requires_optimization_report
   Szenario: Keine Sperrzeiten
   Angenommen keine Studienordnung hat irgendwelche Sperrzeiten
   Wenn jetzt nach Stundenplänen gesucht wird
