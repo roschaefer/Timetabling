@@ -30,7 +30,8 @@ end
 def create_mandatory_module_for(course, curriculum)
   ects_module = create(:ects_module)
   course.ects_modules << ects_module
-  curriculum.ects_modules << ects_module
+  
+  create :curriculum_module_assignment, :curriculum => curriculum, :ects_module => ects_module, :mandatory => true
 end
 
 Angenommen(/^die Kurse sind beides Pflichtveranstaltungen im Studiengang "(.*?)"$/) do |curriculum_name|

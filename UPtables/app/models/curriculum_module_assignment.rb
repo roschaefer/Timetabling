@@ -8,7 +8,9 @@ class CurriculumModuleAssignment < ActiveRecord::Base
     if mandatory
       facts = []
       ects_module.courses.each do |course|
-        facts << "mandatory(#{curriculum_id},#{course.id})."
+        course.components. each do |cc|
+          facts << "mandatory(#{cc.id},#{curriculum_id})."
+        end
       end
       facts.join("\n")
     else
