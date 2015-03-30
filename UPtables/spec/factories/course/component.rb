@@ -5,7 +5,6 @@ FactoryGirl.define do
     type                 'Vorlesung'
     dates                1
     double_lecture       false
-    minimum_working_days 1
     participants         20
   end
 end

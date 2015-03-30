@@ -11,17 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319151745) do
+ActiveRecord::Schema.define(version: 20150330133358) do
 
   create_table "course_components", force: :cascade do |t|
     t.string   "type"
     t.integer  "dates"
-    t.integer  "minimum_working_days"
     t.boolean  "double_lecture"
     t.integer  "teacher_id"
     t.integer  "course_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "participants"
   end
 
