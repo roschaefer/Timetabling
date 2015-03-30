@@ -6,7 +6,9 @@ class Course::Component < ActiveRecord::Base
   belongs_to :course
 
   validates :dates, :numericality => { :greater_than => 0}
-  validates  :course, :teacher, :dates,  presence: true
+  validates :teacher, :dates,  presence: true
+  validates_presence_of :course
+    
   validates  :type, inclusion: { in: TYPES }
   validates  :participants,  presence: true
 
