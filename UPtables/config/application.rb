@@ -9,6 +9,9 @@ Bundler.require(*Rails.groups)
 module UPtables
   class Application < Rails::Application
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    
+    require "#{Rails.root}/lib/extensions/global_id_extension.rb"
+      
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -27,6 +30,6 @@ module UPtables
       g.view_specs false
       g.helper_specs false
       g.routing_specs false
-    end
+    end    
   end
 end
