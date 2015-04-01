@@ -179,7 +179,7 @@ end
 
 Angenommen(/^es gibt (\d+) Kurse in der Datenbank$/) do |number_of_courses|
   number_of_courses.to_i.times do
-    create :course
+    create :course_with_component
   end
 end
 
