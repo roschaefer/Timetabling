@@ -138,8 +138,23 @@ Angenommen(/^der Kurs "(.*?)" hat eine Vorlesung die einmal pro Woche stattfinde
   create(:course_component, :course => course, :dates => 1) # :type => :lecture
 end
 
-Angenommen(/^der Kurs hat eine wöchentliche Vorlesung als Doppelstunde$/) do
+Angenommen(/^der Kurs hat zwei wöchentliche Vorlesungen, zusammen als Doppelstunde stattfinden sollen$/) do
   create(:course_component, :course => @course, :dates => 2, :type => 'Vorlesung', :double_lecture => true)
+end
+
+Angenommen(/^der Kurs hat drei wöchentliche Vorlesungen insgesamt, die nicht einzeln stattfinden sollen$/) do
+  create(:course_component, :course => @course, :dates => 3, :type => 'Vorlesung', :double_lecture => true)
+end
+
+Angenommen(/^der Kurs hat vier Vorlesungen insgesamt, die als Doppelstunden stattfinden$/) do
+  create(:course_component, :course => @course, :dates => 4, :type => 'Vorlesung', :double_lecture => true)
+end
+
+Dann(/^so sehen die Raumbelegungen aus:$/) do |table|
+  # pending
+  # nope, no implementation here, but it would be great to have one
+  # the numbers in one room column of the table encode the id of a solution
+  # (hence a timetable)
 end
 
 Angenommen(/^es gibt (\d+) Kurse ohne Komponenten in der Datenbank$/) do |number|
