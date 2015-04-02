@@ -7,6 +7,6 @@ class Teacher::Unavailability < ActiveRecord::Base
   belongs_to :timeframe
 
   def to_fact
-    "professor_unavailable(#{teacher_id},#{weekday_id},#{timeframe_id})."
+    "professor_unavailable(#{teacher.g_id},#{weekday.id},#{timeframe.id})."
   end
 end

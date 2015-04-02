@@ -20,10 +20,10 @@ class Course < ActiveRecord::Base
   end
 
   def to_fact
-    facts = ["course(#{g_id},#{teacher_id})."]
+    facts = ["course(#{g_id},#{teacher.g_id})."]
     recommendations.each do |r|
       components.each do |cc|  
-        facts << "recommendation(#{cc.g_id}, #{r.semester}, #{r.curriculum_id})."
+        facts << "recommendation(#{cc.g_id}, #{r.semester}, #{r.curriculum.g_id})."
       end
     end
     facts.join("\n")

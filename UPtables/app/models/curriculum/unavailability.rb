@@ -5,6 +5,6 @@ class Curriculum::Unavailability < ActiveRecord::Base
   belongs_to :curriculum
 
   def to_fact
-    "curriculum_unavailable(#{curriculum_id}, #{weekday_id}, #{timeframe_id})."
+    "curriculum_unavailable(#{curriculum.g_id}, #{weekday.id}, #{timeframe.id})."
   end
 end
