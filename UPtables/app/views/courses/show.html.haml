@@ -5,25 +5,33 @@
   %br
   = @course.name
 %p
-  %strong Teacher
+  %strong Leading teacher
   %br
   = @course.teacher.full_name
-%p
-  %strong Dates
-  %br
-  = @course.dates
-%p
-  %strong Mininum Working Days
-  %br
-  = @course.minimum_working_days
-%p
-  %strong Participants
-  %br
-  = @course.participants
-- if @course.double_lecture
-  %p
-    %strong Double Lecture
 
+%br
+.container
+  %table.table
+    %caption Course Components
+    %thead
+      %tr
+        %th Type
+        %th Dates
+        %th Teacher
+        %th Participants
+        %th Minimum working days
+        %th Double lecture
+    %tbody
+      - @course.components.each do |cc|
+        %tr
+          %td= cc.type
+          %td= cc.dates
+          %td= cc.teacher.full_name
+          %td= cc.participants
+          %td
+            -if cc.double_lecture
+              %strong Yes
+          
 %br
 .container
   %table.table

@@ -11,17 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304084230) do
+ActiveRecord::Schema.define(version: 20150330133358) do
+
+  create_table "course_components", force: :cascade do |t|
+    t.string   "type"
+    t.integer  "dates"
+    t.boolean  "double_lecture"
+    t.integer  "teacher_id"
+    t.integer  "course_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "participants"
+  end
+
+  add_index "course_components", ["course_id"], name: "index_course_components_on_course_id"
+  add_index "course_components", ["teacher_id"], name: "index_course_components_on_teacher_id"
 
   create_table "courses", force: :cascade do |t|
     t.string   "name"
     t.integer  "teacher_id"
-    t.integer  "dates"
-    t.integer  "minimum_working_days"
-    t.integer  "participants"
-    t.boolean  "double_lecture"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "courses_ects_modules", id: false, force: :cascade do |t|
@@ -115,12 +125,12 @@ ActiveRecord::Schema.define(version: 20150304084230) do
   end
 
   create_table "timetable_entries", force: :cascade do |t|
-    t.integer  "course_id"
+    t.integer  "course_component_id"
     t.integer  "room_id"
     t.integer  "weekday_id"
     t.integer  "timeframe_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.integer  "timetable_id"
   end
 

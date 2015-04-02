@@ -3,7 +3,7 @@ class Asp::Job
   delegate :time_out, :time_out=, :to => :solver
 
   def initialize
-    @fact_classes = [Room, Weekday, Timeframe, Course, Curriculum, Room::Unavailability, Teacher::Unavailability, Curriculum::Unavailability]
+    @fact_classes = [Room, Weekday, Timeframe, Course, Course::Component, Curriculum, Room::Unavailability, Teacher::Unavailability, Curriculum::Unavailability, CurriculumModuleAssignment]
     @solver = Asp::Solver.new
   end
 
@@ -46,7 +46,7 @@ class Asp::Job
     encoding += "\n"
     encoding += configuration.asp_rule_encoding
 
-    if ((Rails.env == "debug") || (Rails.env == "test"))
+    if ((Rails.env == "development") || (Rails.env == "test"))
       File.open("script/debug.lp", 'w') { |file| file.write(encoding) }
     end
     #binding.pry

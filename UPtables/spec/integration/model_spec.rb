@@ -13,7 +13,7 @@ describe Asp::Model do
 
     it "extracts timetable entries and assignes attributes" do
       entry = model.extract(Timetable::Entry).first
-      expect(entry.course_id).to eq 3
+      expect(entry.course_component_id).to eq 3
       expect(entry.room_id).to eq 2
       expect(entry.weekday_id).to eq 4
       expect(entry.timeframe_id).to eq 1

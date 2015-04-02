@@ -30,13 +30,26 @@ end
 def create_mandatory_module_for(course, curriculum)
   ects_module = create(:ects_module)
   course.ects_modules << ects_module
-  curriculum.ects_modules << ects_module
+  create :curriculum_module_assignment, :curriculum => curriculum, :ects_module => ects_module, :mandatory => true
+end
+
+def create_elective_module_for(course, curriculum)
+  ects_module = create(:ects_module)
+  course.ects_modules << ects_module
+  create :curriculum_module_assignment, :curriculum => curriculum, :ects_module => ects_module, :mandatory => false
 end
 
 Angenommen(/^die Kurse sind beides Pflichtveranstaltungen im Studiengang "(.*?)"$/) do |curriculum_name|
   curriculum = Curriculum.find_by :name => curriculum_name
   @courses.each do |c|
     create_mandatory_module_for(c, curriculum)
+  end
+end
+
+Angenommen(/^die Kurse gehören jeweils durch ein Wahlmodul zum Studiengang "(.*?)"$/) do |curriculum_name|
+  curriculum = Curriculum.find_by :name => curriculum_name
+  @courses.each do |c|
+    create_elective_module_for(c, curriculum)
   end
 end
 
@@ -55,6 +68,17 @@ Angenommen(/^der Kurs "(.*?)" ist im (\d+)\. Semester empfohlen$/) do |course_na
   course = Course.find_by :name => course_name
   curriculum = course.curricula.first
   create :recommendation, :course => course, :curriculum => curriculum, :semester => semester
+end
+
+Angenommen(/^der Kurs besitzt eine Komponente vom Typ "(.*?)" mit genau (\d+) Termin$/) do |component_type, component_dates|
+  course_component = create(:course_component, :id => @course.id + 1 ,:type => component_type, :dates => component_dates)
+  @course.components = [course_component]
+end
+
+Angenommen(/^der Kurs "(.*?)" besitzt eine Komponente vom Typ "(.*?)" mit genau (\d+) Termin$/) do |course_name, component_type, component_dates|
+  course     = Course.find_by :name     => course_name
+  course_component = create(:course_component, :id => course.id + 1 ,:type => component_type, :dates => component_dates)
+  course.components = [course_component]
 end
 
 Dann(/^gibt es genau eine Lösung/) do
@@ -103,4 +127,17 @@ end
 
 Dann(/^leider haben optimale Lösungen(?: auf jeden Fall)? Kosten/) do
   expect(Timetable.optimal.first.costs).to be > 0
+end
+
+Angenommen(/^der Kurs hat eine Vorlesung die einmal pro Woche stattfindet$/) do
+  create(:course_component, :course => @course, :dates => 1) # :type => :lecture
+end
+
+Angenommen(/^der Kurs "(.*?)" hat eine Vorlesung die einmal pro Woche stattfindet$/) do |course_name|
+  course = Course.find_by!(:name => course_name)
+  create(:course_component, :course => course, :dates => 1) # :type => :lecture
+end
+
+Angenommen(/^es gibt (\d+) Kurse ohne Komponenten in der Datenbank$/) do |number|
+  number.to_i.times  { create(:course) }
 end

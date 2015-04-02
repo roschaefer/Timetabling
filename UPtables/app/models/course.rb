@@ -1,11 +1,14 @@
 class Course < ActiveRecord::Base
-  validates :dates, :numericality => { :greater_than => 0}
   validate  :check_for_duplicate_recommendations
+  validates  :name,  presence: true
+    
   belongs_to :teacher
   has_and_belongs_to_many :ects_modules
   has_many :curricula, :through => :ects_modules
   has_many :recommendations
   has_many :recommended_curricula, :through => :recommendations, :source => :curriculum
+  has_many :components, dependent: :destroy, :inverse_of => :course
+  accepts_nested_attributes_for :components, :reject_if => proc {|a| a['type'].blank? and a['teacher_id'].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :recommendations, :reject_if => :all_blank, :allow_destroy => true
 
   def self.to_fact
@@ -17,10 +20,11 @@ class Course < ActiveRecord::Base
   end
 
   def to_fact
-    dl = (double_lecture && "1") || "0"
-    facts = ["course(#{id},#{teacher_id},#{dates},#{minimum_working_days},#{participants},#{dl})."]
+    facts = ["course(#{id},#{teacher_id})."]
     recommendations.each do |r|
-      facts << "recommendation(#{id}, #{r.semester}, #{r.curriculum_id})."
+      components.each do |cc|  
+        facts << "recommendation(#{cc.id}, #{r.semester}, #{r.curriculum_id})."
+      end
     end
     facts.join("\n")
   end

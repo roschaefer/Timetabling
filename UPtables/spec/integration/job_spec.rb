@@ -8,10 +8,13 @@ describe Asp::Job do
     context "with soft and hard constraints" do
       #before { job.configuration = Asp::Configuration.default }
       it "creates timetables with costs" do
+        
+        #@requires_optimization_report (requires clasp optimization report)
+        
         create :weekday
         create :timeframe
         create :room
-        create :course
+        create :course_component
         run
         expect(Timetable.first.costs).not_to be_nil
       end
@@ -23,8 +26,11 @@ describe Asp::Job do
         }
 
         it "finds optimal solutions" do
+          
+          #@requires_optimization_report (requires clasp optimization report)
+          
           create :room
-          create :course
+          create :course_component
           run
           expect(Timetable.all.find_all {|t| t.optimum?}).to have_at_least(1).item
         end
@@ -34,7 +40,7 @@ describe Asp::Job do
             let(:violation) { Timetable::OverfullRoom.first }
             before {
               create :room, :capacity => 10
-              create :course, :participants => 100
+              create :course_component, :participants => 100
             }
 
             it "only one timetable entry per timetable will be created, the word \"assigned\" is not accidently evaluated to a new Timetable::Entry" do
@@ -64,7 +70,7 @@ describe Asp::Job do
             it "associated timetable entry is in fact the problematic one" do
               3.times { create :timetable_entry }
               run
-              expect(violation.entry.course.participants).to be > violation.entry.room.capacity
+              expect(violation.entry.course_component.participants).to be > violation.entry.room.capacity
             end
           end
         end
@@ -109,22 +115,22 @@ describe Asp::Job do
 
         it "and one course and one room yields one timetable with exactly one entry" do
           create :room
-          create :course
+          create :course_component
           expect { run }.to change { [Timetable.count, Timetable::Entry.count] }.from([0,0]).to([1,1])
         end
 
         it "and two courses but only one room is unsatisfiable" do
           create :room
-          create :course
-          create :course
+          create :course_component
+          create :course_component
           expect { run }.not_to change { [Timetable.count, Timetable::Entry.count] }
         end
 
         it "and two courses and two rooms yields two possible timetables" do
           create :room
           create :room
-          create :course
-          create :course
+          create :course_component
+          create :course_component
           expect { run }.to change { [Timetable.count, Timetable::Entry.count] }.from([0,0]).to([2,4])
         end
 
@@ -132,8 +138,8 @@ describe Asp::Job do
           teacher = create :teacher
           create :room
           create :room
-          create :course, :teacher => teacher
-          create :course, :teacher => teacher
+          create :course_component, :teacher => teacher
+          create :course_component, :teacher => teacher
           expect { run }.not_to change { [Timetable.count, Timetable::Entry.count] } # because it's unsatisfiable
         end
       end

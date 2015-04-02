@@ -12,7 +12,7 @@ class Timetable::OverfullRoom < ActiveRecord::Base
 
     entries   = context.find_all{|e| e.is_a?(Timetable::Entry)}
     associated_entry = entries.find {|e|
-      (e.course_id    == option_hash[:course_id].to_i) &&
+      (e.course_component_id    == option_hash[:course_component_id].to_i) &&
       (e.room_id      == option_hash[:room_id].to_i) &&
       (e.weekday_id   == option_hash[:weekday_id].to_i) &&
       (e.timeframe_id == option_hash[:timeframe_id].to_i)

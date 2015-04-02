@@ -4,7 +4,8 @@ class Curriculum < ActiveRecord::Base
   has_many :unavailabilities, dependent: :destroy
   has_many :curriculum_module_assignments, dependent: :destroy
   has_many :ects_modules, through: :curriculum_module_assignments
-  has_many :courses, through: :ects_modules 
+  has_many :courses, through: :ects_modules
+  has_many :course_components, :source => :components, through: :courses, :class_name => "Course::Component"
   
   validates :name, :presence => true
 
@@ -14,8 +15,8 @@ class Curriculum < ActiveRecord::Base
 
   def to_fact
     facts = []
-    courses.each do |course|
-      facts << "curricula(#{id}, #{course.id})."
+    course_components.each do |cc|
+      facts << "curricula(#{id}, #{cc.id})."
     end
     facts.join("\n")
   end
