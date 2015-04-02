@@ -117,7 +117,7 @@ Dann(/^gibt es (\d+) Lösungen/) do |n|
   expect(Timetable.all).to have(n.to_i).items
 end
 
-Dann(/^gibt es (\d+) optimale Lösungen/) do |n|
+Dann(/^gibt es(?: nur noch)? (\d+) optimale Lösungen/) do |n|
   expect(Timetable.optimal).to have(n.to_i).items
 end
 
@@ -165,4 +165,7 @@ Angenommen(/^(.+) ist mit Computerarbeitsplätzen ausgestattet$/) do |room_name|
   room.properties << computer_property
 end
 
+Angenommen(/^der Kurs hat eine wöchentliche Übung mit (\d+) Teilnehmern$/) do |participants|
+  create(:course_component, :course => @course, :dates =>1, :participants => participants.to_i, :type => 'Übung')
+end
 
