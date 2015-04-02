@@ -1,5 +1,4 @@
 #language: de
-@debug
 Funktionalität: Raumgröße
   Als Student oder Dozent möchte ich,
   dass meine Lehrveranstaltungen in ausreichend großen Räumen stattfinden,
