@@ -12,19 +12,19 @@ Funktionalität: Raumgröße
     Angenommen es gibt den Kurs "Didaktik I"
 
   Szenario: Kurs mit wenigen Teilnehmern
-  Angenommen der Kurs hat eine wöchentliche Übung mit 20 Teilnehmern
-  Wenn jetzt nach Stundenplänen gesucht wird
-  Dann gibt es 3 optimale Lösungen, denn der Kurs kann in allen Räumen stattfinden
-  Und es gibt optimale Lösungen ohne Kosten
+    Angenommen der Kurs hat eine wöchentliche Übung mit 20 Teilnehmern
+    Wenn jetzt nach Stundenplänen gesucht wird
+    Dann gibt es 3 optimale Lösungen, denn der Kurs kann in allen Räumen stattfinden
+    Und es gibt optimale Lösungen ohne Kosten
 
   Szenario: Kurs mit vielen Teilnehmern
-  Angenommen der Kurs hat eine wöchentliche Übung mit 100 Teilnehmern
-  Wenn jetzt nach Stundenplänen gesucht wird
-  Dann gibt es nur noch 2 optimale Lösungen, denn der Kurs kann jetzt nur noch in zwei Räumen stattfinden
-  Und es gibt optimale Lösungen ohne Kosten
+    Angenommen der Kurs hat eine wöchentliche Übung mit 100 Teilnehmern
+    Wenn jetzt nach Stundenplänen gesucht wird
+    Dann gibt es nur noch 2 optimale Lösungen, denn der Kurs kann jetzt nur noch in zwei Räumen stattfinden
+    Und es gibt optimale Lösungen ohne Kosten
 
   Szenario: Kurs mit viel zu vielen Teilnehmern
-  Angenommen der Kurs hat eine wöchentliche Übung mit 200 Teilnehmern
-  Wenn jetzt nach Stundenplänen gesucht wird
-  Dann gibt es genau eine optimale Lösung, weil der Kurs am Besten in den größten Raum gelegt wird
-  Aber leider haben optimale Lösungen auf jeden Fall Kosten, weil der Kurs einfach zu groß für unsere Räume ist
+    Angenommen der Kurs hat eine wöchentliche Übung mit 200 Teilnehmern
+    Wenn jetzt nach Stundenplänen gesucht wird
+    Dann gibt es genau eine optimale Lösung, weil der Kurs am Besten in den größten Raum gelegt wird
+    Aber leider haben optimale Lösungen auf jeden Fall Kosten, weil der Kurs einfach zu groß für unsere Räume ist
