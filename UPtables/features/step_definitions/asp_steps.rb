@@ -138,6 +138,10 @@ Angenommen(/^der Kurs "(.*?)" hat eine Vorlesung die einmal pro Woche stattfinde
   create(:course_component, :course => course, :dates => 1) # :type => :lecture
 end
 
+Angenommen(/^der Kurs hat eine wöchentliche Vorlesung als Doppelstunde$/) do
+  create(:course_component, :course => @course, :dates => 2, :type => 'Vorlesung', :double_lecture => true)
+end
+
 Angenommen(/^es gibt (\d+) Kurse ohne Komponenten in der Datenbank$/) do |number|
   number.to_i.times  { create(:course) }
 end
