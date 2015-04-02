@@ -20,3 +20,4 @@ Funktionalität: Doppelstunden
   Und der Kurs hat eine wöchentliche Vorlesung als Doppelstunde
   Wenn jetzt nach Stundenplänen gesucht wird
   Dann gibt es 4 optimale Lösungen, weil der Kurs an zwei Tagen jeweils in die ersten beiden Slots platziert werden kann
+  Und es gibt optimale Lösungen ohne Kosten
