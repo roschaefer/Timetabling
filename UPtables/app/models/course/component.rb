@@ -5,12 +5,12 @@ class Course::Component < ActiveRecord::Base
   belongs_to :teacher
   belongs_to :course
 
-  validates :dates, :numericality => { :greater_than => 0}
-  validates :teacher, :dates,  presence: true
+  validates :dates,  presence: true, :numericality => { :greater_than => 0}
+  validates :dates, :numericality => { :greater_than => 1}, :if => :double_lecture?
+  validates :participants,  presence: true, :numericality => { :greater_than => 0}
+  validates :teacher,  presence: true
+  validates :type, inclusion: { in: TYPES }
   validates_presence_of :course
-  validates  :type, inclusion: { in: TYPES }
-  validates  :participants,  presence: true
-  validates_numericality_of :participants, :only_interger => true, :greater_than => 0
 
   has_and_belongs_to_many :required_room_properties, :class_name => 'Room::Property'
 
