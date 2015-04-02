@@ -16,7 +16,7 @@ class Curriculum < ActiveRecord::Base
   def to_fact
     facts = []
     course_components.each do |cc|
-      facts << "curricula(#{id}, #{cc.id})."
+      facts << "curricula(#{id}, #{cc.g_id})."
     end
     facts.join("\n")
   end
