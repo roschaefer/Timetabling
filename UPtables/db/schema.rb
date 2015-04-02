@@ -27,6 +27,11 @@ ActiveRecord::Schema.define(version: 20150330133358) do
   add_index "course_components", ["course_id"], name: "index_course_components_on_course_id"
   add_index "course_components", ["teacher_id"], name: "index_course_components_on_teacher_id"
 
+  create_table "course_components_room_properties", id: false, force: :cascade do |t|
+    t.integer "component_id", null: false
+    t.integer "property_id",  null: false
+  end
+
   create_table "courses", force: :cascade do |t|
     t.string   "name"
     t.integer  "teacher_id"
@@ -41,11 +46,6 @@ ActiveRecord::Schema.define(version: 20150330133358) do
 
   add_index "courses_ects_modules", ["course_id"], name: "index_courses_ects_modules_on_course_id"
   add_index "courses_ects_modules", ["ects_module_id"], name: "index_courses_ects_modules_on_ects_module_id"
-
-  create_table "courses_room_properties", id: false, force: :cascade do |t|
-    t.integer "course_id",   null: false
-    t.integer "property_id", null: false
-  end
 
   create_table "curricula", force: :cascade do |t|
     t.string   "name"

@@ -10,6 +10,7 @@ sonst können z.B. keine Beamer-Präsentationen oder Computerübungen durchgefü
     |          |       | 100    | 100    | 100    |
     | Montag   | 10:00 |        |        |        |
   Und es gibt den Kurs "Powerpoint für Anfänger"
+  Und der Kurs hat eine Vorlesung die einmal pro Woche stattfindet
 
   Szenario: Keine geeigneten Räume
   Angenommen der Kurs muss in einem Raum stattfinden, der mit einem Beamer ausgestattet ist

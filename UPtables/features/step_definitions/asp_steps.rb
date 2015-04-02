@@ -144,7 +144,8 @@ end
 
 Angenommen(/^der Kurs muss in einem Raum stattfinden, der mit einem Beamer ausgestattet ist$/) do
   property = create(:room_property, :name => "Beamer")
-  @course.required_room_properties << property
+  component = @course.components.first!
+  component.required_room_properties << property
 end
 
 Angenommen(/^(.+) ist mit einem Beamer ausgestattet$/) do |room_name|
@@ -155,7 +156,7 @@ end
 
 Angenommen(/^der Kurs muss in einem Raum stattfinden, der über Computerarbeitsplätze verfügt$/) do
   property = create(:room_property, :name => "Computer pool")
-  @course.required_room_properties << property
+  @course.components.first.required_room_properties << property
 end
 
 Angenommen(/^(.+) ist mit Computerarbeitsplätzen ausgestattet$/) do |room_name|
