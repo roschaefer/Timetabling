@@ -141,3 +141,28 @@ end
 Angenommen(/^es gibt (\d+) Kurse ohne Komponenten in der Datenbank$/) do |number|
   number.to_i.times  { create(:course) }
 end
+
+Angenommen(/^der Kurs muss in einem Raum stattfinden, der mit einem Beamer ausgestattet ist$/) do
+  property = create(:room_property, :name => "Beamer")
+  component = @course.components.first!
+  component.required_room_properties << property
+end
+
+Angenommen(/^(.+) ist mit einem Beamer ausgestattet$/) do |room_name|
+  room = Room.find_by!(:name => room_name)
+  beamer_property = Room::Property.find_by!(:name => "Beamer")
+  room.properties << beamer_property
+end
+
+Angenommen(/^der Kurs muss in einem Raum stattfinden, der über Computerarbeitsplätze verfügt$/) do
+  property = create(:room_property, :name => "Computer pool")
+  @course.components.first.required_room_properties << property
+end
+
+Angenommen(/^(.+) ist mit Computerarbeitsplätzen ausgestattet$/) do |room_name|
+  room = Room.find_by!(:name => room_name)
+  computer_property = Room::Property.find_by!(:name => "Computer pool")
+  room.properties << computer_property
+end
+
+

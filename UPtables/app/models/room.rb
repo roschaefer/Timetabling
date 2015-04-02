@@ -1,6 +1,7 @@
 class Room < ActiveRecord::Base
   include HasUnavailabilities
   has_many :unavailabilities, dependent: :destroy
+  has_and_belongs_to_many :properties
   validates :name, presence: true
   validates :capacity, :numericality => { :greater_than_or_equal_to => 0 }
 

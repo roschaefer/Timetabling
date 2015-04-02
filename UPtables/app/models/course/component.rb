@@ -12,6 +12,8 @@ class Course::Component < ActiveRecord::Base
   validates  :participants,  presence: true
   validates_numericality_of :participants, :only_interger => true, :greater_than => 0
 
+  has_and_belongs_to_many :required_room_properties, :class_name => 'Room::Property'
+
   self.inheritance_column = nil
 
   delegate :name, :to => :course

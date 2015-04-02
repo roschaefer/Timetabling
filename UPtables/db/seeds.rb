@@ -135,3 +135,6 @@ end
 courses.each do |course|
   course.ects_modules << ects_modules.sample(Random.rand(ects_modules.size))
 end
+
+Room::Property.create(:name => "Beamer")
+Room::Property.create(:name => "Computer pool")
