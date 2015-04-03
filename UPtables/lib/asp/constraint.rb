@@ -15,6 +15,7 @@ class Asp::Constraint
     "room_capacity",
     "double_lectures",
     "same_curriculum",
+    "recommended_semester",
     "curriculum_unavailabilities"
   ]
 

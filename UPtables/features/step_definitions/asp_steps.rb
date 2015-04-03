@@ -132,7 +132,7 @@ Dann(/^es gibt(?: sogar)? optimale Lösungen ohne Kosten/) do
 end
 
 Dann(/^die Kosten für optimale Lösungen betragen (\d+)/) do |costs|
-  expect(Timetable.optimal.first.costs).to eq costs
+  expect(Timetable.optimal.first.costs).to eq costs.to_i
 end
 
 Dann(/^leider haben optimale Lösungen(?: auf jeden Fall)? Kosten/) do
@@ -199,7 +199,7 @@ Angenommen(/^der Kurs hat eine wöchentliche Übung mit (\d+) Teilnehmern$/) do 
 end
 
 Angenommen(/^es gibt Kosten von (\d+) für Konflikte bei gleicher Semesterempfehlung$/) do |cost|
-  # pending: set the costs for a this soft constraint to the given parameter
+  # TODO: set the costs for a this soft constraint to the given parameter
   # currently the default is just 7
   expect(cost.to_i).to eq 7
 end
