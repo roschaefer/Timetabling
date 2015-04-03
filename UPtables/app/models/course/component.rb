@@ -1,4 +1,6 @@
 class Course::Component < ActiveRecord::Base
+  
+  include GlobalId
 
   TYPES = ['Vorlesung', 'Übung', 'Seminar', 'Projekt']
 

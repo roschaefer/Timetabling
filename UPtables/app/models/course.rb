@@ -1,4 +1,7 @@
 class Course < ActiveRecord::Base
+  
+  include GlobalId
+  
   validate  :check_for_duplicate_recommendations
   validates  :name,  presence: true
     

@@ -1,5 +1,8 @@
 class Teacher < ActiveRecord::Base
+  
+  include GlobalId
   include HasUnavailabilities
+  
   has_many :unavailabilities, dependent: :destroy
 
   def full_name

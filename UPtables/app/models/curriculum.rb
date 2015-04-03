@@ -1,4 +1,6 @@
 class Curriculum < ActiveRecord::Base
+  
+  include GlobalId
   include HasUnavailabilities
   
   has_many :unavailabilities, dependent: :destroy
