@@ -149,6 +149,8 @@ Angenommen(/^die Vorlesung des Kurses "(.*?)" hat einen Termin und wird von Prof
   course = Course.find_by!(:name => course_name)
   teacher = create(:teacher, :surname => teacher_surname)
   lecture = create(:course_component, :type => "Vorlesung", :dates => 1, :teacher => teacher)
+  course.components = [lecture]
+  course.save
 end
 
 Angenommen(/^der Kurs hat eine Vorlesung die einmal pro Woche stattfindet$/) do
