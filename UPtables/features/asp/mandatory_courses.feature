@@ -34,7 +34,15 @@ Funktionalität: Pflichtveranstaltungen
   Wenn jetzt nach Stundenplänen gesucht wird
   Dann gibt es 2 optimale Lösungen
   Aber leider haben optimale Lösungen Kosten, wegen Überschneidungen im gleichen Studiengang
-  
+
+  Szenario: Wählbare Veranstaltungen mit unterschiedlicher Semesterempfehlung
+  Angenommen die Kurse gehören jeweils durch ein Wahlmodul zum Studiengang "Bachelor Informatik"
+  Und der Kurs "Face Recognition" ist im 4. Semester empfohlen
+  Und der Kurs "Cluster Computing" ist im 5. Semester empfohlen
+  Wenn jetzt nach Stundenplänen gesucht wird
+  Dann gibt es 2 optimale Lösungen
+  Und es gibt optimale Lösungen ohne Kosten, weil die Kurse weder Pflicht noch empfohlen für das gleiche Semester sind
+
   @requires_optimization_report
   Szenario: Pflichtveranstaltungen unterschiedlicher Studienordnungen
   Angenommen der Kurs "Face Recognition" ist im Studiengang "Bachelor Informatik" Pflicht

@@ -127,7 +127,7 @@ Dann(/^gibt es(?: nur noch)? (\d+) optimale Lösungen/) do |n|
   expect(Timetable.optimal).to have(n.to_i).items
 end
 
-Dann(/^es gibt(?: sogar)? optimale Lösungen ohne Kosten$/) do
+Dann(/^es gibt(?: sogar)? optimale Lösungen ohne Kosten/) do
   expect(Timetable.optimal.first.costs).to eq 0
 end
 
