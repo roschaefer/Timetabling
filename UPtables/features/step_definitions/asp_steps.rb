@@ -139,10 +139,16 @@ Dann(/^leider haben optimale Lösungen(?: auf jeden Fall)? Kosten/) do
   expect(Timetable.optimal.first.costs).to be > 0
 end
 
+
 Angenommen(/^alle Kurse haben eine wöchentliche Vorlesung$/) do
   @courses.each do |course|
     create(:course_component, :course => course, :dates => 1, :type => 'Vorlesung')
   end
+
+Angenommen(/^die Vorlesung des Kurses "(.*?)" hat einen Termin und wird von Prof. "(.*?)" unterrichtet$/) do |course_name, teacher_surname|
+  course = Course.find_by!(:name => course_name)
+  teacher = create(:teacher, :surname => teacher_surname)
+  lecture = create(:course_component, :type => "Vorlesung", :dates => 1, :teacher => teacher)
 end
 
 Angenommen(/^der Kurs hat eine Vorlesung die einmal pro Woche stattfindet$/) do
