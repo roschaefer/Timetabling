@@ -5,7 +5,6 @@ class Asp::Constraint
     "conflicts",
     "room_occupancy",
     "availability",
-    "double_lectures",
     "additional",
     "room_availability",
     "mandatory_and_recommended_in_same_semester",
@@ -14,6 +13,7 @@ class Asp::Constraint
 
   SOFT_CONSTRAINTS = [
     "room_capacity",
+    "double_lectures",
     "same_curriculum",
     "curriculum_unavailabilities"
   ]
