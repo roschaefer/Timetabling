@@ -144,6 +144,7 @@ Angenommen(/^alle Kurse haben eine wöchentliche Vorlesung$/) do
   @courses.each do |course|
     create(:course_component, :course => course, :dates => 1, :type => 'Vorlesung')
   end
+end
 
 Angenommen(/^die Vorlesung des Kurses "(.*?)" hat einen Termin und wird von Prof. "(.*?)" unterrichtet$/) do |course_name, teacher_surname|
   course = Course.find_by!(:name => course_name)
