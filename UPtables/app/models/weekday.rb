@@ -1,5 +1,5 @@
 class Weekday < ActiveRecord::Base
-  def self.to_fact
-    "days(#{count})."
+  def to_fact
+    "d(#{id})."
   end
 end
