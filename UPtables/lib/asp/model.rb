@@ -13,9 +13,7 @@ class Asp::Model
     unless (@model_hash["Value"])
       return results
     end
-    
-    #require 'debug'
-    
+
     @model_hash["Value"].each do |v|
       elements = v.scan(aclass.asp_regex)
       unless elements.empty?
