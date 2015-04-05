@@ -1,3 +1,3 @@
 %%% Additional constraints (can be omitted)
 
-:- not { assigned(C,D,TF) : c(C) } N, d(D), timeframe(TF,_), rooms(N).
+:- not { assigned(C,WD,TF) : c(C) } N, weekday(WD, _), timeframe(TF,_), rooms(N).

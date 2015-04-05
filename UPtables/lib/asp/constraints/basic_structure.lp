@@ -1,9 +1,6 @@
 name("Universität Potsdam").
 
 
-% we will use the actual time of the weekday and the timeframe respectively as the global id
-% there is a one-to-one correspondance (bijection) between id and global id
-d(D)   :- weekday(_,D).
 
 c(C) :- course_component(C,_,_,_,_).
 t(T) :- course_component(_,T,_,_,_).

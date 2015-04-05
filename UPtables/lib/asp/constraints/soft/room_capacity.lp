@@ -5,8 +5,8 @@
 
 #const penalty_of_room_capacity = 1.
 
-penalty("RoomCapacity",assigned(C,R,D,TF),(N-Cap)*penalty_of_room_capacity) :- 
-	assigned(C,R,D,TF),
+penalty("RoomCapacity",assigned(C,R,WD,TF),(N-Cap)*penalty_of_room_capacity) :- 
+	assigned(C,R,WD,TF),
 	course_component(C,_,_,N,_),
 	room(R,Cap,_),
 	N > Cap.
