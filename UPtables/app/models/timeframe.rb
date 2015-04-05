@@ -1,5 +1,7 @@
 class Timeframe < ActiveRecord::Base
+  include GlobalId
+
   def to_fact
-    "ppd(#{id})."
+    "timeframe(#{g_id}, #{id})."
   end
 end
