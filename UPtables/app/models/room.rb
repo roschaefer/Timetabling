@@ -14,7 +14,7 @@ class Room < ActiveRecord::Base
   end
 
   def to_fact
-    "room(#{g_id}, #{capacity}, \"Building\")."
+    "room(#{g_id}, #{capacity})."
   end
 
 

@@ -5,7 +5,7 @@ RSpec.describe Room, type: :model do
 
   describe "#to_fact" do
     it "should encode its state to an ASP fact" do
-      expect(room.to_fact).to eq("room(room_1, 42, \"Building\").")
+      expect(room.to_fact).to eq("room(room_1, 42).")
     end
   end
 
