@@ -1,8 +1,8 @@
 module GlobalId
-    
+
   def g_id
-    "#{self.class.name.underscore.tr("/","_")}_#{self.read_attribute(:id)}"
+    "#{self.class.model_name.param_key}_#{self.id}"
   end
-  
+
 end
 
