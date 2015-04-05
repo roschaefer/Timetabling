@@ -3,5 +3,5 @@
 %%% represent one violation. Any extra lecture in the same period and
 %%% room counts as one more violation.
 
-1 { assigned(C,R,D,P) : r(R) } 1 :- assigned(C,D,P).
-:- not { assigned(C,R,D,P) : c(C) } 1, r(R), d(D), ppd(P).
+1 { assigned(C,R,D,TF) : r(R) } 1 :- assigned(C,D,TF).
+:- not { assigned(C,R,D,TF) : c(C) } 1, r(R), d(D), timeframe(TF,_).
