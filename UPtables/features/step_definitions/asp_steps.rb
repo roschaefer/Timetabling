@@ -53,6 +53,12 @@ Angenommen(/^die Kurse gehören jeweils durch ein Wahlmodul zum Studiengang "(.*
   end
 end
 
+Angenommen(/^der Kurs "(.*?)" gehört durch ein Wahlmodul zum Studiengang "(.*?)"$/) do |course_name, curriculum_name|
+  course = Course.find_by :name => course_name
+  curriculum = Curriculum.find_by :name => curriculum_name
+  create_elective_module_for(course, curriculum)
+end
+
 Angenommen(/^die Kurse sind beide im (\d+)\. Semester empfohlen$/) do |semester|
   @courses.each do |c|
     curriculum = c.curricula.first
@@ -121,8 +127,12 @@ Dann(/^gibt es(?: nur noch)? (\d+) optimale Lösungen/) do |n|
   expect(Timetable.optimal).to have(n.to_i).items
 end
 
-Dann(/^es gibt(?: sogar)? optimale Lösungen ohne Kosten$/) do
+Dann(/^es gibt(?: sogar)? optimale Lösungen ohne Kosten/) do
   expect(Timetable.optimal.first.costs).to eq 0
+end
+
+Dann(/^die Kosten für optimale Lösungen betragen (\d+)/) do |costs|
+  expect(Timetable.optimal.first.costs).to eq costs.to_i
 end
 
 Dann(/^leider haben optimale Lösungen(?: auf jeden Fall)? Kosten/) do
@@ -194,3 +204,8 @@ Angenommen(/^der Kurs hat eine wöchentliche Übung mit (\d+) Teilnehmern$/) do 
   create(:course_component, :course => @course, :dates =>1, :participants => participants.to_i, :type => 'Übung')
 end
 
+Angenommen(/^es gibt Kosten von (\d+) für Konflikte bei gleicher Semesterempfehlung$/) do |cost|
+  # TODO: set the costs for a this soft constraint to the given parameter
+  # currently the default is just 7
+  expect(cost.to_i).to eq 7
+end
