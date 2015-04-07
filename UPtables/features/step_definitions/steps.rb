@@ -307,11 +307,24 @@ Angenommen(/^keine Studienordnung hat irgendwelche Sperrzeiten$/) do
   expect(Curriculum::Unavailability.count).to eq 0
 end
 
+Angenommen(/^Prof. "(.*?)" hat keine Unverfügbarkeiten$/) do |teacher_surname|
+  teacher = Teacher.find_by!(:surname => teacher_surname)
+  expect(teacher.unavailabilities.count).to eq 0
+end
+
+
 Angenommen(/^der Studiengang "(.*?)" hat eine Sperrzeit am (.*?) um (.*?) Uhr$/) do |curriculum_name, weekday_name, interval|
   curriculum = Curriculum.find_by!(:name => curriculum_name)
   weekday   = Weekday.find_by!(:name   => weekday_name)
   timeframe = Timeframe.find_by!(:interval => interval)
   create(:curriculum_unavailability, :curriculum => curriculum, :weekday => weekday, :timeframe => timeframe)
+end
+
+Angenommen(/^Prof. "(.*?)" ist am (.*?) um (.*?) Uhr unverfügbar$/) do |teacher_surname, weekday_name, interval|
+  teacher = Teacher.find_by!(:surname => teacher_surname)
+  weekday   = Weekday.find_by!(:name   => weekday_name)
+  timeframe = Timeframe.find_by!(:interval => interval)
+  create(:teacher_unavailability, :teacher => teacher, :weekday => weekday, :timeframe => timeframe)
 end
 
 Dann(/^es ich kann mir den ersten Stundenplan ansehen$/) do

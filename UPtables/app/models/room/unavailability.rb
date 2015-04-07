@@ -7,6 +7,6 @@ class Room::Unavailability < ActiveRecord::Base
   belongs_to :timeframe
 
   def to_fact
-    "room_unavailable(#{room.id}, #{weekday.id}, #{timeframe.id})."
+    "room_unavailable(#{room.g_id}, #{weekday.g_id}, #{timeframe.g_id})."
   end
 end

@@ -4,7 +4,7 @@ class Timetable::OverfullRoom < ActiveRecord::Base
 
   def self.asp_regex
     #assigned(24,7,2,6)
-    /^penalty\(\"RoomCapacity\",assigned\((.*),(.*),(.*),(.*)\),(.*)\)$/
+    /^penalty\(\"RoomCapacity\",assigned\((?:\D*)(\d+),(?:\D*)(\d+),(?:\D*)(\d+),(?:\D*)(\d+)\),(.*)\)$/
   end
 
   def self.from_asp(elements, context)

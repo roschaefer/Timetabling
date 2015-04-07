@@ -17,7 +17,7 @@ RSpec.describe Course, type: :model do
     }}
 
     it "returns a valid asp fact" do
-      expect(course.to_fact).to eq "course(9,21)."
+      expect(course.to_fact).to eq "course(course_9,teacher_21)."
     end
   end
 end

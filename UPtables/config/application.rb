@@ -27,6 +27,6 @@ module UPtables
       g.view_specs false
       g.helper_specs false
       g.routing_specs false
-    end
+    end    
   end
 end

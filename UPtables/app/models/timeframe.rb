@@ -1,5 +1,7 @@
 class Timeframe < ActiveRecord::Base
-  def self.to_fact
-    "periods_per_day(#{count})."
+  include GlobalId
+
+  def to_fact
+    "timeframe(#{g_id}, #{id})."
   end
 end

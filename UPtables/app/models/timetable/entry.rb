@@ -11,7 +11,7 @@ class Timetable::Entry < ActiveRecord::Base
   end
 
   def self.asp_regex
-    part = self.asp_attributes.map{|a| "(.*)" }.join(",")
+    part = self.asp_attributes.map{|a| "(?:\\D*)(\\d+)" }.join(",")
     /^assigned\(#{part}\)$/
   end
 

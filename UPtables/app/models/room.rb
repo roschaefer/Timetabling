@@ -1,5 +1,8 @@
 class Room < ActiveRecord::Base
+  
+  include GlobalId
   include HasUnavailabilities
+  
   has_many :unavailabilities, dependent: :destroy
   has_and_belongs_to_many :properties
   validates :name, presence: true
@@ -11,7 +14,7 @@ class Room < ActiveRecord::Base
   end
 
   def to_fact
-    "room(#{id}, #{capacity}, \"Building\")."
+    "room(#{g_id}, #{capacity})."
   end
 
 

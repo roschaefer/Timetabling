@@ -1,4 +1,6 @@
 class Curriculum < ActiveRecord::Base
+  
+  include GlobalId
   include HasUnavailabilities
   
   has_many :unavailabilities, dependent: :destroy
@@ -16,7 +18,7 @@ class Curriculum < ActiveRecord::Base
   def to_fact
     facts = []
     course_components.each do |cc|
-      facts << "curricula(#{id}, #{cc.id})."
+      facts << "curricula(#{g_id}, #{cc.g_id})."
     end
     facts.join("\n")
   end

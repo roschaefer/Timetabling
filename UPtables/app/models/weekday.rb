@@ -1,5 +1,7 @@
 class Weekday < ActiveRecord::Base
-  def self.to_fact
-    "days(#{count})."
+  include GlobalId
+
+  def to_fact
+    "weekday(#{g_id}, #{id})."
   end
 end

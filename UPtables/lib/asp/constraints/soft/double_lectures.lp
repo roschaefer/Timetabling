@@ -7,8 +7,11 @@
 
 #const penalty_of_double_lectures = 3.
 
-penalty("DoubleLecture", assigned(C,R,D,P), penalty_of_double_lectures) :-
-  course_component(C,_,_,_,1), d(D),
-  assigned(C,R,D,P),
-  not assigned(C,R,D,P-1),
-  not assigned(C,R,D,P+1).
+
+
+joined_time_assignment(C,R,WD,TF,TIME) :- assigned(C,R,WD,TF), timeframe(TF,TIME).
+penalty("DoubleLecture", joined_time_assignment(C,R,WD,TF,TIME), penalty_of_double_lectures) :-
+  course_component(C,_,_,_,1), weekday(WD,_),
+  joined_time_assignment(C,R,WD,TF, TIME),
+  not joined_time_assignment(C,R,WD,_, TIME-1),
+  not joined_time_assignment(C,R,WD,_, TIME+1).

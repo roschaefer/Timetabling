@@ -1,4 +1,6 @@
 class Course::Component < ActiveRecord::Base
+  
+  include GlobalId
 
   TYPES = ['Vorlesung', 'Übung', 'Seminar', 'Projekt']
 
@@ -20,7 +22,7 @@ class Course::Component < ActiveRecord::Base
 
   def to_fact
     dl = (double_lecture && "1") || "0"
-    "course_component(#{id},#{teacher_id},#{dates},#{participants},#{dl})."
+    "course_component(#{g_id},#{teacher.g_id},#{dates},#{participants},#{dl})."
   end
 
 end

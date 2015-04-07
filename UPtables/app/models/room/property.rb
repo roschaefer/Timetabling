@@ -7,7 +7,7 @@ class Room::Property < ActiveRecord::Base
     facts = []
     course_components.each do |component|
       rooms_without_this_property.each do |room|
-        facts << "room_unsuitable(#{room.id},#{component.id})."
+        facts << "room_unsuitable(#{room.g_id},#{component.g_id})."
       end
     end
     facts.join("\n")

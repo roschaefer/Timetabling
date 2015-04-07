@@ -3,4 +3,4 @@
 %%% can be scheduled at that period. Each lecture in a period
 %%% unavailable for that course is one violation.
 
-:- assigned(C,D,P), course_component(C,T,_,_,_), professor_unavailable(T,D,P).
+:- assigned(C,WD,TF), course_component(C,T,_,_,_), professor_unavailable(T,WD,TF).

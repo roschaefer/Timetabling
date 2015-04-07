@@ -1,7 +1,10 @@
 class Course < ActiveRecord::Base
+
+  include GlobalId
+
   validate  :check_for_duplicate_recommendations
   validates  :name,  presence: true
-    
+
   belongs_to :teacher
   has_and_belongs_to_many :ects_modules
   has_many :curricula, :through => :ects_modules
@@ -14,16 +17,16 @@ class Course < ActiveRecord::Base
   def self.to_fact
     "courses(#{count})."
   end
-  
+
   def self.all_ordered
-     self.order('name asc')
+    self.order('name asc')
   end
 
   def to_fact
-    facts = ["course(#{id},#{teacher_id})."]
+    facts = ["course(#{g_id},#{teacher.g_id})."]
     recommendations.each do |r|
       components.each do |cc|  
-        facts << "recommendation(#{cc.id}, #{r.semester}, #{r.curriculum_id})."
+        facts << "recommendation(#{cc.g_id}, #{r.semester}, #{r.curriculum.g_id})."
       end
     end
     facts.join("\n")
