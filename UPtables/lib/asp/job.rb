@@ -14,7 +14,8 @@ class Asp::Job
       Room::Unavailability,
       Teacher::Unavailability,
       Curriculum::Unavailability,
-      CurriculumModuleAssignment
+      CurriculumModuleAssignment,
+      TimeWindow
 ]
     @solver = Asp::Solver.new
   end

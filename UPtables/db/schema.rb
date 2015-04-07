@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150330133358) do
+ActiveRecord::Schema.define(version: 20150407193800) do
 
   create_table "course_components", force: :cascade do |t|
     t.string   "type"
@@ -133,6 +133,19 @@ ActiveRecord::Schema.define(version: 20150330133358) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "time_windows", force: :cascade do |t|
+    t.integer  "timeframe_id"
+    t.integer  "weekday_id"
+    t.integer  "curriculum_id"
+    t.integer  "semester"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "time_windows", ["curriculum_id"], name: "index_time_windows_on_curriculum_id"
+  add_index "time_windows", ["timeframe_id"], name: "index_time_windows_on_timeframe_id"
+  add_index "time_windows", ["weekday_id"], name: "index_time_windows_on_weekday_id"
 
   create_table "timeframes", force: :cascade do |t|
     t.string   "interval"
