@@ -123,7 +123,7 @@ Dann(/^gibt es (\d+) Lösungen/) do |n|
   expect(Timetable.all).to have(n.to_i).items
 end
 
-Dann(/^gibt es(?: nur noch)? (\d+) optimale Lösungen/) do |n|
+Dann(/^(?:gibt es|es gibt)(?: nur noch)? (\d+) optimale Lösungen/) do |n|
   expect(Timetable.optimal).to have(n.to_i).items
 end
 

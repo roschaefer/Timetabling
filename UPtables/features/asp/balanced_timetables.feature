@@ -37,3 +37,4 @@ Funktionalität: Ausgeglichene Stundenpläne
       | Mittwoch | 10:00 | Programmiertechnik I |
       | Mittwoch | 11:00 |                      |
       | Mittwoch | 12:00 |                      |
+    Und es gibt 9 optimale Lösungen
