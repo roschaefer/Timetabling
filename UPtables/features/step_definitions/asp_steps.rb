@@ -146,6 +146,10 @@ Angenommen(/^alle Kurse haben eine wöchentliche Vorlesung$/) do
   end
 end
 
+Angenommen(/^der Kurs hat (\d+) Übungen pro Woche$/) do |dates|
+  create(:course_component, :course => @course, :dates => dates.to_i, :type => 'Übung')
+end
+
 Angenommen(/^die Vorlesung des Kurses "(.*?)" hat einen Termin und wird von Prof. "(.*?)" unterrichtet$/) do |course_name, teacher_surname|
   course = Course.find_by!(:name => course_name)
   teacher = create(:teacher, :surname => teacher_surname)
@@ -218,3 +222,13 @@ Angenommen(/^es gibt Kosten von (\d+) für Konflikte bei gleicher Semesterempfeh
   # currently the default is just 7
   expect(cost.to_i).to eq 7
 end
+
+Wenn(/^die gefundenen, optimalen Lösungen sortiert werden$/) do
+  @solutions = Timetable.optimal.map {|t| Helper::TimetablePresenter.new(t)}
+  @solutions.sort!
+end
+
+Dann(/^sieht die erste Lösung so aus:$/) do |table|
+  table.diff!(@solutions.first.ast_table)
+end
+
