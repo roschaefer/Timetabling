@@ -303,6 +303,18 @@ Dann(/^es dürfen keine Kurse am (.*) um (.*) Uhr stattfinden$/) do |weekday_nam
   expect(@curriculum).not_to be_available_at(weekday, timeframe)
 end
 
+Angenommen(/^es gibt keine Zeitfenster für die Studienordnung "(.*?)"$/) do |curriculum_name|
+  curriculum = Curriculum.find_by!(:name => curriculum_name)
+  expect(curriculum.time_windows.count).to eq 0
+end
+
+Angenommen(/^"(.*?)" hat ein Zeitfenster am (.*?) um (.*?) Uhr für das (\d+)\. Semester$/) do |curriculum_name, weekday_name, interval, semester|
+  curriculum = Curriculum.find_by!(:name => curriculum_name)
+  weekday    = Weekday.find_by!(:name   => weekday_name)
+  timeframe  = Timeframe.find_by!(:interval => interval)
+  create(:time_window, :curriculum => curriculum, :weekday => weekday, :timeframe => timeframe, :semester => semester)
+end
+
 Angenommen(/^keine Studienordnung hat irgendwelche Sperrzeiten$/) do
   expect(Curriculum::Unavailability.count).to eq 0
 end

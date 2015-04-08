@@ -9,6 +9,8 @@ class Curriculum < ActiveRecord::Base
   has_many :courses, through: :ects_modules
   has_many :course_components, :source => :components, through: :courses, :class_name => "Course::Component"
 
+  has_many :time_windows
+  
   validates :name, :presence => true
 
   def self.to_fact
