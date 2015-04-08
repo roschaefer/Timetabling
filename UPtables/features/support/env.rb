@@ -7,8 +7,10 @@
 require 'cucumber/rails'
 require 'factory_girl_rails'
 require 'capybara-screenshot/cucumber'
+require_relative 'helper'
 
 World(FactoryGirl::Syntax::Methods)
+World(Helper)
 
 Capybara.javascript_driver = :webkit
 
