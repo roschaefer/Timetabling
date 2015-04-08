@@ -7,10 +7,11 @@ module Helper
     end
 
     def <=>(anOther)
-      if (binary_string.size != anOther.binary_string)
-        anOther.binary_string <=> binary_string
+      if (comparable_array.size != anOther.comparable_array)
+        anOther.comparable_array <=> comparable_array
       else
-        raise "Timetables have different number of entries"
+        # Timetables have different number of entries
+        nil # raises ArgumentError
       end
     end
 
@@ -18,8 +19,8 @@ module Helper
       @ast_table ||= create_ast_table
     end
 
-    def binary_string
-      @binary_string ||= create_binary_string
+    def comparable_array
+      @comparable_array ||= create_comparable_array
     end
 
     private
@@ -35,13 +36,13 @@ module Helper
       Cucumber::Ast::Table.new(table)
     end
 
-    def create_binary_string
-      result = ""
+    def create_comparable_array
+      result = []
       weekdays.each do |wd|
         timeframes.each do |tf|
           rooms.each do |r|
             cell_entry = entries.find { |e| (e.weekday == wd) && (e.timeframe == tf) && (e.room == r) }
-            result << ((cell_entry.nil? && "0") || "1")
+            result << ((cell_entry && cell_entry.course_component.id) || -1) # assuming -1 is never an actual id
           end
         end
       end
