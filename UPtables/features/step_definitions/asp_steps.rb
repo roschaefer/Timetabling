@@ -81,7 +81,7 @@ Angenommen(/^der Kurs besitzt eine Komponente vom Typ "(.*?)" mit genau (\d+) Te
   @course.components = [course_component]
 end
 
-Angenommen(/^der Kurs "(.*?)" besitzt eine Komponente vom Typ "(.*?)" mit genau (\d+) Termin$/) do |course_name, component_type, component_dates|
+Angenommen(/^der Kurs "(.*?)" besitzt eine Komponente vom Typ "(.*?)" mit genau (\d+) Termin/) do |course_name, component_type, component_dates|
   course     = Course.find_by :name     => course_name
   course_component = create(:course_component, :id => course.id + 1 ,:type => component_type, :dates => component_dates)
   course.components = [course_component]

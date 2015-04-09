@@ -31,11 +31,18 @@ Funktionalität: Festgelegte Zeitslots für Veranstaltungen im Informatik-Lehram
   Wenn jetzt nach Stundenplänen gesucht wird
   Dann gibt es 4 optimale Lösungen
   
-  Szenario: Zutreffendes Zeitfenster bei einer Vorlesung
+  Szenario: Mehrere zutreffende Zeitfenster bei einer Vorlesung
   Angenommen der Kurs "Praxis der Programmierung" besitzt eine Komponente vom Typ "Vorlesung" mit genau 1 Termin
   Und "Lehramt Informatik Bachelor" hat ein Zeitfenster am Montag um 10:00 Uhr für das 1. Semester
+  Und "Lehramt Informatik Bachelor" hat ein Zeitfenster am Mittwoch um 10:00 Uhr für das 1. Semester
   Wenn jetzt nach Stundenplänen gesucht wird
-  Dann gibt es 2 optimale Lösungen
+  Dann gibt es 4 optimale Lösungen
+  
+  Szenario: Nicht ausreichende Zeitfenster bei einer Vorlesung
+  Angenommen der Kurs "Praxis der Programmierung" besitzt eine Komponente vom Typ "Vorlesung" mit genau 2 Terminen
+  Und "Lehramt Informatik Bachelor" hat ein Zeitfenster am Montag um 10:00 Uhr für das 1. Semester
+  Wenn jetzt nach Stundenplänen gesucht wird
+  Dann gibt es keine Lösung
   
   
   
