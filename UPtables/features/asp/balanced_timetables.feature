@@ -35,6 +35,7 @@ Funktionalität: Ausgeglichene Stundenpläne
       | Mittwoch | 11:00 |                      |
       | Mittwoch | 12:00 |                      |
     Und es gibt 27 optimale Lösungen insgesamt
+    Und es gibt sogar optimale Lösungen ohne Kosten
 
   Szenario: Zwei Kurse in der selben Studienordnung
     Angenommen unser Stundenplan sieht so aus:
@@ -61,3 +62,4 @@ Funktionalität: Ausgeglichene Stundenpläne
       | Dienstag | 11:00 | Elektrotechnik II    |
       | Dienstag | 12:00 |                      |
     Und es gibt 54 optimale Lösungen insgesamt
+    Und es gibt sogar optimale Lösungen ohne Kosten
