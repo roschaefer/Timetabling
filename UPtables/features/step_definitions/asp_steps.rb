@@ -229,7 +229,7 @@ Angenommen(/^es gibt Kosten von (\d+) für Konflikte bei gleicher Semesterempfeh
 end
 
 Wenn(/^(?:wenn )?die gefundenen, optimalen Lösungen sortiert werden$/) do
-  @solutions = Timetable.optimal.map {|t| Helper::TimetablePresenter.new(t)}
+  @solutions = Timetable.optimal.map {|t| TimetablePresenter.new(t)}
   @solutions.sort!
 end
 
