@@ -183,11 +183,11 @@ Angenommen(/^es gibt (\d+) Kurse in der Datenbank$/) do |number_of_courses|
   end
 end
 
-Angenommen(/^alle Kurse gehören zu einer Studienordnung$/) do
+Angenommen(/^alle Kurse gehören zur selben Studienordnung$/) do
   curriculum  = create :curriculum
-  ects_module = create :ects_module
-  curriculum.ects_modules << ects_module
   Course.find_each do |c|
+    ects_module = create :ects_module
+    curriculum.ects_modules << ects_module
     c.ects_modules << ects_module
   end
 end

@@ -15,7 +15,7 @@ um je nach Situation schnellere oder bessere Ergebnisse zu bekommen.
        | 16:00 - 18:00 |
        | 18:00 - 20:00 |
     Und es gibt 10 Kurse in der Datenbank
-    Und alle Kurse gehören zu einer Studienordnung
+    Und alle Kurse gehören zur selben Studienordnung
     Und es gibt 5 Räume mit jeweils 10 Plätzen in der Datenbank
 
 
