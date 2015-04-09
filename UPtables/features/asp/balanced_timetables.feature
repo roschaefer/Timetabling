@@ -55,9 +55,9 @@ Funktionalität: Ausgeglichene Stundenpläne
       |          |       | Raum 1               |
       |          |       | 100                  |
       | Montag   | 10:00 | Programmiertechnik I |
-      | Montag   | 11:00 | Elektrotechnik II    |
+      | Montag   | 11:00 | Programmiertechnik I |
       | Montag   | 12:00 |                      |
-      | Dienstag | 10:00 | Programmiertechnik I |
+      | Dienstag | 10:00 | Elektrotechnik II    |
       | Dienstag | 11:00 | Elektrotechnik II    |
       | Dienstag | 12:00 |                      |
     Und es gibt 12 optimale Lösungen insgesamt

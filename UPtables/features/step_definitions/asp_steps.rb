@@ -234,6 +234,8 @@ Wenn(/^(?:wenn )?die gefundenen, optimalen Lösungen sortiert werden$/) do
 end
 
 Dann(/^sieht die erste Lösung so aus:$/) do |table|
-  table.diff!(@solutions.first.ast_table)
+  # for what reason this doesn't work?
+  # table.diff!(@solutions.first.ast_table)
+  expect(@solutions.first.ast_table.raw).to eq table.raw
 end
 
