@@ -150,6 +150,12 @@ Angenommen(/^der Kurs hat (\d+) Übungen pro Woche$/) do |dates|
   create(:course_component, :course => @course, :dates => dates.to_i, :type => 'Übung')
 end
 
+Angenommen(/^die Kurse haben (\d+) Übungen pro Woche$/) do |dates|
+  @courses.each do |c|
+    create(:course_component, :course => c, :dates => dates.to_i, :type => 'Übung')
+  end
+end
+
 Angenommen(/^die Vorlesung des Kurses "(.*?)" hat einen Termin und wird von Prof. "(.*?)" unterrichtet$/) do |course_name, teacher_surname|
   course = Course.find_by!(:name => course_name)
   teacher = create(:teacher, :surname => teacher_surname)
