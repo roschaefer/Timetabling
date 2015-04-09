@@ -6,7 +6,7 @@ class TimeWindow < ActiveRecord::Base
   validates :timeframe, :weekday, :curriculum, :presence => true
   
   def to_fact
-    "time_window(#{timeframe.g_id}, #{weekday.g_id}, #{curriculum.g_id}, #{semester})."
+    "time_window(#{weekday.g_id}, #{timeframe.g_id}, #{curriculum.g_id}, #{semester})."
   end
   
 end
