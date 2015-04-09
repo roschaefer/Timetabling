@@ -187,31 +187,8 @@ end
 
 Dann(/^sehen die Raumbelegungen so aus:$/) do |table|
   # TODO: this step definition works only with one room and only one course
-  text_arrays = []
-  temp_text_arrays = @solutions.map(&:text_array)
-  temp_text_arrays.each_with_index do |ta, i|
-    # remap course id to solution id, quite ugly!
-    text_arrays << ta.collect {|e| (e == "1") ? (i+1) : e}
-  end
-  first, *rest = text_arrays
-  actual = first.zip(*rest).collect{|e| e.join(" ").squish}
-
   room_1_column = table.rows.transpose[2] # TODO: how about more rooms?
-  expected = room_1_column.map(&:squish)
-  expect(actual).to eq expected
-
-  #room_1_column = table.rows.transpose[2]
-  #solution_ids = room_1_column.collect{|cell| cell.split("\s")}.flatten.uniq
-  #solution_ids.each do |id|
-    #solution_array = []
-    #room_1_column.each do |cell|
-      #if cell.contains?(id)
-        #solution_array << id
-      #else
-        #solution_array << TimetablePresenter::FIXNUM_MAX
-      #end
-    #end
-  #end
+  expect(@solutions).to allocate_rooms_like room_1_column
 end
 
 Angenommen(/^es gibt (\d+) Kurse ohne Komponenten in der Datenbank$/) do |number|
