@@ -1,5 +1,6 @@
 module Helper
   class TimetablePresenter
+    FIXNUM_MAX = (2**(0.size * 8 -2) -1)
     include Comparable
 
     def initialize(timetable)
@@ -8,7 +9,7 @@ module Helper
 
     def <=>(anOther)
       if (comparable_array.size != anOther.comparable_array)
-        anOther.comparable_array <=> comparable_array
+        comparable_array <=> anOther.comparable_array
       else
         # Timetables have different number of entries
         nil # raises ArgumentError
@@ -42,7 +43,7 @@ module Helper
         timeframes.each do |tf|
           rooms.each do |r|
             cell_entry = entries.find { |e| (e.weekday == wd) && (e.timeframe == tf) && (e.room == r) }
-            result << ((cell_entry && cell_entry.course_component.id) || -1) # assuming -1 is never an actual id
+            result << ((cell_entry && cell_entry.course_component.id) || FIXNUM_MAX) # let's hope there is no id of that size
           end
         end
       end

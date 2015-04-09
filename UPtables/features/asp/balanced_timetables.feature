@@ -46,7 +46,7 @@ Funktionalität: Ausgeglichene Stundenpläne
       | Dienstag   | 10:00 |        |
       | Dienstag   | 11:00 |        |
       | Dienstag   | 12:00 |        |
-    Und es gibt die Kurse "Elektrotechnik II" und "Programmiertechnik I"
+    Und es gibt die Kurse "Programmiertechnik I" und "Elektrotechnik II"
     Und die Kurse haben 2 Übungen pro Woche
     Und alle Kurse gehören zur selben Studienordnung
     Wenn jetzt nach Stundenplänen gesucht wird
