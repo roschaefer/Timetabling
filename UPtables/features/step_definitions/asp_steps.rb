@@ -185,11 +185,33 @@ Angenommen(/^der Kurs hat vier Vorlesungen insgesamt, die als Doppelstunden stat
   create(:course_component, :course => @course, :dates => 4, :type => 'Vorlesung', :double_lecture => true)
 end
 
-Dann(/^so sehen die Raumbelegungen aus:$/) do |table|
-  # pending
-  # nope, no implementation here, but it would be great to have one
-  # the numbers in one room column of the table encode the id of a solution
-  # (hence a timetable)
+Dann(/^sehen die Raumbelegungen so aus:$/) do |table|
+  # TODO: this step definition works only with one room and only one course
+  text_arrays = []
+  temp_text_arrays = @solutions.map(&:text_array)
+  temp_text_arrays.each_with_index do |ta, i|
+    # remap course id to solution id, quite ugly!
+    text_arrays << ta.collect {|e| (e == "1") ? (i+1) : e}
+  end
+  first, *rest = text_arrays
+  actual = first.zip(*rest).collect{|e| e.join(" ").squish}
+
+  room_1_column = table.rows.transpose[2] # TODO: how about more rooms?
+  expected = room_1_column.map(&:squish)
+  expect(actual).to eq expected
+
+  #room_1_column = table.rows.transpose[2]
+  #solution_ids = room_1_column.collect{|cell| cell.split("\s")}.flatten.uniq
+  #solution_ids.each do |id|
+    #solution_array = []
+    #room_1_column.each do |cell|
+      #if cell.contains?(id)
+        #solution_array << id
+      #else
+        #solution_array << TimetablePresenter::FIXNUM_MAX
+      #end
+    #end
+  #end
 end
 
 Angenommen(/^es gibt (\d+) Kurse ohne Komponenten in der Datenbank$/) do |number|
@@ -229,7 +251,7 @@ Angenommen(/^es gibt Kosten von (\d+) für Konflikte bei gleicher Semesterempfeh
   expect(cost.to_i).to eq 7
 end
 
-Wenn(/^die gefundenen, optimalen Lösungen sortiert werden$/) do
+Wenn(/^(?:wenn )?die gefundenen, optimalen Lösungen sortiert werden$/) do
   @solutions = Timetable.optimal.map {|t| Helper::TimetablePresenter.new(t)}
   @solutions.sort!
 end

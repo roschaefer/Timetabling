@@ -24,6 +24,10 @@ module Helper
       @comparable_array ||= create_comparable_array
     end
 
+    def text_array
+      comparable_array.map{|x| ((x == FIXNUM_MAX && "" ) || x.to_s) }
+    end
+
     private
 
     def create_ast_table
