@@ -19,20 +19,10 @@ class Course::Component < ActiveRecord::Base
   self.inheritance_column = nil
 
   delegate :name, :to => :course
-    
-  def lecture?
-    type.to_sym == :Lecture
-  end
 
   def to_fact
     dl = (double_lecture && "1") || "0"
-    facts = ["course_component(#{g_id},#{teacher.g_id},#{dates},#{participants},#{dl})."]
-    
-    if self.lecture?
-      facts << "lecture(#{g_id})."
-    end
-    
-    facts.join("\n")
+    "course_component(#{g_id},#{teacher.g_id},#{dates},#{participants},#{dl},#{type.downcase})."
   end
 
 end

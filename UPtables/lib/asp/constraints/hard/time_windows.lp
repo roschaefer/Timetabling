@@ -3,5 +3,5 @@
 %%% recommended for the specific semester, the lecture must be scheduled 
 %%% within one time window
 
-:- assigned(C,WD,TF), lecture(C), mandatory(C,Cu), recommendation(C,S,Cu),
-      1 { time_window(_,_,Cu,S) }, not time_window(WD,TF,Cu,S).
+:- assigned(C,WD,TF), course_component(C,_,_,_,_,lecture), mandatory(C,Cu), recommendation(C,S,Cu),
+     1 { time_window(_,_,Cu,S) }, not time_window(WD,TF,Cu,S).
