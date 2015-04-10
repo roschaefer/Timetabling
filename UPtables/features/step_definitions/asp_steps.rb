@@ -146,12 +146,12 @@ Angenommen(/^alle Kurse haben eine wöchentliche Vorlesung$/) do
 end
 
 Angenommen(/^der Kurs hat (\d+) Übungen pro Woche$/) do |dates|
-  create(:course_component, :course => @course, :dates => dates.to_i, :type => 'Übung')
+  create(:course_component, :course => @course, :dates => dates.to_i, :type => :Exercise)
 end
 
 Angenommen(/^die Kurse haben (\d+) Übungen pro Woche$/) do |dates|
   @courses.each do |c|
-    create(:course_component, :course => c, :dates => dates.to_i, :type => 'Übung')
+    create(:course_component, :course => c, :dates => dates.to_i, :type => :Exercise)
   end
 end
 
