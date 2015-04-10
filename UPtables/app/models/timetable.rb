@@ -1,4 +1,4 @@
 class Timetable < ActiveRecord::Base
   has_many :entries, dependent: :destroy
-  scope :optimal, -> { where(:optimum => true) }
+  scope :optimal, -> { includes(:entries).where(:optimum => true) }
 end

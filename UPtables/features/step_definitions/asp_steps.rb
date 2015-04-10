@@ -123,7 +123,7 @@ Dann(/^gibt es (\d+) Lösungen/) do |n|
   expect(Timetable.all).to have(n.to_i).items
 end
 
-Dann(/^gibt es(?: nur noch)? (\d+) optimale Lösungen/) do |n|
+Dann(/^(?:gibt es|es gibt)(?: nur noch)? (\d+) optimale Lösungen/) do |n|
   expect(Timetable.optimal).to have(n.to_i).items
 end
 
@@ -143,6 +143,16 @@ end
 Angenommen(/^alle Kurse haben eine wöchentliche Vorlesung$/) do
   @courses.each do |course|
     create(:course_component, :course => course, :dates => 1, :type => 'Vorlesung')
+  end
+end
+
+Angenommen(/^der Kurs hat (\d+) Übungen pro Woche$/) do |dates|
+  create(:course_component, :course => @course, :dates => dates.to_i, :type => 'Übung')
+end
+
+Angenommen(/^die Kurse haben (\d+) Übungen pro Woche$/) do |dates|
+  @courses.each do |c|
+    create(:course_component, :course => c, :dates => dates.to_i, :type => 'Übung')
   end
 end
 
@@ -175,11 +185,10 @@ Angenommen(/^der Kurs hat vier Vorlesungen insgesamt, die als Doppelstunden stat
   create(:course_component, :course => @course, :dates => 4, :type => 'Vorlesung', :double_lecture => true)
 end
 
-Dann(/^so sehen die Raumbelegungen aus:$/) do |table|
-  # pending
-  # nope, no implementation here, but it would be great to have one
-  # the numbers in one room column of the table encode the id of a solution
-  # (hence a timetable)
+Dann(/^sehen die Raumbelegungen so aus:$/) do |table|
+  # TODO: this step definition works only with one room and only one course
+  room_1_column = table.rows.transpose[2] # TODO: how about more rooms?
+  expect(@solutions).to allocate_rooms_like room_1_column
 end
 
 Angenommen(/^es gibt (\d+) Kurse ohne Komponenten in der Datenbank$/) do |number|
@@ -218,3 +227,15 @@ Angenommen(/^es gibt Kosten von (\d+) für Konflikte bei gleicher Semesterempfeh
   # currently the default is just 7
   expect(cost.to_i).to eq 7
 end
+
+Wenn(/^(?:wenn )?die gefundenen, optimalen Lösungen sortiert werden$/) do
+  @solutions = Timetable.optimal.map {|t| TimetablePresenter.new(t)}
+  @solutions.sort!
+end
+
+Dann(/^sieht die erste Lösung so aus:$/) do |table|
+  # for what reason this doesn't work?
+  # table.diff!(@solutions.first.ast_table)
+  expect(@solutions.first.ast_table.raw).to eq table.raw
+end
+

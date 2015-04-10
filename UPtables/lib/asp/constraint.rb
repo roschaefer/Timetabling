@@ -16,7 +16,8 @@ class Asp::Constraint
     "double_lectures",
     "same_curriculum",
     "recommended_semester",
-    "curriculum_unavailabilities"
+    "curriculum_unavailabilities",
+    "balanced_timetable"
   ]
 
   class << self
