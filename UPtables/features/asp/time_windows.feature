@@ -1,5 +1,8 @@
 #language: de
-Funktionalität: Festgelegte Zeitslots für Veranstaltungen im Informatik-Lehramtstudium (Vorlesungen)
+Funktionalität: Als Informatik-Lehramtsstudent möchte ich,dass die für mich in
+               Frage kommenden Pflichtveranstaltungen gemäß den Regeln der Uni 
+               Potsdam je nach Semesterempfehlung nur in ausgewählte Zeitslots gelegt werden,
+               denn diese Regeln helfen allen Lehramtstudenten dabei, ihre Fächerkombination studieren zu können.
 
   Grundlage:
   Angenommen unser Stundenplan sieht so aus:
