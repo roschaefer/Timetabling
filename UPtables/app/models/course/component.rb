@@ -2,7 +2,7 @@ class Course::Component < ActiveRecord::Base
   
   include GlobalId
 
-  TYPES = [ :Vorlesung, :Übung, :Seminar, :Projekt]
+  TYPES = [ :Lecture, :Exercise, :Seminar, :Project]
 
   belongs_to :teacher
   belongs_to :course
@@ -21,7 +21,7 @@ class Course::Component < ActiveRecord::Base
   delegate :name, :to => :course
     
   def lecture?
-    type.to_sym == :Vorlesung
+    type.to_sym == :Lecture
   end
 
   def to_fact

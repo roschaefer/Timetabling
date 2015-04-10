@@ -10,8 +10,8 @@ Funktionalität: Pflichtveranstaltungen
     |          |       | 100    | 150    |
     | Mittwoch | 10:00 |        |        |
   Und es gibt die Kurse "Face Recognition" und "Cluster Computing"
-  Und der Kurs "Face Recognition" besitzt eine Komponente vom Typ "Vorlesung" mit genau 1 Termin
-  Und der Kurs "Cluster Computing" besitzt eine Komponente vom Typ "Vorlesung" mit genau 1 Termin
+  Und der Kurs "Face Recognition" hat eine Vorlesung die einmal pro Woche stattfindet
+  Und der Kurs "Cluster Computing" hat eine Vorlesung die einmal pro Woche stattfindet
   Und es gibt die zwei Studienordnungen "Bachelor Informatik" und "Master Informatik"
 
   Szenario: Pflichtveranstaltungen mit gleicher Semesterempfehlung

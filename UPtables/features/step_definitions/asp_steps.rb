@@ -142,7 +142,7 @@ end
 
 Angenommen(/^alle Kurse haben eine wöchentliche Vorlesung$/) do
   @courses.each do |course|
-    create(:course_component, :course => course, :dates => 1, :type => 'Vorlesung')
+    create(:course_component, :course => course, :dates => 1, :type => :Lecture)
   end
 end
 
@@ -156,33 +156,32 @@ Angenommen(/^die Kurse haben (\d+) Übungen pro Woche$/) do |dates|
   end
 end
 
-Angenommen(/^die Vorlesung des Kurses "(.*?)" hat einen Termin und wird von Prof. "(.*?)" unterrichtet$/) do |course_name, teacher_surname|
-  course = Course.find_by!(:name => course_name)
+Angenommen(/^die Vorlesung wird von Prof. "(.*?)" gehalten$/) do |teacher_surname|
   teacher = create(:teacher, :surname => teacher_surname)
-  lecture = create(:course_component, :type => "Vorlesung", :dates => 1, :teacher => teacher)
-  course.components = [lecture]
-  course.save
+  lecture = Course::Component.where(:course => @course, :type => :Lecture).first
+  lecture.teacher = teacher
+  lecture.save
 end
 
 Angenommen(/^der Kurs hat eine Vorlesung die einmal pro Woche stattfindet$/) do
-  create(:course_component, :course => @course, :dates => 1, :type => 'Vorlesung')
+  create(:course_component, :course => @course, :dates => 1, :type => :Lecture)
 end
 
 Angenommen(/^der Kurs "(.*?)" hat eine Vorlesung die einmal pro Woche stattfindet$/) do |course_name|
   course = Course.find_by!(:name => course_name)
-  create(:course_component, :course => course, :dates => 1, :type => 'Vorlesung')
+  create(:course_component, :course => course, :dates => 1, :type => :Lecture)
 end
 
 Angenommen(/^der Kurs hat zwei wöchentliche Vorlesungen, zusammen als Doppelstunde stattfinden sollen$/) do
-  create(:course_component, :course => @course, :dates => 2, :type => 'Vorlesung', :double_lecture => true)
+  create(:course_component, :course => @course, :dates => 2, :type => :Lecture, :double_lecture => true)
 end
 
 Angenommen(/^der Kurs hat drei wöchentliche Vorlesungen insgesamt, die nicht einzeln stattfinden sollen$/) do
-  create(:course_component, :course => @course, :dates => 3, :type => 'Vorlesung', :double_lecture => true)
+  create(:course_component, :course => @course, :dates => 3, :type => :Lecture, :double_lecture => true)
 end
 
 Angenommen(/^der Kurs hat vier Vorlesungen insgesamt, die als Doppelstunden stattfinden$/) do
-  create(:course_component, :course => @course, :dates => 4, :type => 'Vorlesung', :double_lecture => true)
+  create(:course_component, :course => @course, :dates => 4, :type => :Lecture, :double_lecture => true)
 end
 
 Dann(/^sehen die Raumbelegungen so aus:$/) do |table|
@@ -219,7 +218,7 @@ Angenommen(/^(.+) ist mit Computerarbeitsplätzen ausgestattet$/) do |room_name|
 end
 
 Angenommen(/^der Kurs hat eine wöchentliche Übung mit (\d+) Teilnehmern$/) do |participants|
-  create(:course_component, :course => @course, :dates =>1, :participants => participants.to_i, :type => 'Übung')
+  create(:course_component, :course => @course, :dates =>1, :participants => participants.to_i, :type => :Lecture)
 end
 
 Angenommen(/^es gibt Kosten von (\d+) für Konflikte bei gleicher Semesterempfehlung$/) do |cost|
