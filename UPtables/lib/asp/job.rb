@@ -1,6 +1,7 @@
 class Asp::Job
   attr_accessor :solver
   delegate :time_out, :time_out=, :to => :solver
+  delegate :set, :to => :configuration
 
   def initialize
     @fact_classes = [

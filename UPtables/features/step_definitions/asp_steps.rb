@@ -1,3 +1,7 @@
+def job
+  @job ||= Asp::Job.new
+end
+
 Angenommen(/^unser Stundenplan sieht so aus:$/) do |table|
   header_rows = []
   header_rows[0] = table.raw[0] ; header_rows[0].shift(2) # skip first two cells
@@ -109,13 +113,11 @@ Dann(/^diese Lösung hat sogar gar keine Kosten, weil es keine Überschneidungen
 end
 
 Angenommen(/^für diesen Test deaktivieren wir die Soft Constraints$/) do
-  @job = Asp::Job.new
-  @job.optimize = false
+  job.optimize = false
 end
 
 Wenn(/^jetzt nach Stundenplänen gesucht wird$/) do
-  @job ||= Asp::Job.new
-  @job.run
+  job.run
 end
 
 Dann(/^gibt es (\d+) Lösungen/) do |n|
@@ -253,6 +255,7 @@ Dann(/^sieht die erste Lösung so aus:$/) do |table|
 end
 
 Angenommen(/^wir aktivieren den Constraint für Gremientage$/) do
+  job.set("hard/committee_dates", true)
 end
 
 Dann(/^(?:es gibt|gibt es)? bei der ersten Lösung einen Gremiumtag am (.+) (.+)$/) do |weekday, interval|

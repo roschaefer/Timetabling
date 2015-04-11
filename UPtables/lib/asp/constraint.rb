@@ -1,4 +1,7 @@
 class Asp::Constraint
+  attr_accessor :active
+  attr_reader :key
+  alias_method :active?, :active
 
   HARD_CONSTRAINTS = [
     "scheduled",
@@ -27,13 +30,13 @@ class Asp::Constraint
 
     HARD_CONSTRAINTS.each do |location|
       define_method(location) do
-       new("hard/#{location}")
+        new("hard/#{location}")
       end
     end
 
     SOFT_CONSTRAINTS.each do |location|
       define_method(location) do
-       new("soft/#{location}")
+        new("soft/#{location}")
       end
     end
 
@@ -41,9 +44,12 @@ class Asp::Constraint
 
 def initialize(location)
   @location = Rails.root.join("lib", "asp", "constraints", "#{location}.lp")
+  @active = true
+  @key = location
 end
 
 def to_asp
   IO.read(@location)
 end
+
 end
