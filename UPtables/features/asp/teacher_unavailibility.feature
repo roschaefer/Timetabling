@@ -9,7 +9,7 @@ Funktionalität: Unverfügbarkeit von Lehrkräften
     | Mittwoch | 10:00 |        |        |
   Und es gibt den Kurs "Face Recognition"
   Und der Kurs hat eine Vorlesung die einmal pro Woche stattfindet
-  Und die Vorlesung des Kurses "Face Recognition" hat einen Termin und wird von Prof. "Scheffer" unterrichtet
+  Und die Vorlesung wird von Prof. "Scheffer" gehalten
   
   Szenario: Lehrer hat keine Unverfügbarkeiten
   Angenommen Prof. "Scheffer" hat keine Unverfügbarkeiten

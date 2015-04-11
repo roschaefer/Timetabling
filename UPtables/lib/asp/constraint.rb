@@ -8,7 +8,8 @@ class Asp::Constraint
     "additional",
     "room_availability",
     "mandatory_and_recommended_in_same_semester",
-    "room_unsuitable"
+    "room_unsuitable",
+    "time_windows"
 ]
 
   SOFT_CONSTRAINTS = [
