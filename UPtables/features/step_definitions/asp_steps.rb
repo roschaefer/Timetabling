@@ -141,51 +141,51 @@ end
 
 Angenommen(/^alle Kurse haben eine wöchentliche Vorlesung$/) do
   @courses.each do |course|
-    create(:course_component, :course => course, :dates => 1, :type => :Lecture)
+    create(:course_component, :course => course, :dates => 1, :type => :lecture)
   end
 end
 
 Angenommen(/^der Kurs hat (\d+) Übungen pro Woche$/) do |dates|
-  create(:course_component, :course => @course, :dates => dates.to_i, :type => :Exercise)
+  create(:course_component, :course => @course, :dates => dates.to_i, :type => :tutorial)
 end
 
 Angenommen(/^die Kurse haben (\d+) Übungen pro Woche$/) do |dates|
   @courses.each do |c|
-    create(:course_component, :course => c, :dates => dates.to_i, :type => :Exercise)
+    create(:course_component, :course => c, :dates => dates.to_i, :type => :tutorial)
   end
 end
 
 Angenommen(/^die Vorlesung wird von Prof. "(.*?)" gehalten$/) do |teacher_surname|
   teacher = create(:teacher, :surname => teacher_surname)
-  lecture = Course::Component.where(:course => @course, :type => :Lecture).first
+  lecture = Course::Component.where(:course => @course, :type => :lecture).first
   lecture.teacher = teacher
   lecture.save
 end
 
 Angenommen(/^der Kurs hat eine Vorlesung die einmal pro Woche stattfindet$/) do
-  create(:course_component, :course => @course, :dates => 1, :type => :Lecture)
+  create(:course_component, :course => @course, :dates => 1, :type => :lecture)
 end
 
 Angenommen(/^der Kurs "(.*?)" hat eine Vorlesung die einmal pro Woche stattfindet$/) do |course_name|
   course = Course.find_by!(:name => course_name)
-  create(:course_component, :course => course, :dates => 1, :type => :Lecture)
+  create(:course_component, :course => course, :dates => 1, :type => :lecture)
 end
 
 Angenommen(/^der Kurs "(.*?)" hat eine Vorlesung die zweimal pro Woche stattfindet$/) do |course_name|
   course = Course.find_by!(:name => course_name)
-  create(:course_component, :course => course, :dates => 2, :type => :Lecture)
+  create(:course_component, :course => course, :dates => 2, :type => :lecture)
 end
 
 Angenommen(/^der Kurs hat zwei wöchentliche Vorlesungen, zusammen als Doppelstunde stattfinden sollen$/) do
-  create(:course_component, :course => @course, :dates => 2, :type => :Lecture, :double_lecture => true)
+  create(:course_component, :course => @course, :dates => 2, :type => :lecture, :double_lecture => true)
 end
 
 Angenommen(/^der Kurs hat drei wöchentliche Vorlesungen insgesamt, die nicht einzeln stattfinden sollen$/) do
-  create(:course_component, :course => @course, :dates => 3, :type => :Lecture, :double_lecture => true)
+  create(:course_component, :course => @course, :dates => 3, :type => :lecture, :double_lecture => true)
 end
 
 Angenommen(/^der Kurs hat vier Vorlesungen insgesamt, die als Doppelstunden stattfinden$/) do
-  create(:course_component, :course => @course, :dates => 4, :type => :Lecture, :double_lecture => true)
+  create(:course_component, :course => @course, :dates => 4, :type => :lecture, :double_lecture => true)
 end
 
 Dann(/^sehen die Raumbelegungen so aus:$/) do |table|
@@ -222,12 +222,12 @@ Angenommen(/^(.+) ist mit Computerarbeitsplätzen ausgestattet$/) do |room_name|
 end
 
 Angenommen(/^der Kurs hat eine wöchentliche Übung mit (\d+) Teilnehmern$/) do |participants|
-  create(:course_component, :course => @course, :dates =>1, :participants => participants.to_i, :type => :Exercise)
+  create(:course_component, :course => @course, :dates =>1, :participants => participants.to_i, :type => :tutorial)
 end
 
 Angenommen(/^der Kurs "(.*?)" hat eine wöchentliche Übung$/) do |course_name|
   course = Course.find_by!(:name => course_name)
-  create(:course_component, :course => course, :dates =>1, :type => :Exercise)
+  create(:course_component, :course => course, :dates =>1, :type => :tutorial)
 end
 
 Angenommen(/^es gibt Kosten von (\d+) für Konflikte bei gleicher Semesterempfehlung$/) do |cost|

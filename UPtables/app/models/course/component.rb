@@ -2,7 +2,7 @@ class Course::Component < ActiveRecord::Base
   
   include GlobalId
 
-  TYPES = [ :Lecture, :Exercise, :Seminar, :Project]
+  TYPES = [:lecture, :tutorial, :seminar, :project]
 
   belongs_to :teacher
   belongs_to :course
@@ -22,7 +22,7 @@ class Course::Component < ActiveRecord::Base
 
   def to_fact
     dl = (double_lecture && "1") || "0"
-    "course_component(#{g_id},#{teacher.g_id},#{dates},#{participants},#{dl},#{type.downcase})."
+    "course_component(#{g_id},#{teacher.g_id},#{dates},#{participants},#{dl},#{type})."
   end
 
 end
