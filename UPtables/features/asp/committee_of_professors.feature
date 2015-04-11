@@ -37,7 +37,6 @@ Funktionalität: Gremientage
     Angenommen unser Stundenplan sieht so aus:
       |          |       | Raum 1 | Raum 2 |
       |          |       | 100    | 150    |
-      | Montag   | 10:00 |        |        |
       | Mittwoch | 10:00 |        |        |
       | Freitag  | 10:00 |        |        |
     Angenommen es gibt die Kurse "Face Recognition" und "Multimedia-Technologie"
@@ -47,7 +46,7 @@ Funktionalität: Gremientage
     Und es gibt einen Professor namens "IchHab KeineZeit"
     Und Prof. "KeineZeit" ist am Freitag um 10:00 Uhr unverfügbar
     Wenn jetzt nach Stundenplänen gesucht wird
-    Dann gibt es 4 optimale Lösungen, weil je ein Zeitslot verbraucht wird wegen des Gremiumtages und der Unverfügbarkeit
+    Dann gibt es 2 optimale Lösungen, weil am Mittwoch unbedingt Gremientag sein muss
 
   Szenario: Wann gibt es mögliche Gremientage?
     Angenommen unser Stundenplan sieht so aus:
