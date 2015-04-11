@@ -162,6 +162,11 @@ Angenommen(/^die Vorlesung wird von Prof. "(.*?)" gehalten$/) do |teacher_surnam
   lecture.save
 end
 
+Angenommen(/^die Vorlesung für "(.*?)" wird von Prof\. "(.*?)" gehalten$/) do |course_name, teacher_surname|
+  @course = Course.find_by(:name => course_name)
+  step "die Vorlesung wird von Prof. \"#{teacher_surname}\" gehalten"
+end
+
 Angenommen(/^der Kurs hat eine Vorlesung die einmal pro Woche stattfindet$/) do
   create(:course_component, :course => @course, :dates => 1, :type => :lecture)
 end
@@ -245,5 +250,15 @@ Dann(/^sieht die erste Lösung so aus:$/) do |table|
   # for what reason this doesn't work?
   # table.diff!(@solutions.first.ast_table)
   expect(@solutions.first.ast_table.raw).to eq table.raw
+end
+
+Angenommen(/^wir aktivieren den Constraint für Gremientage$/) do
+end
+
+Dann(/^(?:es gibt|gibt es)? bei der ersten Lösung einen Gremiumtag am (.+) (.+)$/) do |weekday, interval|
+  weekday = Weekday.find_by!(:name => weekday)
+  timeframe = Timeframe.find_by!(:interval => interval)
+  expected = build(:comitee_date, :timetable => @solutions.first, :weekday => weekday, :timeframe => timeframe)
+  expect(@solutions.first.commitee_dates).to include(expected)
 end
 
