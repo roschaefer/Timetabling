@@ -258,7 +258,8 @@ end
 Dann(/^(?:es gibt|gibt es)? bei der ersten Lösung einen Gremiumtag am (.+) (.+)$/) do |weekday, interval|
   weekday = Weekday.find_by!(:name => weekday)
   timeframe = Timeframe.find_by!(:interval => interval)
-  expected = build(:committee_date, :timetable => @solutions.first.timetable, :weekday => weekday, :timeframe => timeframe)
-  expect(@solutions.first.timetable.committee_dates).to include(expected)
+  timetable = @solutions.first.timetable
+  expected = build(:committee_date, :timetable => timetable, :weekday => weekday, :timeframe => timeframe)
+  expect(timetable.committee_dates.find{|cd| cd.weekday == expected.weekday && cd.timeframe == expected.timeframe}).not_to be_nil
 end
 
