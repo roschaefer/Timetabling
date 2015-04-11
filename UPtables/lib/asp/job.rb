@@ -79,6 +79,10 @@ class Asp::Job
           model.extract(Timetable::OverfullRoom).each do |overfull|
             overfull.save!
           end
+          model.extract(Timetable::CommitteeDate).each do |committee_date|
+            committee_date.timetable_id = timetable.id
+            committee_date.save!
+          end
           timetable.save!
         end
       end
