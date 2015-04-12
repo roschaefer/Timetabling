@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150407193800) do
+ActiveRecord::Schema.define(version: 20150411133633) do
 
   create_table "course_components", force: :cascade do |t|
     t.string   "type"
@@ -152,6 +152,18 @@ ActiveRecord::Schema.define(version: 20150407193800) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "timetable_committee_dates", force: :cascade do |t|
+    t.integer  "weekday_id"
+    t.integer  "timeframe_id"
+    t.integer  "timetable_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "timetable_committee_dates", ["timeframe_id"], name: "index_timetable_committee_dates_on_timeframe_id"
+  add_index "timetable_committee_dates", ["timetable_id"], name: "index_timetable_committee_dates_on_timetable_id"
+  add_index "timetable_committee_dates", ["weekday_id"], name: "index_timetable_committee_dates_on_weekday_id"
 
   create_table "timetable_entries", force: :cascade do |t|
     t.integer  "course_component_id"

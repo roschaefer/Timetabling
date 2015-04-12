@@ -1,6 +1,7 @@
 class TimetablePresenter
   FIXNUM_MAX = (2**(0.size * 8 -2) -1)
   include Comparable
+  attr_reader :timetable
 
   def initialize(timetable)
     @timetable = timetable

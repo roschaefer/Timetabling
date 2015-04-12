@@ -319,11 +319,14 @@ Angenommen(/^keine Studienordnung hat irgendwelche Sperrzeiten$/) do
   expect(Curriculum::Unavailability.count).to eq 0
 end
 
+Angenommen(/^es gibt einen Professor namens "(.*?)"$/) do |name|
+  create(:teacher, :first_name => name.split(" ").first, :surname => name.split(" ").second)
+end
+
 Angenommen(/^Prof. "(.*?)" hat keine Unverfügbarkeiten$/) do |teacher_surname|
   teacher = Teacher.find_by!(:surname => teacher_surname)
   expect(teacher.unavailabilities.count).to eq 0
 end
-
 
 Angenommen(/^der Studiengang "(.*?)" hat eine Sperrzeit am (.*?) um (.*?) Uhr$/) do |curriculum_name, weekday_name, interval|
   curriculum = Curriculum.find_by!(:name => curriculum_name)

@@ -1,6 +1,7 @@
 class Asp::Job
   attr_accessor :solver
   delegate :time_out, :time_out=, :to => :solver
+  delegate :set, :to => :configuration
 
   def initialize
     @fact_classes = [
@@ -78,6 +79,10 @@ class Asp::Job
           end
           model.extract(Timetable::OverfullRoom).each do |overfull|
             overfull.save!
+          end
+          model.extract(Timetable::CommitteeDate).each do |committee_date|
+            committee_date.timetable_id = timetable.id
+            committee_date.save!
           end
           timetable.save!
         end

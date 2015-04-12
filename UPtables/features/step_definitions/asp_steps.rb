@@ -1,3 +1,7 @@
+def job
+  @job ||= Asp::Job.new
+end
+
 Angenommen(/^unser Stundenplan sieht so aus:$/) do |table|
   header_rows = []
   header_rows[0] = table.raw[0] ; header_rows[0].shift(2) # skip first two cells
@@ -109,13 +113,11 @@ Dann(/^diese Lösung hat sogar gar keine Kosten, weil es keine Überschneidungen
 end
 
 Angenommen(/^für diesen Test deaktivieren wir die Soft Constraints$/) do
-  @job = Asp::Job.new
-  @job.optimize = false
+  job.optimize = false
 end
 
 Wenn(/^jetzt nach Stundenplänen gesucht wird$/) do
-  @job ||= Asp::Job.new
-  @job.run
+  job.run
 end
 
 Dann(/^gibt es (\d+) Lösungen/) do |n|
@@ -160,6 +162,11 @@ Angenommen(/^die Vorlesung wird von Prof. "(.*?)" gehalten$/) do |teacher_surnam
   lecture = Course::Component.where(:course => @course, :type => :lecture).first
   lecture.teacher = teacher
   lecture.save
+end
+
+Angenommen(/^die Vorlesung für "(.*?)" wird von Prof\. "(.*?)" gehalten$/) do |course_name, teacher_surname|
+  @course = Course.find_by(:name => course_name)
+  step "die Vorlesung wird von Prof. \"#{teacher_surname}\" gehalten"
 end
 
 Angenommen(/^der Kurs hat eine Vorlesung die einmal pro Woche stattfindet$/) do
@@ -245,5 +252,17 @@ Dann(/^sieht die erste Lösung so aus:$/) do |table|
   # for what reason this doesn't work?
   # table.diff!(@solutions.first.ast_table)
   expect(@solutions.first.ast_table.raw).to eq table.raw
+end
+
+Angenommen(/^wir aktivieren den Constraint für Gremientage$/) do
+  job.set("hard/committee_dates", true)
+end
+
+Dann(/^(?:es gibt|gibt es)? bei der ersten Lösung einen Gremiumtag am (.+) (.+)$/) do |weekday, interval|
+  weekday = Weekday.find_by!(:name => weekday)
+  timeframe = Timeframe.find_by!(:interval => interval)
+  timetable = @solutions.first.timetable
+  expected = build(:committee_date, :timetable => timetable, :weekday => weekday, :timeframe => timeframe)
+  expect(timetable.committee_dates.find{|cd| cd.weekday == expected.weekday && cd.timeframe == expected.timeframe}).not_to be_nil
 end
 
