@@ -147,6 +147,12 @@ Angenommen(/^alle Kurse haben eine wöchentliche Vorlesung$/) do
   end
 end
 
+Angenommen(/^alle Kurse haben eine wöchentliche Übung$/) do
+  @courses.each do |course|
+    create(:course_component, :course => course, :dates => 1, :type => :tutorial)
+  end
+end
+
 Angenommen(/^der Kurs hat (\d+) Übungen pro Woche$/) do |dates|
   create(:course_component, :course => @course, :dates => dates.to_i, :type => :tutorial)
 end
@@ -176,6 +182,11 @@ end
 Angenommen(/^der Kurs "(.*?)" hat eine Vorlesung die einmal pro Woche stattfindet$/) do |course_name|
   course = Course.find_by!(:name => course_name)
   create(:course_component, :course => course, :dates => 1, :type => :lecture)
+end
+
+Angenommen(/^der Kurs "(.*?)" hat eine Übung die einmal pro Woche stattfindet$/) do |course_name|
+  course = Course.find_by!(:name => course_name)
+  create(:course_component, :course => course, :dates => 1, :type => :tutorial)
 end
 
 Angenommen(/^der Kurs "(.*?)" hat eine Vorlesung die zweimal pro Woche stattfindet$/) do |course_name|
