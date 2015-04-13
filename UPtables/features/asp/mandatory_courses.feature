@@ -25,7 +25,7 @@ Funktionalität: Pflichtveranstaltungen
   Und der Kurs "Face Recognition" hat eine Vorlesung die einmal pro Woche stattfindet
   Und der Kurs "Cluster Computing" hat eine Übung die einmal pro Woche stattfindet
   Wenn jetzt nach Stundenplänen gesucht wird
-  Dann gibt es keine Lösung, weil die Vorlesung zwingend besucht werden muss und die Übung damit nicht mehr besucht werden kann
+  Dann gibt es keine Lösung, weil die Übung aufgrund der Vorlesung von keinem Studenten im 4. Semester mehr besucht werden kann
 
   Szenario: Überschneidung von Übungen bei Pflichtveranstaltungen mit gleicher Semesterempfehlung
   Angenommen die Kurse sind beides Pflichtveranstaltungen im Studiengang "Bachelor Informatik"  
