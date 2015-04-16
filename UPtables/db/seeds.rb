@@ -11,7 +11,7 @@ room_1 = Room.create!(:id => 1, :name => "Room 1", :capacity => 32)
 room_2 = Room.create!(:id => 2, :name => "Room 2", :capacity => 32)
 room_3 = Room.create!(:id => 3, :name => "Room 3", :capacity => 16)
 room_4 = Room.create!(:id => 4, :name => "Room 4", :capacity => 12)
-h01 = Room.create!(:id => 5, :name => "H01",  :capacity => 80)
+h01 = Room.create!(:id => 5, :name => "H01",  :capacity => 50)
 
 #Weekdays have correspondant predicates in encoding with corresponding ids!
 monday = Weekday.create!(:id => 0, :name => "Montag")
@@ -27,6 +27,7 @@ math_prof         = Teacher.create!(:id => 1,  :first_name => "Math",   :surname
 stochastic_prof   = Teacher.create!(:id => 2,  :first_name => "Stochastic",   :surname   =>"Prof")
 programming_prof  = Teacher.create!(:id => 3,  :first_name => "Programming",   :surname  =>"Prof")
 programming_tutor = Teacher.create!(:id => 4,  :first_name => "Programming",    :surname =>"Tutor")
+education_prof    = Teacher.create!(:id => 5,  :first_name => "Education",    :surname =>"Prof")
 
 
 
@@ -40,7 +41,7 @@ CurriculumModuleAssignment.create!(:ects_module => stochastic_basics, :curriculu
 mathematik1  = Course.create!(:name => "Mathematics I", :teacher => math_prof)
 mathematik2  = Course.create!(:name => "Mathematics II", :teacher => math_prof)
 mathematik3  = Course.create!(:name => "Mathematics III", :teacher => math_prof)
-Course::Component.create!(:course => mathematik1 , :type => :lecture      , :teacher => math_prof      , :dates => 1, :double_lecture => false, :participants => 50)
+Course::Component.create!(:course => mathematik1 , :type => :lecture      , :teacher => math_prof      , :dates => 1, :double_lecture => false, :participants => 60)
 Course::Component.create!(:course => mathematik2 , :type => :lecture      , :teacher => math_prof      , :dates => 1, :double_lecture => false, :participants => 50)
 Course::Component.create!(:course => mathematik3 , :type => :lecture      , :teacher => math_prof      , :dates => 1, :double_lecture => false, :participants => 30)
 
@@ -91,8 +92,23 @@ Course::Component.create!(:course => ruby_programming , :type => :tutorial, :tea
 Course::Component.create!(:course => python_programming , :type => :tutorial, :teacher =>  programming_tutor, :dates => 1, :double_lecture => false, :participants => 15)
 
 # CURRICLUM OF TEACHER TAINING
+teacher_training_curriculum  =  Curriculum.create!(:name => "Teacher Training")
+# take care, this actually belongs to section computer science curriculum
+CurriculumModuleAssignment.create!(:ects_module => programming_basics, :curriculum => teacher_training_curriculum, :mandatory => true)
+education = EctsModule.create!(:name => "Education")
+CurriculumModuleAssignment.create!(:ects_module => education, :curriculum => teacher_training_curriculum, :mandatory => true)
 
+education1  = Course.create!(:name => "Education Basics", :teacher => education_prof)
+education2  = Course.create!(:name => "Advanced Education", :teacher => education_prof)
+education1.ects_modules << programming_basics
+education2.ects_modules << programming_basics
+Course::Component.create!(:course =>  education1, :type => :lecture, :teacher => education_prof, :dates => 1, :double_lecture => false, :participants => 30)
+Course::Component.create!(:course =>  education2, :type => :lecture, :teacher => education_prof, :dates => 1, :double_lecture => false, :participants => 30)
 
+Recommendation.create!(:curriculum => teacher_training_curriculum, :course => education1, :semester => 1)
+Recommendation.create!(:curriculum => teacher_training_curriculum, :course => education2, :semester => 2)
+TimeWindow.create!(:curriculum => teacher_training_curriculum, :weekday => monday, :timeframe => Timeframe.first, :semester => 1)
+TimeWindow.create!(:curriculum => teacher_training_curriculum, :weekday => tuesday, :timeframe => Timeframe.second, :semester => 2)
 
 # Room unavailabilities and properties
 Room::Unavailability.create!(:room => h01, :weekday => monday, :timeframe => eight_o_clock)
