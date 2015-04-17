@@ -27,10 +27,12 @@ math_prof         = Teacher.create!(:id => 1,  :first_name => "Math",   :surname
 stochastic_prof   = Teacher.create!(:id => 2,  :first_name => "Stochastic",   :surname   =>"Prof")
 programming_prof  = Teacher.create!(:id => 3,  :first_name => "Programming",   :surname  =>"Prof")
 programming_tutor = Teacher.create!(:id => 4,  :first_name => "Programming",    :surname =>"Tutor")
-programming_tutor2= Teacher.create!(:id => 5,  :first_name => "Programming",    :surname =>"Tutor")
-education_prof    = Teacher.create!(:id => 6,  :first_name => "Programming",    :surname =>"Second Tutor")
+programming_tutor2= Teacher.create!(:id => 5,  :first_name => "Programming",    :surname =>"Second Tutor")
+education_prof    = Teacher.create!(:id => 6,  :first_name => "Education",    :surname =>"Prof")
 robotics_prof     = Teacher.create!(:id => 7,  :first_name => "Robotics",    :surname =>"Prof")
 computer_vision_prof     = Teacher.create!(:id => 8,  :first_name => "Computer Vision",    :surname =>"Prof")
+databases_prof     = Teacher.create!(:id => 9,  :first_name => "Databases",    :surname =>"Prof")
+databases_tutor    = Teacher.create!(:id => 10,  :first_name => "Databases",    :surname =>"Tutor")
 
 
 
@@ -74,6 +76,8 @@ robotics = EctsModule.create!(:name => "Robotics")
 CurriculumModuleAssignment.create!(:ects_module => robotics, :curriculum => computer_science_curriculum, :mandatory => true)
 computer_vision = EctsModule.create!(:name => "Computer Vision")
 CurriculumModuleAssignment.create!(:ects_module => computer_vision, :curriculum => computer_science_curriculum, :mandatory => true)
+databases = EctsModule.create!(:name => "Databases")
+CurriculumModuleAssignment.create!(:ects_module => databases, :curriculum => computer_science_curriculum, :mandatory => true)
 # take care, this actually belongs to section match curriculum
 CurriculumModuleAssignment.create!(:ects_module => math_basics, :curriculum => computer_science_curriculum, :mandatory => true)
 
@@ -101,6 +105,12 @@ computer_vision1 = Course.create!(:name => "Computer Vision I", :teacher => comp
 computer_vision1.ects_modules << computer_vision
 Course::Component.create!(:course => computer_vision1, :type => :lecture, :teacher => computer_vision_prof, :dates => 2, :double_lecture => false, :participants => 30)
 Recommendation.create!(:course => computer_vision1, :curriculum => computer_science_curriculum, :semester => 3)
+
+databases1 = Course.create!(:name => "Databases I", :teacher => databases_prof)
+databases1.ects_modules << databases
+Course::Component.create!(:course => databases1, :type => :lecture, :teacher => databases_prof, :dates => 1, :double_lecture => false, :participants => 40)
+Course::Component.create!(:course => databases1, :type => :tutorial, :teacher => databases_tutor, :dates => 2, :double_lecture => false, :participants => 20)
+Recommendation.create!(:course => databases1, :curriculum => computer_science_curriculum, :semester => 1)
 
 java_programming = Course.create!(:name => "Java Programming", :teacher => programming_prof)
 ruby_programming = Course.create!(:name => "Ruby Programming", :teacher => programming_prof)
@@ -159,7 +169,7 @@ end
 
 # Curriculum unavailabiliites
 [monday, tuesday, wednesday].each do |w|
-  Curriculum::Unavailability.create!(:curriculum => teacher_training_curriculum, :weekday => w, :timeframe => Timeframe.first)
+  Curriculum::Unavailability.create!(:curriculum => teacher_training_curriculum, :weekday => w, :timeframe => Timeframe.last)
 end
 
 # ects_module1 =  EctsModule.create!(:name => "Grundlagen der Programmierung")
