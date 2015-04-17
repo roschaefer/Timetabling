@@ -5,7 +5,7 @@
 %%% are grouped if they are adjacent and in the same room. Each
 %%% non-grouped lecture counts as 1 violation.
 
-#const penalty_of_double_lectures = 3.
+#const penalty_of_double_lectures = 30.
 
 
 
