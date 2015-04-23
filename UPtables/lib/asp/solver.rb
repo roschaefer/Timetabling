@@ -44,8 +44,11 @@ class Asp::Solver
         stdin.close
         json = JSON.parse(stdout.read)
         witnesses = json["Call"][0]["Witnesses"]
-        witnesses.present? and witnesses.each do |w|
-          @models << Asp::Model.new(w)
+        if witnesses.present?
+          witnesses = witnesses.last(100)
+          witnesses.each do |w|
+            @models << Asp::Model.new(w)
+          end
         end
         if (optimize? && @models.present?)
           # TODO: is this a proper fallback?
