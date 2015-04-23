@@ -18,12 +18,16 @@
 
 \documentclass[12pt]{article} % Default font size is 12pt, it can be changed here
 
+\usepackage{hyperref}
+
+
 \usepackage{geometry} % Required to change the page size to A4
 \geometry{a4paper} % Set the page size to be A4 as opposed to the default US Letter
 
 \usepackage{graphicx} % Required for including pictures
 \graphicspath{{Images/}}
 
+\usepackage{cite}
 
 
 \usepackage{float} % Allows putting an [H] in \begin{figure} to specify the exact location of the figure
@@ -100,8 +104,10 @@
 
 \begin{figure}[h]
     \includegraphics[width=\textwidth]{TimetablingER_Dia.png}
-    \label{fig:schema}
+    \caption{Database schema, modeled as entity-relationship diagram \cite{Chen76}.}
+    \label{fig:schema}    
 \end{figure}
+
 
 Figure~\ref{fig:schema} demonstrates the database schema.
 A timetable, which consists of several timetable entries, represents a complete schedule.
@@ -118,7 +124,6 @@ The modules listed in a specific curricular can be elective or mandatory.
 A curricular can be assigned to multiple time windows.
 The concept of time windows was introduced to allow students participating the \emph{Informatik Lehramt Bachelor} program to study with little overlapping of courses.
 In order to prevent overlapping, mandatory lectures for student teachers has to be assigned to a determined set of time windows dependent on the semester recommendation.
-
 Finally there are unavailabilities for teachers, curricular and rooms.
 All unavailabilities are linked to a specific day and time-slot which is not shown in the diagram for clarity reasons.
 
@@ -129,16 +134,9 @@ All unavailabilities are linked to a specific day and time-slot which is not sho
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
+\bibliographystyle{plain}
+\bibliography{report}
 
-\begin{thebibliography}{99} % Bibliography - this is intentionally simple in this template
-
-%\bibitem[Figueredo and Wolf, 2009]{Figueredo:2009dg}
-%Figueredo, A.~J. and Wolf, P. S.~A. (2009).
-%\newblock Assortative pairing and life history strategy - a cross-cultural
-%  study.
-%\newblock {\em Human Nature}, 20:317--330.
- 
-\end{thebibliography}
 
 %----------------------------------------------------------------------------------------
 
