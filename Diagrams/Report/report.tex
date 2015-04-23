@@ -34,6 +34,15 @@
 
 %\graphicspath{{Images/}} % Specifies the directory where pictures are stored
 
+
+\newcommand{\job}{\texttt{Asp::Job}}
+\newcommand{\model}{\texttt{Asp::Model}}
+\newcommand{\solver}{\texttt{Asp::Solver}}
+\newcommand{\configuration}{\texttt{Asp::Configuration}}
+\newcommand{\constraint}{\texttt{Asp::Constraint}}
+\newcommand{\entry}{\texttt{Timetable::Entry}}
+\newcommand{\run}{\texttt{run()}}
+
 \begin{document}
 
 %----------------------------------------------------------------------------------------
@@ -92,9 +101,11 @@
 
 \section{Introduction} 
 
-%Example citation \cite{Figueredo:2009dg}.
+
 
 \section{Architecture} % Sub-section
+
+We give an overview by showing two parts of our architecture.
 
 \subsection{Data Model} 
 
@@ -121,6 +132,31 @@ In order to prevent overlapping, mandatory lectures for student teachers has to 
 
 Finally there are unavailabilities for teachers, curriculum and rooms.
 All unavailabilities are linked to a specific day and time-slot which is not shown in the diagram for clarity reasons.
+
+\subsection{ASP Integration} 
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{Images/AspClassDiagram.png}
+    \label{fig:class_diagram}
+\end{figure}
+
+Figure~\ref{fig:class_diagram} demonstrates the integration of the answer set solving.
+In the final encoding we have facts and rules.
+A fact corresponds to an entity in the database and a rule corresponds to an \constraint{}.
+In order to get all the necessary information from the database to create the desired asp encoding we use the \job{} class.
+The main method in this tool chain is the \run{} method.
+All entities which are required for the encoding are transformed into facts.
+The \job{} then receives a set of constraints from the configuration.
+The configuration can enable or disable a certain \constraint{} and in the future it will be used to change the weight of each \constraint{}.
+The information is then put together and send to the \solver{} which receives an encoded asp problem as text.
+The \solver{} provides the interface to the user's shell and is also responsible to create a \model{} for each found solution.
+These \model{} classes are used to parse ruby objects from the strings which are returned by clasp.
+So to give an example, every \entry{} is parsed from the answer set.
+Also, we parse a violation of a soft constraint from the answer set, associated with the conflicting objects.
+Note that violations have to be parsed at the end for this reason.
+They are associated to entries of the same answer set which have to be present at the time.
+Subsequent to the parsing, the job class then saves all the generated objects in the database.
+The state in the database is then used as the input for the visualization of the timetable.
 
 
 \section{Conclusion}
