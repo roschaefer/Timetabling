@@ -18,12 +18,16 @@
 
 \documentclass[12pt]{article} % Default font size is 12pt, it can be changed here
 
+\usepackage{hyperref}
+
+
 \usepackage{geometry} % Required to change the page size to A4
 \geometry{a4paper} % Set the page size to be A4 as opposed to the default US Letter
 
 \usepackage{graphicx} % Required for including pictures
 \graphicspath{{Images/}}
 
+\usepackage{cite}
 
 
 \usepackage{float} % Allows putting an [H] in \begin{figure} to specify the exact location of the figure
@@ -101,14 +105,20 @@
 
 \section{Introduction} 
 
+In the course of this project we developed a planning tool to support the timtabeling process, performed each semester, at the Institute of Computer Science.
+For this purpose we developed a web application that can be used for generating timetables for university courses, presenting the timetables, etc.
+Answer Set Programming (ASP) \cite{ASP} was used to develop specific rules that must or should be considered for the planning process, as well as for finding approriate timetables.
+The following sections will give a short overview of our general approach to the problem, as well as the architecture of our planning system.
+
+
+\section{User Centered Desing} 
+
 Our goals in this project have been to satisfy our customer and to train ourselves in project management.
 We therefore carried out a considerable amount of requirements engineering.
 Also we decided to work under agile development principles.
 We developed a rapid prototype and continued on delivering a new version of our software each iteration.
 Besides that we ensured that we keep each change or new feature covered by unit and integration testing.
 Our code is hosted online on Github as open source and we accomplished a good knowledge transfer among the team by using pull requests.
-
-
 
 \section{Architecture} % Sub-section
 
@@ -118,7 +128,8 @@ We give an overview by showing two parts of our architecture.
 
 \begin{figure}[h]
     \includegraphics[width=\textwidth]{TimetablingER_Dia.png}
-    \label{fig:schema}
+    \caption{Database schema, modeled as entity-relationship diagram \cite{Chen76}.}
+    \label{fig:schema}    
 \end{figure}
 
 Figure~\ref{fig:schema} demonstrates the database schema.
@@ -171,23 +182,15 @@ They are associated to entries of the same answer set which have to be present a
 Subsequent to the parsing, the job class then saves all the generated objects in the database.
 The state in the database is then used as the input for the visualization of the timetable.
 
-
 \section{Conclusion}
 
 
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
+\bibliographystyle{plain}
+\bibliography{report}
 
-\begin{thebibliography}{99} % Bibliography - this is intentionally simple in this template
-
-%\bibitem[Figueredo and Wolf, 2009]{Figueredo:2009dg}
-%Figueredo, A.~J. and Wolf, P. S.~A. (2009).
-%\newblock Assortative pairing and life history strategy - a cross-cultural
-%  study.
-%\newblock {\em Human Nature}, 20:317--330.
- 
-\end{thebibliography}
 
 %----------------------------------------------------------------------------------------
 
