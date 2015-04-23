@@ -103,7 +103,24 @@
     \label{fig:schema}
 \end{figure}
 
-Figure~\ref{fig:schema} demonstrates our database schema.
+Figure~\ref{fig:schema} demonstrates the database schema.
+A timetable, which consists of several timetable entries, represents a complete schedule.
+Timetables have costs, resulting from penalty values of the ASP soft constraints.
+The timetables with the lowest costs are optimal solutions.
+A timetable entry is an assignment of a certain component of a course, e.g. a lecture, to a certain room, as well as to a specific weekday and timeframe. 
+Course Components, taught by a specific teacher, have got a certain type, e.g lecture, tutorial, etc.
+Besides course components can have multiple dates, participants and several room properties.
+If, for instance, the course component has to take place in a computer pool then the room assigned to the course component has to be declared as computer pool through a certain property.
+The courses are linked to a specific curricular through modules.
+Besides a course can be recommended for a semester in a certain curricular.
+The advantage over recommending modules for a specific semester is that courses with different recommendations can now be assigned to the same module.
+The modules listed in a specific curricular can be elective or mandatory.
+A curricular can be assigned to multiple time windows.
+The concept of time windows was introduced to allow students participating the \emph{Informatik Lehramt Bachelor} program to study with little overlapping of courses.
+In order to prevent overlapping, mandatory lectures for student teachers has to be assigned to a determined set of time windows dependent on the semester recommendation.
+
+Finally there are unavailabilities for teachers, curricular and rooms.
+All unavailabilities are linked to a specific day and time-slot which is not shown in the diagram for clarity reasons.
 
 
 \section{Conclusion}
