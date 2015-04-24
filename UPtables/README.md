@@ -30,18 +30,18 @@ Make sure you've got the recent version 4.4 of gringo that understands the speci
 ## Installation
 
 1. Check out the repostory and change to the application folder:
-```shell
-$ git clone git@github.com:roschaefer/Timetabling.git
-$ cd Timetabling/UPtables
-```
+        ```shell
+        $ git clone git@github.com:roschaefer/Timetabling.git
+        $ cd Timetabling/UPtables
+        ```
 2. Create the database and some seed data as a starting point:
-```shell
-$ rake db:create db:migrate db:seed
-```
+        ```shell
+        $ rake db:create db:migrate db:seed
+        ```
 3. Start your server by running
-```
-$ rails s
-```
+        ```shell
+        $ rails s
+        ```
 4. Then point your browser to your [localhost](http://localhost:3000/)
 
 ## Usage
