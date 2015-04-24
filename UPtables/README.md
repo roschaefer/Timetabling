@@ -2,7 +2,7 @@
 
 UPtables is a [university timetabling](http://www.cs.uni-potsdam.de/wv/pdfformat/basotainsc13a.pdf) application tailored to the needs of the [department of computer science](http://www.cs.uni-potsdam.de/) at the [University of potsdam](https://www.uni-potsdam.de/en/), Germany.
 
-It uses [ruby on rails](http://rubyonrails.org/) as a frontend and the [potassco suite](http://potassco.sourceforge.net/) for problem solving.
+It uses [ruby on rails](http://rubyonrails.org/) as a front end and the [potassco suite](http://potassco.sourceforge.net/) for problem solving.
 
 
 ## System dependencies
@@ -29,7 +29,7 @@ Make sure you've got the recent version 4.4 of gringo that understands the speci
 
 ## Installation
 
-1. Check out the repostory and change to the application folder:
+1. Check out the repository and change to the application folder:
 
           $ git clone git@github.com:roschaefer/Timetabling.git
           $ cd Timetabling/UPtables
