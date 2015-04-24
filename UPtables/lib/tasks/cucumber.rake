@@ -32,6 +32,20 @@ begin
       t.profile = 'rerun'
     end
 
+    Cucumber::Rake::Task.new({:asp => 'test:prepare'}, 'Run asp related features') do |t|
+      t.binary = vendored_cucumber_bin # If nil, the gem's binary is used.
+      t.fork = true # You may get faster startup if you set this to false
+      t.profile = 'default'
+      t.cucumber_opts = "--require features features/asp/"
+    end
+
+    Cucumber::Rake::Task.new({:ui => 'test:prepare'}, 'Run features related to the user interface') do |t|
+      t.binary = vendored_cucumber_bin # If nil, the gem's binary is used.
+      t.fork = true # You may get faster startup if you set this to false
+      t.profile = 'default'
+      t.cucumber_opts = "--require features features/interface/"
+    end
+
     desc 'Run all features'
     task :all => [:ok, :wip]
 
