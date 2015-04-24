@@ -27,26 +27,36 @@ Make sure you've got the recent version 4.4 of gringo that understands the speci
 * Bundler (version 1.8.3)
 
 
+## Installation
+
+1. Check out the repostory and change to the application folder:
+```shell
+$ git clone git@github.com:roschaefer/Timetabling.git
+$ cd Timetabling/UPtables
+```
+2. Create the database and some seed data as a starting point:
+```shell
+$ rake db:create db:migrate db:seed
+```
+3. Start your server by running
+```
+$ rails s
+```
+4. Then point your browser to your [localhost](http://localhost:3000/)
+
+## Usage
+
+Configure a certain timeout and click on the **Solve!** button and wait. The database will be cleaned and a new set of timetable solution is generated, based on the currently given input.
+
+You can change the input data if you click on the respective menu in the navigation bar above.
+
+Some input data can not be changed via the user interface at the moment but is provided by seed data, e.g. required room properties.
+
+
 ## Configuration
 
 The app comes preconfigured with a sqlite3 database as a default. Feel free to fit the [database configuration](config/database.yml) to your needs.
 
-## Database creation
-
-In order to create the database and some seed data as a starting point:
-
-```shell
-$ rake db:create db:migrate db:seed
-```
-
-
-## Usage
-On your command line change to the application directory and run:
-```
-$ rails s
-```
-
-Then point your browser at http://localhost:3000/
 
 ## Tests
 Run rspec and cucumber tests:
