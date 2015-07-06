@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/roschaefer/rasp.git
+  revision: a0fb83cd3246c7db2b064688091e64418561b856
+  specs:
+    rasp (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -299,6 +305,7 @@ DEPENDENCIES
   pry (~> 0.10.1)
   rails (= 4.2.0)
   rake
+  rasp!
   rspec-collection_matchers
   rspec-rails (~> 3.0)
   sass-rails (~> 5.0)

@@ -14,9 +14,8 @@ describe Asp::Solver do
         expect(models).to have(2).items
       end
 
-      it "with invalid syntax yields no stable models" do
-        solver.solve "this"
-        expect(models).to be_empty
+      it "with invalid syntax raises exception" do
+        expect{ solver.solve "this" }.to raise_exception(Asp::Solving::InvalidSyntaxException)
       end
 
     end
