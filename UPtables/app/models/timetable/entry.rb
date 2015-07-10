@@ -9,17 +9,9 @@ class Timetable::Entry < ActiveRecord::Base
   belongs_to :timeframe
   has_one :overfull_room
 
-  def self.asp_attributes
-    [:course_component_id, :room_id, :weekday_id, :timeframe_id]
-  end
-
   def self.asp_regex
     part = self.asp_attributes.map{|a| "(?:\\D*)(?<#{a}>\\d+)" }.join(",")
     /assigned\(#{part}\)/
-  end
-
-  def self.from_asp(elements, context)
-    new(Hash[[:course_component_id, :room_id, :weekday_id, :timeframe_id].zip(*elements)])
   end
 
   def asp_initialize(opts={})

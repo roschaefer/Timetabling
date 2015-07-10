@@ -1,4 +1,3 @@
-
 class Asp::Solver
 
   attr_reader :models

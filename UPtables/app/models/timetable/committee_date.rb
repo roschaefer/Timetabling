@@ -10,8 +10,7 @@ class Timetable::CommitteeDate < ActiveRecord::Base
     /committee_date\(\D*(?<weekday_id>\d+),\D*(?<timeframe_id>\d+)\)/
   end
 
-  def self.from_asp(elements, context)
-    option_hash = Hash[[:weekday_id, :timeframe_id].zip(*elements)]
-    new(option_hash)
+  def asp_initialize(opts={})
+    self.attributes = opts
   end
 end

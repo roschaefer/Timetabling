@@ -24,16 +24,4 @@ class Timetable::OverfullRoom < ActiveRecord::Base
     end
   end
 
-  def self.from_asp(elements, context)
-    option_hash = Hash[[*Timetable::Entry.asp_attributes, :severity].zip(*elements)]
-
-    entries   = context.find_all{|e| e.is_a?(Timetable::Entry)}
-    associated_entry = entries.find {|e|
-      (e.course_component_id    == option_hash[:course_component_id].to_i) &&
-      (e.room_id      == option_hash[:room_id].to_i) &&
-      (e.weekday_id   == option_hash[:weekday_id].to_i) &&
-      (e.timeframe_id == option_hash[:timeframe_id].to_i)
-    }
-    new(option_hash.slice(:severity).merge(:entry => associated_entry))
-  end
 end
