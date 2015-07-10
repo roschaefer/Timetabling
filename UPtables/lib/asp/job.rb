@@ -72,17 +72,12 @@ class Asp::Job
           timetable = Timetable.new
           timetable.id = i
           timetable.costs = model.costs
-          timetable.optimum = model.optimum
-          model.extract(Timetable::Entry).each do |entry|
-            entry.timetable_id = timetable.id
-            entry.save!
-          end
-          model.extract(Timetable::OverfullRoom).each do |overfull|
-            overfull.save!
-          end
-          model.extract(Timetable::CommitteeDate).each do |committee_date|
-            committee_date.timetable_id = timetable.id
-            committee_date.save!
+          timetable.optimum = true
+          model.each do |entity|
+            if (entity.respond_to?(:timetable_id))
+              entity.timetable_id = timetable.id
+            end
+            entity.save!
           end
           timetable.save!
         end

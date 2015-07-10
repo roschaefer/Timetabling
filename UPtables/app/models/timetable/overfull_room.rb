@@ -1,10 +1,27 @@
 class Timetable::OverfullRoom < ActiveRecord::Base
+  include Asp::Element
+
   belongs_to :entry
-  validates :entry_id, :presence => true
 
   def self.asp_regex
-    #assigned(24,7,2,6)
-    /^penalty\(\"RoomCapacity\",assigned\((?:\D*)(\d+),(?:\D*)(\d+),(?:\D*)(\d+),(?:\D*)(\d+)\),(.*)\)$/
+    /^penalty\(\"RoomCapacity\",(?<#{Timetable::Entry.to_s}>#{Timetable::Entry.asp_regex.to_s}),(?<severity>.*)\)$/
+  end
+
+  def self.asp_attributes
+    [Timetable::Entry, :severity]
+  end
+
+  def asp_initialize(opts={})
+    self.severity = opts[:severity]
+    @referenced_entry_attributes = opts[Timetable::Entry].stringify_keys
+  end
+
+  def assign_reference(element)
+    if element.is_a?(Timetable::Entry)
+      if (@referenced_entry_attributes.all? {|key, value| element.attributes[key].to_s == value })
+        self.entry = element
+      end
+    end
   end
 
   def self.from_asp(elements, context)

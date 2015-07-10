@@ -1,5 +1,11 @@
 require 'rails_helper'
 describe Asp::Job do
+
+### TODO!! delete! find a better way to load these constants
+Timetable::Entry
+Timetable::CommitteeDate
+Timetable::OverfullRoom
+
   subject(:job) { Asp::Job.new }
 
   describe "#run" do
@@ -43,18 +49,16 @@ describe Asp::Job do
               create :course_component, :participants => 100
             }
 
-            it "only one timetable entry per timetable will be created, the word \"assigned\" is not accidently evaluated to a new Timetable::Entry" do
+            it "creates one timetable with one entry, the word \"assigned\" is not accidently evaluated to a new Timetable::Entry" do
               run
-              Timetable.find_each do |t|
-                expect(t.entries).to have(1).item
-              end
+              timetables = Timetable.all
+              expect(timetables.first.entries).to have(1).item
             end
 
-            it "will be noticed" do
+            it "creates an overfull room for a penalty" do
               run
-              Timetable::Entry.find_each do |e|
-                expect(e.overfull_room).to be_present
-              end
+              timetable  = Timetable.first
+              expect(timetable.entries.first.overfull_room).to be_present
             end
 
             it "severity is equal to the number of exceeded seats" do
