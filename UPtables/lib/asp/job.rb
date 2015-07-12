@@ -1,6 +1,5 @@
 class Asp::Job
-  attr_accessor :solver
-  delegate :time_out, :time_out=, :to => :solver
+  attr_accessor :time_out, :optimize
   delegate :set, :to => :configuration
 
   def initialize
@@ -18,7 +17,7 @@ class Asp::Job
       CurriculumModuleAssignment,
       TimeWindow
 ]
-    @solver = Asp::Solver.new
+    @optimize = true # default
   end
 
   def configuration
@@ -28,10 +27,10 @@ class Asp::Job
   def optimize=(o)
     if (o)
       @configuration = Asp::Configuration.default
-      @solver.optimize = true
+      @optimize = true
     else
       @configuration = Asp::Configuration.only_hard_constraints
-      @solver.optimize = false
+      @optimize = false
     end
   end
 
@@ -65,9 +64,10 @@ class Asp::Job
     end
     #binding.pry
 
-    if (solver.solve(encoding))
+    solutions = self.solve(encoding)
+    if solutions
       Timetable.destroy_all
-      solver.models.each_with_index do |model, i|
+      solutions.each_with_index do |model, i|
         ActiveRecord::Base.transaction do
           timetable = Timetable.new
           timetable.id = i+1
@@ -82,10 +82,23 @@ class Asp::Job
           timetable.save!
         end
       end
-    else
-      raise "ASP solving raised errors!"
     end
   end
 
+
+  def solve(problem_string)
+    problem = Asp::Problem.new(problem_string)
+    problem.post_processing do |solution, element|
+      if element.respond_to?(:assign_reference)
+        solution.find {|e| element.assign_reference(e) }
+      end
+    end
+    problem.timeout(self.time_out)
+    result = problem.solutions(:suboptimal => self.optimize)
+    if result.any? {|model| model.optimal? }
+      result = result.select {|model| model.optimal?}
+    end
+    result
+  end
 
 end
