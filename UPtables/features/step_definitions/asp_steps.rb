@@ -1,5 +1,5 @@
 def job
-  @job ||= Asp::Job.new
+  @job ||= Timetabling::Job.new
 end
 
 Angenommen(/^unser Stundenplan sieht so aus:$/) do |table|

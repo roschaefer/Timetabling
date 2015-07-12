@@ -1,12 +1,12 @@
 require 'rails_helper'
-describe Asp::Job do
+describe Timetabling::Job do
 
 ### TODO!! delete! find a better way to load these constants
 Timetable::Entry
 Timetable::CommitteeDate
 Timetable::OverfullRoom
 
-  subject(:job) { Asp::Job.new }
+  subject(:job) { Timetabling::Job.new }
 
   describe "#run" do
     subject(:run) { job.run }

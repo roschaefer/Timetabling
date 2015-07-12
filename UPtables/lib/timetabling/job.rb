@@ -1,4 +1,4 @@
-class Asp::Job
+class Timetabling::Job
   attr_accessor :time_out, :optimize
   delegate :set, :to => :configuration
 
@@ -21,15 +21,15 @@ class Asp::Job
   end
 
   def configuration
-    @configuration ||= Asp::Configuration.default
+    @configuration ||= Timetabling::Configuration.default
   end
 
   def optimize=(o)
     if (o)
-      @configuration = Asp::Configuration.default
+      @configuration = Timetabling::Configuration.default
       @optimize = true
     else
-      @configuration = Asp::Configuration.only_hard_constraints
+      @configuration = Timetabling::Configuration.only_hard_constraints
       @optimize = false
     end
   end

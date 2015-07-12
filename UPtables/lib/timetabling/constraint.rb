@@ -1,4 +1,4 @@
-class Asp::Constraint
+class Timetabling::Constraint
   attr_accessor :active
   attr_reader :key
   alias_method :active?, :active
@@ -43,7 +43,7 @@ class Asp::Constraint
   end
 
 def initialize(location)
-  @location = Rails.root.join("lib", "asp", "constraints", "#{location}.lp")
+  @location = Rails.root.join("lib", "timetabling", "constraints", "#{location}.lp")
   @active = true
   @key = location
 end

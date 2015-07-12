@@ -12,7 +12,7 @@ class TimetablesController < ApplicationController
   end
 
   def solve
-    job = Asp::Job.new
+    job = Timetabling::Job.new
     job.time_out = params[:time_out]
     job.optimize = true
     job.run
