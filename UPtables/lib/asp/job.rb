@@ -70,9 +70,9 @@ class Asp::Job
       solver.models.each_with_index do |model, i|
         ActiveRecord::Base.transaction do
           timetable = Timetable.new
-          timetable.id = i
+          timetable.id = i+1
           timetable.costs = model.costs
-          timetable.optimum = true
+          timetable.optimum = model.optimal?
           model.each do |entity|
             if (entity.respond_to?(:timetable_id))
               entity.timetable_id = timetable.id

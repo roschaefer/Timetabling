@@ -14,6 +14,7 @@ class TimetablesController < ApplicationController
   def solve
     job = Asp::Job.new
     job.time_out = params[:time_out]
+    job.optimize = true
     job.run
     redirect_to action: 'index'
   end

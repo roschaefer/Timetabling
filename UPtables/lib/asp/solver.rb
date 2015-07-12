@@ -16,7 +16,12 @@ class Asp::Solver
         solution.find {|e| element.assign_reference(e) }
       end
     end
-    @models = problem.solutions
+    problem.timeout(self.time_out)
+    @models = problem.solutions(:suboptimal => self.optimize)
+    if @models.any? {|model| model.optimal? }
+      @models = @models.select {|model| model.optimal?}
+    end
+    true
   end
 
 
