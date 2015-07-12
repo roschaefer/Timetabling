@@ -55,25 +55,16 @@ class Timetabling::Job
   end
 
   def run
-    encoding = collect_facts
-    encoding += "\n"
-    encoding += configuration.asp_rule_encoding
-
-    if ((Rails.env == "development") || (Rails.env == "test"))
-      File.open("script/debug.lp", 'w') { |file| file.write(encoding) }
-    end
-    #binding.pry
-
-    solutions = self.solve(encoding)
+    solutions = self.solve
     if solutions
       Timetable.destroy_all
-      solutions.each_with_index do |model, i|
+      solutions.each_with_index do |solution, i|
         ActiveRecord::Base.transaction do
           timetable = Timetable.new
           timetable.id = i+1
-          timetable.costs = model.costs
-          timetable.optimum = model.optimal?
-          model.each do |entity|
+          timetable.costs = solution.costs
+          timetable.optimum = solution.optimal?
+          solution.each do |entity|
             if (entity.respond_to?(:timetable_id))
               entity.timetable_id = timetable.id
             end
@@ -86,8 +77,17 @@ class Timetabling::Job
   end
 
 
-  def solve(problem_string)
-    problem = Asp::Problem.new(problem_string)
+  def solve
+
+    problem = Asp::Problem.new
+    problem.add( collect_facts )
+    problem.add(  configuration.asp_rule_encoding )
+
+    if ((Rails.env == "development") || (Rails.env == "test"))
+      File.open("script/debug.lp", 'w') { |file| file.write(problem.asp_representation) }
+    end
+    #binding.pry
+
     problem.post_processing do |solution, element|
       if element.respond_to?(:assign_reference)
         solution.find {|e| element.assign_reference(e) }
@@ -95,8 +95,9 @@ class Timetabling::Job
     end
     problem.timeout(self.time_out)
     result = problem.solutions(:suboptimal => self.optimize)
-    if result.any? {|model| model.optimal? }
-      result = result.select {|model| model.optimal?}
+    # if we find an optimal, we only want optimal solutions and get rid of the rest
+    if result.any? {|solution| solution.optimal? }
+      result = result.select {|solution| solution.optimal?}
     end
     result
   end
