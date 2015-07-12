@@ -1,5 +1,5 @@
 class Course::Component < ActiveRecord::Base
-  
+  include Asp::Element
   include GlobalId
 
   TYPES = [:lecture, :tutorial, :seminar, :project]
@@ -20,7 +20,7 @@ class Course::Component < ActiveRecord::Base
 
   delegate :name, :to => :course
 
-  def to_fact
+  def asp_representation
     dl = (double_lecture && "1") || "0"
     "course_component(#{g_id},#{teacher.g_id},#{dates},#{participants},#{dl},#{type})."
   end

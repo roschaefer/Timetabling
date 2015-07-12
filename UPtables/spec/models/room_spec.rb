@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe Room, type: :model do
   let(:room) { create :room, :id => 1, :name => "Raum 01", :capacity => 42 }
 
-  describe "#to_fact" do
+  describe "#asp_representation" do
     it "should encode its state to an ASP fact" do
-      expect(room.to_fact).to eq("room(room_1, 42).")
+      expect(room.asp_representation).to eq("room(room_1, 42).")
     end
   end
 

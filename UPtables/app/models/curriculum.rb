@@ -1,5 +1,5 @@
 class Curriculum < ActiveRecord::Base
-
+  include Asp::Element
   include GlobalId
   include HasUnavailabilities
 
@@ -13,11 +13,11 @@ class Curriculum < ActiveRecord::Base
   
   validates :name, :presence => true
 
-  def self.to_fact
+  def self.asp_representation
     "curricula(#{count})."
   end
 
-  def to_fact
+  def asp_representation
     facts = []
     course_components.each do |cc|
       facts << "curricula(#{g_id}, #{cc.g_id})."

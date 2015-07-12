@@ -34,26 +34,6 @@ class Timetabling::Job
     end
   end
 
-  def collect_facts
-    collected_facts = ""
-    @fact_classes.each do |aclass|
-      if aclass.respond_to?(:to_fact)
-        collected_facts += aclass.to_fact #periods_per_day(..) and days(...)
-        collected_facts += "\n"
-      end
-    end
-
-    @fact_classes.each do |aclass|
-      if aclass.method_defined?(:to_fact)
-        aclass.all.each do |instance|
-          collected_facts +=  instance.to_fact #room(...) course(..)
-          collected_facts += "\n"
-        end
-      end
-    end
-    collected_facts
-  end
-
   def run
     solutions = self.solve
     if solutions
@@ -78,9 +58,13 @@ class Timetabling::Job
 
 
   def solve
-
     problem = Asp::Problem.new
-    problem.add( collect_facts )
+    @fact_classes.each do |aclass|
+      problem.add(aclass) if aclass.respond_to?(:asp_representation)
+      aclass.find_each do |instance|
+        problem.add(instance)
+      end
+    end
     problem.add(  configuration.asp_rule_encoding )
 
     if ((Rails.env == "development") || (Rails.env == "test"))

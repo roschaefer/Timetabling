@@ -1,5 +1,5 @@
 class Course < ActiveRecord::Base
-
+  include Asp::Element
   include GlobalId
 
   validate  :check_for_duplicate_recommendations
@@ -14,7 +14,7 @@ class Course < ActiveRecord::Base
   accepts_nested_attributes_for :components, :reject_if => proc {|a| a['type'].blank? and a['teacher_id'].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :recommendations, :reject_if => :all_blank, :allow_destroy => true
 
-  def self.to_fact
+  def self.asp_representation
     "courses(#{count})."
   end
 
@@ -22,7 +22,7 @@ class Course < ActiveRecord::Base
     self.order('name asc')
   end
 
-  def to_fact
+  def asp_representation
     facts = ["course(#{g_id},#{teacher.g_id})."]
     recommendations.each do |r|
       components.each do |cc|  

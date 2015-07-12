@@ -1,4 +1,5 @@
 class Room < ActiveRecord::Base
+  include Asp::Element
   
   include GlobalId
   include HasUnavailabilities
@@ -9,11 +10,11 @@ class Room < ActiveRecord::Base
   validates :capacity, :numericality => { :greater_than_or_equal_to => 0 }
 
 
-  def self.to_fact
+  def self.asp_representation
     "rooms(#{count})."
   end
 
-  def to_fact
+  def asp_representation
     "room(#{g_id}, #{capacity})."
   end
 

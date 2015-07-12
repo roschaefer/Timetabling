@@ -4,7 +4,7 @@ RSpec.describe Course, type: :model do
   let(:course) { create :course, course_attributes}
   let(:teacher) { create :teacher, teacher_attributes }
 
-  describe "#to_fact" do
+  describe "#asp_representation" do
     let(:teacher_attributes) {{
       :id => 21,
       :first_name => "Horst",
@@ -17,7 +17,7 @@ RSpec.describe Course, type: :model do
     }}
 
     it "returns a valid asp fact" do
-      expect(course.to_fact).to eq "course(course_9,teacher_21)."
+      expect(course.asp_representation).to eq "course(course_9,teacher_21)."
     end
   end
 end
