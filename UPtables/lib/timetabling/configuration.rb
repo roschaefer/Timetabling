@@ -33,7 +33,7 @@ def asp_rule_encoding
   
   @constraints.each do |constraint|
     if (constraint.active?)
-      encoding += constraint.to_asp
+      encoding += constraint.asp_representation
       encoding += "\n"
     end
   end

@@ -1,4 +1,4 @@
-class Timetabling::Constraint
+class Timetabling::Constraint < Asp::Constraint
   attr_accessor :active
   attr_reader :key
   alias_method :active?, :active
@@ -7,7 +7,6 @@ class Timetabling::Constraint
     "scheduled",
     "conflicts",
     "room_occupancy",
-    "availability",
     "additional",
     "room_availability",
     "mandatory_and_recommended_in_same_semester",
@@ -48,7 +47,7 @@ def initialize(location)
   @key = location
 end
 
-def to_asp
+def asp_representation
   IO.read(@location)
 end
 

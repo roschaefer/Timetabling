@@ -5,7 +5,7 @@ describe Timetabling::Constraint do
     Timetabling::Constraint::HARD_CONSTRAINTS.each do  |constraint|
       subject(:hard_constraint) { Timetabling::Constraint.send(constraint) }
       it "the #{constraint} constraint is defined" do
-        expect(hard_constraint.to_asp).not_to be_empty
+        expect(hard_constraint.asp_representation).not_to be_empty
       end
     end
   end
@@ -14,7 +14,7 @@ describe Timetabling::Constraint do
     Timetabling::Constraint::SOFT_CONSTRAINTS.each do  |constraint|
       subject(:soft_constraint) { Timetabling::Constraint.send(constraint) }
       it "the #{constraint} constraint is defined" do
-        expect(soft_constraint.to_asp).not_to be_empty
+        expect(soft_constraint.asp_representation).not_to be_empty
       end
     end
   end

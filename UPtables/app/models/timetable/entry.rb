@@ -9,6 +9,10 @@ class Timetable::Entry < ActiveRecord::Base
   belongs_to :timeframe
   has_one :overfull_room
 
+  def self.asp_predicate_basename
+    "assigned"
+  end
+
   def self.asp_regex
     part = self.asp_attributes.map{|a| "(?:\\D*)(?<#{a}>\\d+)" }.join(",")
     /assigned\(#{part}\)/

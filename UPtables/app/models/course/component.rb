@@ -1,6 +1,7 @@
 class Course::Component < ActiveRecord::Base
   include Asp::Element
   include GlobalId
+  asp_schema :id, :teacher_id, :dates, :participants, :dl, :type
 
   TYPES = [:lecture, :tutorial, :seminar, :project]
 
@@ -19,6 +20,10 @@ class Course::Component < ActiveRecord::Base
   self.inheritance_column = nil
 
   delegate :name, :to => :course
+
+  def self.asp_predicate_basename
+    "course_component"
+  end
 
   def asp_representation
     dl = (double_lecture && "1") || "0"
