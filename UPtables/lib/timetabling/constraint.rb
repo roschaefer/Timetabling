@@ -1,18 +1,14 @@
 class Timetabling::Constraint < Asp::Constraint
-  attr_accessor :active
   attr_reader :key
-  alias_method :active?, :active
 
   HARD_CONSTRAINTS = [
     "scheduled",
     "conflicts",
     "room_occupancy",
     "additional",
-    "room_availability",
     "mandatory_and_recommended_in_same_semester",
     "room_unsuitable",
-    "time_windows",
-    "committee_dates"
+    "time_windows"
 ]
 
   SOFT_CONSTRAINTS = [
@@ -43,7 +39,6 @@ class Timetabling::Constraint < Asp::Constraint
 
 def initialize(location)
   @location = Rails.root.join("lib", "timetabling", "constraints", "#{location}.lp")
-  @active = true
   @key = location
 end
 

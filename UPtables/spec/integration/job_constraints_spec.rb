@@ -3,10 +3,45 @@ describe Timetabling::Job do
 
   subject(:job) { Timetabling::Job.new }
 
-  describe "#availability" do
-    let(:expected_availability_constraint) {":- assigned(C,_,WD,TF), course_component(C,T,_,_,_,_), professor_unavailable(T,WD,TF)." }
-    it "#availability" do
-         expect(job.availability.asp_representation).to eq expected_availability_constraint
+  describe "#teacher_availability" do
+    let(:expected_string) {":- assigned(C,_,WD,TF), course_component(C,T,_,_,_,_), professor_unavailable(T,WD,TF)." }
+    it "asp_representation is correct" do
+      expect(job.teacher_availability.asp_representation).to eq expected_string
+    end
+
+
+    it "is active by default" do
+      job.solve
+      expect(job.problem.asp_representation).to include("professor_unavailable")
+    end
+
+    it "can be deactivated along with committee_date" do
+      job.constraint_methods[:teacher_availability] = false
+      job.constraint_methods[:committee_date] = false
+      job.solve
+      expect(job.problem.asp_representation).not_to include("professor_unavailable")
+    end
+  end
+
+  describe "#room_availability" do
+    let(:expected_string) { ":- assigned(_,ROOM_ID0,WEEKDAY_ID1,TIMEFRAME_ID2), room_unavailability(ROOM_ID0,WEEKDAY_ID1,TIMEFRAME_ID2)." }
+    it "asp_representation is correct" do
+      expect(job.room_availability.asp_representation).to eq expected_string
+    end
+
+    it "is active by default" do 
+      expect(job.constraint_methods[:room_availability]).to be_truthy
+    end
+  end
+
+  describe "#committee_date" do
+    let(:expected_string) { "committee_date(WD,TF) :- timeframe(TF,_), weekday(WD,_), not assigned(_,_,WD,TF), not professor_unavailable(_,WD,TF).\n:- not committee_date(_,_)." }
+
+    it "asp_representation is correct" do
+      expect(job.committee_date.asp_representation).to eq expected_string
+    end
+    it "is inactive by default" do 
+      expect(job.constraint_methods[:committee_date]).to be_falsey
     end
   end
 

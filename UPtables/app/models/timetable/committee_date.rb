@@ -6,6 +6,10 @@ class Timetable::CommitteeDate < ActiveRecord::Base
   belongs_to :timeframe
   belongs_to :timetable
 
+  def self.asp_predicate_basename
+    "committee_date"
+  end
+
   def self.asp_regex
     /committee_date\(\D*(?<weekday_id>\d+),\D*(?<timeframe_id>\d+)\)/
   end

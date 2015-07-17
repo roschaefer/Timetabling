@@ -266,7 +266,7 @@ Dann(/^sieht die erste Lösung so aus:$/) do |table|
 end
 
 Angenommen(/^wir aktivieren den Constraint für Gremientage$/) do
-  job.set("hard/committee_dates", true)
+  job.constraint_methods[:committee_date] = true
 end
 
 Dann(/^(?:es gibt|gibt es)? bei der ersten Lösung einen Gremiumtag am (.+) (.+)$/) do |weekday, interval|

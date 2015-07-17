@@ -1,5 +1,7 @@
 class Timetabling::Job
   attr_accessor :time_out, :optimize
+  attr_reader :problem
+  attr_reader :constraint_methods
   delegate :set, :to => :configuration
 
   def initialize
@@ -25,6 +27,10 @@ class Timetabling::Job
 
     @optimize = true # default
     @problem = Asp::Problem.new
+    @constraint_methods = {}
+    @constraint_methods[:teacher_availability] = true
+    @constraint_methods[:room_availability] = true
+    @constraint_methods[:committee_date] = false # deactivated to run tests easier
   end
 
   def configuration
@@ -55,9 +61,6 @@ class Timetabling::Job
             if (entity.respond_to?(:timetable_id))
               entity.timetable_id = timetable.id
             end
-            unless entity.save
-              binding.pry
-            end
             entity.save!
           end
           timetable.save!
@@ -77,7 +80,7 @@ class Timetabling::Job
     @problem.add(  configuration.asp_rule_encoding )
 
     # constraints
-    availability
+    @constraint_methods.each { |method, active|  self.send(method) if active}
 
     if ((Rails.env == "development") || (Rails.env == "test"))
       File.open("script/debug.lp", 'w') { |file| file.write(@problem.asp_representation) }
@@ -101,11 +104,11 @@ class Timetabling::Job
   end
 
 
-  # Availability constraint: If the teacher of the course is not available to
+  # Teacher availability constraint: If the teacher of the course is not available to
   # teach that course at a given period, then no lecture of the course
   # can be scheduled at that period. Each lecture in a period
   # unavailable for that course is one violation.
-  def availability
+  def teacher_availability
     @problem.never{ 
             conjunct{ [
               Timetable::Entry.asp(:course_component_id => "C",
@@ -120,4 +123,29 @@ class Timetabling::Job
             ]}
     }
   end
+
+  # Room Availability: If a room is unavailable during a certain time,
+  # lectures must not be held in this room at that time.
+  def room_availability
+    @problem.never{
+      same(:room_id, :weekday_id, :timeframe_id).for(Timetable::Entry, Room::Unavailability)
+    }
+  end
+
+
+  # If there is a certain time when all professors are free, this slot can be used
+  # to have a professors committee. We must have at least one such slot.
+  def committee_date
+    @problem.make(Timetable::CommitteeDate.asp(:weekday_id => "WD", :timeframe_id => "TF")) {
+      conjunct{[
+        Timeframe.asp(:global_id => "TF"),
+        Weekday.asp(:global_id => "WD"),
+        no {Timetable::Entry.asp( :timeframe_id  => "TF", :weekday_id => "WD")},
+        no {Teacher::Unavailability.asp(:timeframe_id => "TF", :weekday_id => "WD")}
+      ]}
+    }
+    @problem.never { no { Timetable::CommitteeDate.asp() }}
+  end
+
+
 end
