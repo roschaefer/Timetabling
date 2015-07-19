@@ -58,5 +58,13 @@ describe Timetabling::Job do
 
   end
 
+  describe "#generate_solution_space" do
+    let(:expected_string) { 'N { assigned(C,WD,TF) : weekday(WD,_), timeframe(TF,_) } N :- course_component(C,_,N,_,_,_).' }
+
+    it "generates the solution space" do
+      expect(job.generate_solution_space.asp_representation).to eq expected_string
+    end
+  end
+
 
 end

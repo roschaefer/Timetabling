@@ -2,7 +2,6 @@ class Timetabling::Constraint < Asp::Constraint
   attr_reader :key
 
   HARD_CONSTRAINTS = [
-    "scheduled",
     "conflicts",
     "room_occupancy",
     "additional",

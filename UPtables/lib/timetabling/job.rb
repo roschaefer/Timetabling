@@ -5,7 +5,7 @@ class Timetabling::Job
   delegate :set, :to => :configuration
 
   def initialize
-    @fact_classes = [
+    @input_classes = [
       Room,
       Weekday,
       Timeframe,
@@ -72,7 +72,7 @@ class Timetabling::Job
 
 
   def solve
-    @fact_classes.each do |aclass|
+    @input_classes.each do |aclass|
       @problem.add(aclass) if aclass.respond_to?(:asp_representation)
       aclass.find_each do |instance|
         @problem.add(instance)
@@ -80,6 +80,7 @@ class Timetabling::Job
     end
     @problem.add(  configuration.asp_rule_encoding )
 
+    generate_solution_space
     # constraints
     @constraint_methods.each { |method, active|  self.send(method) if active}
 
@@ -104,6 +105,18 @@ class Timetabling::Job
     result
   end
 
+
+  # Lectures: All lectures of a course must be scheduled, and they
+  # must be assigned to distinct periods. A violation occurs if a
+  # lecture is not scheduled or two lectures are in the same period.
+  def generate_solution_space
+    @problem.add( "N { assigned(C,WD,TF) : weekday(WD,_), timeframe(TF,_) } N :- course_component(C,_,N,_,_,_)." )
+  end
+
+
+###
+### CONSTRAINTS
+###
 
   # Teacher availability constraint: If the teacher of the course is not available to
   # teach that course at a given period, then no lecture of the course
@@ -132,7 +145,7 @@ class Timetabling::Job
       same(:room_id, :weekday_id, :timeframe_id).for(Timetable::Entry, Room::Unavailability)
     }
   end
-
+# => :- assigned(_,ROOM_ID0,WEEKDAY_ID1,TIMEFRAME_ID2), room_unavailability(ROOM_ID0,WEEKDAY_ID1,TIMEFRAME_ID2).
 
   # If there is a certain time when all professors are free, this slot can be used
   # to have a professors committee. We must have at least one such slot.
@@ -147,6 +160,12 @@ class Timetabling::Job
     }
     @problem.never { no { Timetable::CommitteeDate.asp() }}
   end
+# => committee_date(WD,TF) :-
+#        timeframe(TF,_), weekday(WD,_),
+#        not assigned(_,_,WD,TF),
+#        not professor_unavailable(_,WD,TF).
+#
+#     :- not committee_date(_,_).
 
   def same_curriculum_and_mandatory
     @problem.avoid(1, :name => "same_curriculum_and_mandatory") {
