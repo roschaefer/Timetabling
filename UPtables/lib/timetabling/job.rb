@@ -31,6 +31,7 @@ class Timetabling::Job
     @constraint_methods[:teacher_availability] = true
     @constraint_methods[:room_availability] = true
     @constraint_methods[:committee_date] = false # deactivated to run tests easier
+    @constraint_methods[:same_curriculum_and_mandatory] = true
   end
 
   def configuration

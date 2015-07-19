@@ -14,7 +14,6 @@ class Timetabling::Constraint < Asp::Constraint
   SOFT_CONSTRAINTS = [
     "room_capacity",
     "double_lectures",
-    "same_curriculum",
     "recommended_semester",
     "curriculum_unavailabilities",
     "balanced_timetable"

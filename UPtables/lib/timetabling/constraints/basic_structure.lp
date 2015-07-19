@@ -7,5 +7,3 @@ t(T) :- course_component(_,T,_,_,_,_).
 r(R) :- room(R,_).
 cu(Cu) :- curricula(Cu,_).
 semester(S) :- recommendation(_, S, _).
-
-#minimize {P,N,V : penalty(N,V,P)}.

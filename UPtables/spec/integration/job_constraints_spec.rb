@@ -52,6 +52,10 @@ describe Timetabling::Job do
       expect(job.same_curriculum_and_mandatory.asp_representation).to eq expected_string
     end
 
+    it "is active by default" do
+      expect(job.constraint_methods[:same_curriculum_and_mandatory]).to be_truthy
+    end
+
   end
 
 
