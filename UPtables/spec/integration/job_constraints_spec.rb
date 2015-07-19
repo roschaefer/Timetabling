@@ -45,5 +45,14 @@ describe Timetabling::Job do
     end
   end
 
+  describe "#same_curriculum_and_mandatory" do
+    let(:expected_string) { "#minimize {C,N,V : penalty(N,V,C)}.\n#const costs_of_same_curriculum_and_mandatory = 1.\npenalty(\"same_curriculum_and_mandatory\", same_curriculum_and_mandatory(), costs_of_same_curriculum_and_mandatory) :- assigned(C1,_,WD,TF), assigned(C2,_,WD,TF), mandatory(C1,Cu), mandatory(C2,Cu), C1 != C2." }
+
+    it "asp_representation is correct" do
+      expect(job.same_curriculum_and_mandatory.asp_representation).to eq expected_string
+    end
+
+  end
+
 
 end

@@ -147,5 +147,15 @@ class Timetabling::Job
     @problem.never { no { Timetable::CommitteeDate.asp() }}
   end
 
+  def same_curriculum_and_mandatory
+    @problem.avoid(1, :name => "same_curriculum_and_mandatory") {
+      conjunct{[
+        Timetable::Entry.asp(:course_component_id => "C1", :weekday_id => "WD", :timeframe_id => "TF"),
+        Timetable::Entry.asp(:course_component_id => "C2", :weekday_id => "WD", :timeframe_id => "TF"),
+        CurriculumModuleAssignment.asp(:course_component_id => "C1", :curriculum_id => "Cu"),
+        CurriculumModuleAssignment.asp(:course_component_id => "C2", :curriculum_id => "Cu"),
+        "C1 != C2" ]}
+}
+  end
 
 end

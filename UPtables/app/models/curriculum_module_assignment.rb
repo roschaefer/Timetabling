@@ -1,9 +1,16 @@
 class CurriculumModuleAssignment < ActiveRecord::Base
   include Asp::Element
+  asp_schema :course_component_id, :curriculum_id
+
   belongs_to :ects_module
   belongs_to :curriculum
 
   validates :ects_module, :curriculum, :presence => true
+
+  def self.asp_predicate_basename
+    "mandatory"
+  end
+
 
   def asp_representation
     if mandatory
