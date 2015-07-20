@@ -13,7 +13,7 @@ describe Asp::Problem do
       end
 
       it "with invalid syntax raises exception" do
-        problem = Asp::Problem.new "this" 
+        problem = Asp::Problem.new "foo..." 
         expect{problem.solutions}.to raise_exception(Asp::Solving::InvalidSyntaxException)
       end
 
