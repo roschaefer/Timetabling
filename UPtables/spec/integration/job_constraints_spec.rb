@@ -24,7 +24,7 @@ describe Timetabling::Job do
   end
 
   describe "#room_availability" do
-    let(:expected_string) { ":- assigned(_,ROOM_ID0,WEEKDAY_ID1,TIMEFRAME_ID2), room_unavailability(ROOM_ID0,WEEKDAY_ID1,TIMEFRAME_ID2)." }
+    let(:expected_string) { ":- assigned(_,ROOM_ID0,WEEKDAY_ID1,TIMEFRAME_ID2), room_unavailable(ROOM_ID0,WEEKDAY_ID1,TIMEFRAME_ID2)." }
     it "asp_representation is correct" do
       expect(job.room_availability.asp_representation).to eq expected_string
     end

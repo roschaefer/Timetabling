@@ -95,7 +95,9 @@ class Timetabling::Job
       end
     end
     @problem.timeout(self.time_out)
+
     result = @problem.solutions(:suboptimal => self.optimize)
+
     # if we find an optimal, we only want optimal solutions and get rid of the rest
     if result.any? {|solution| solution.optimal? }
       result = result.select {|solution| solution.optimal?}
@@ -145,7 +147,7 @@ class Timetabling::Job
       same(:room_id, :weekday_id, :timeframe_id).for(Timetable::Entry, Room::Unavailability)
     }
   end
-# => :- assigned(_,ROOM_ID0,WEEKDAY_ID1,TIMEFRAME_ID2), room_unavailability(ROOM_ID0,WEEKDAY_ID1,TIMEFRAME_ID2).
+# => :- assigned(_,ROOM_ID0,WEEKDAY_ID1,TIMEFRAME_ID2), room_unavailable(ROOM_ID0,WEEKDAY_ID1,TIMEFRAME_ID2).
 
   # If there is a certain time when all professors are free, this slot can be used
   # to have a professors committee. We must have at least one such slot.

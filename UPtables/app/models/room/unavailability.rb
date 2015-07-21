@@ -9,7 +9,7 @@ class Room::Unavailability < ActiveRecord::Base
   belongs_to :timeframe
 
   def self.asp_predicate_basename
-    "room_unavailability"
+    "room_unavailable"
   end
 
   def asp_representation
