@@ -15,7 +15,7 @@ class TimetablesController < ApplicationController
     job = Timetabling::Job.new
     job.time_out = params[:time_out]
     job.optimize = true
-    job.constraint_methods[:committee_date] = true
+    #job.constraint_methods[:committee_date] = true
     job.run
     redirect_to action: 'index'
   end
