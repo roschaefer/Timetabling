@@ -24,7 +24,7 @@ gem 'rake'
 #nested form helper
 gem 'cocoon'
 
-gem 'rasp', :path => '/home/robert/Documents/2015_SS_Potsdam/ConstraintBasedProgramming/rasp/'
+gem 'rasp', :git => 'https://github.com/roschaefer/rasp.git'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
